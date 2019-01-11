@@ -15,7 +15,7 @@ export default class Credits {
 
   getCopyright() {
     const year = (new Date).getFullYear()
-    const prefix = `${copyrightString} ${year}`
+    const prefix = `${copyrightString} ${year},`
     if (isObject(this.pkg.author)) {
       const author = stringifyAuthor(this.pkg.author)
       return `${prefix} ${author}`
