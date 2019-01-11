@@ -4,7 +4,9 @@ import readPkg from "read-pkg"
 import webpackMerge from "webpack-merge"
 import appRootPath from "app-root-path"
 import {isString} from "lodash"
-import {BannerPlugin} from "webpack"
+import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
+import LodashWebpackPlugin from "lodash-webpack-plugin"
+import {BannerPlugin, EnvironmentPlugin} from "webpack"
 
 import Credits from "./Credits"
 
@@ -48,14 +50,12 @@ export default options => {
         },
       ],
     },
-    plugins: [
-      new BannerPlugin({
-        banner: String(new Credits(pkg)),
-        entryOnly: true,
-      }),
-    ],
+    plugins: [new FriendlyErrorsWebpackPlugin],
     output: {
       filename: "index.js",
+    },
+    optimization: {
+      noEmitOnErrors: true,
     },
   }
 
@@ -76,6 +76,21 @@ export default options => {
       libraryTarget: "umd",
       umdNamedDefine: true,
     })
+  }
+
+  if (options.isDevelopment) {
+  } else {
+    config.plugins = [
+      ...config.plugins,
+      new BannerPlugin({
+        banner: String(new Credits(pkg)),
+        entryOnly: true,
+      }),
+      new LodashWebpackPlugin({
+        shorthands: true,
+        flattening: true,
+      }),
+    ]
   }
 
   if (options.extra) {

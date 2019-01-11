@@ -12,5 +12,8 @@
     "url": "https://github.com/jaid",
     "email": "jaid.jsx@gmail.com"
   },
+  "dependencies": {
+    "lodash": "*"
+  },
   "repository": "https://github.com/Jaid/webpack-config-node"
 }
