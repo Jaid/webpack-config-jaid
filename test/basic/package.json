@@ -1,0 +1,16 @@
+{
+  "name": "webpack-config-node-test",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "./build/index.js",
+  "files": [
+    "build/*"
+  ],
+  "author": {
+    "name": "Jaid",
+    "url": "https://github.com/jaid",
+    "email": "jaid.jsx@gmail.com"
+  },
+  "repository": "https://github.com/Jaid/webpack-config-node"
+}

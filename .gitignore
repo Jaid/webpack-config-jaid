@@ -1,0 +1,26 @@
+# dotenv
+.env
+
+# Node packages
+/node_modules/
+
+# Yarn
+/yarn.lock
+/yarn-error.log
+
+# npm
+/npm-debug.log
+/npm-debug.log.*
+
+# pnpm
+/shrinkwrap.yaml
+
+# Build
+/build/
+
+# Test
+/test/*/dist/
+
+# IDEs
+/.vscode/
+/.idea/
