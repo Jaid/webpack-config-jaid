@@ -1,6 +1,6 @@
 {
   "name": "webpack-config-node",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "main": "./build/index.js",
   "files": [
@@ -42,7 +42,8 @@
     "build:prod": "npm run clean && cross-env NODE_ENV=production babel src --out-dir=build",
     "prepublishOnly": "npm run build:prod",
     "test": "npm run build:prod && cross-env babel-node test/basic/build.js",
-    "test:dev": "npm run build:dev && cross-env babel-node --inspect-brk=9229 test/basic/build.js"
+    "test:dev": "npm run build:dev && cross-env babel-node test/basic/build.js",
+    "test:debug": "npm run build:dev && cross-env babel-node --inspect-brk=9229 test/basic/build.js"
   },
   "peerDependencies": {
     "webpack": "^4.28.4"

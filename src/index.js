@@ -3,7 +3,7 @@ import path from "path"
 import readPkg from "read-pkg"
 import webpackMerge from "webpack-merge"
 import appRootPath from "app-root-path"
-import {isString} from "lodash"
+import {isString, isObject, camelCase} from "lodash"
 import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
 import LodashWebpackPlugin from "lodash-webpack-plugin"
 import {BannerPlugin, EnvironmentPlugin} from "webpack"
@@ -66,19 +66,29 @@ export default options => {
   if (options.lib === true) {
     Object.assign(config.output, {
       ...config.output,
-      library: pkg.name,
-      libraryTarget: "umd",
-      umdNamedDefine: true,
+      libraryTarget: "umd2", // I don't know the difference to "umd" (it's not documented anywhere), but it has a "2" in it so it MUST be better! :D
+      library: {
+        root: camelCase(pkg.name),
+        amd: pkg.name,
+        commonjs: pkg.name,
+      },
     })
-  } else if (isString(options.lib)) {
+  } else if (isString(options.lib) || isObject(options.lib)) {
     Object.assign(config.output, {
+      libraryTarget: "umd2", // I don't know the difference to "umd" (it's not documented anywhere), but it has a "2" in it so it MUST be better! :D
       library: options.lib,
-      libraryTarget: "umd",
-      umdNamedDefine: true,
     })
   }
 
   if (options.isDevelopment) {
+    Object.assign(config.output, {
+      auxiliaryComment: {
+        root: "[Exposing Section] root",
+        commonjs: "[Exposing Section] commonjs",
+        commonjs2: "[Exposing Section] commonjs2",
+        amd: "[Exposing Section] amd",
+      },
+    })
   } else {
     config.plugins = [
       ...config.plugins,
