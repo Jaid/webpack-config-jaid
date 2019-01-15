@@ -46,7 +46,7 @@ export default options => {
           loader: "babel-loader",
         },
         {
-          test: /\.yma?l$/,
+          test: /\.ya?ml$/,
           loader: "yml-loader",
         },
       ],
