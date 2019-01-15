@@ -20,6 +20,7 @@
   "repository": "https://github.com/Jaid/webpack-config-node",
   "description": "Takes tiny input and returns a Webpack config in the way I personally like.",
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "babel-jest": "^23.6.0",
     "babel-preset-jaid": "2.6.0",
