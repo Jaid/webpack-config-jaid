@@ -13,7 +13,6 @@ import Credits from "./Credits"
 export default options => {
   options = {
     packageRoot: String(appRootPath),
-    lib: false,
     isDevelopment: true,
     extra: null,
     type: "lib",
@@ -61,16 +60,6 @@ export default options => {
     },
   }
 
-  if (pkg.dependencies) {
-    config.externals = Object.keys(pkg.dependencies)
-  }
-
-  if (options.type === "lib") {
-    Object.assign(config.output, {
-      ...config.output,
-      libraryTarget: "commonjs2", // I don't know the difference to "umd" (it's not documented anywhere), but it has a "2" in it so it MUST be better! :D
-    })
-  }
 
   if (options.isDevelopment) {
     Object.assign(config.output, {
@@ -88,11 +77,20 @@ export default options => {
         banner: String(new Credits(pkg)),
         entryOnly: true,
       }),
-      new LodashWebpackPlugin({
-        shorthands: true,
-        flattening: true,
-      }),
+      // new LodashWebpackPlugin({
+      //   shorthands: true,
+      //   flattening: true,
+      // }),
     ]
+  }
+
+  if (options.type) {
+    require(`./types/${options.type}`)({
+      config,
+      options,
+      pkg,
+      fromPackage,
+    })
   }
 
   if (options.extra) {

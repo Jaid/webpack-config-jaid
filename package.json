@@ -26,12 +26,14 @@
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/register": "^7.0.0",
+    "babel-jest": "^23.6.0",
     "babel-minify": "^0.5.0",
     "chalk": "^2.4.2",
     "cross-env": "^5.2.0",
     "eslint": "^5.12.0",
     "eslint-config-jaid": "^1.8.1",
     "faster.js": "^1.1.0",
+    "jest": "^23.6.0",
     "pretty-bytes": "^5.1.0",
     "rimraf": "^2.6.3",
     "webpack": "^4.28.4"
@@ -42,8 +44,7 @@
     "build:prod": "npm run clean && cross-env NODE_ENV=production babel src --out-dir=build",
     "prepublishOnly": "npm run build:prod",
     "test": "npm run build:prod && cross-env babel-node test/basic/build.js",
-    "test:dev": "npm run build:dev && cross-env babel-node test/basic/build.js",
-    "test:debug": "npm run build:dev && cross-env babel-node --inspect-brk=9229 test/basic/build.js"
+    "test:dev": "npm run build:dev && cross-env babel-node test/basic/build.js"
   },
   "peerDependencies": {
     "webpack": "^4.28.4"
