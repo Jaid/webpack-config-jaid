@@ -53,6 +53,7 @@ export default options => {
     },
     plugins: [new FriendlyErrorsWebpackPlugin],
     output: {
+      path: path.resolve(options.packageRoot, "dist"),
       filename: "index.js",
     },
     optimization: {
