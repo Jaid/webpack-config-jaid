@@ -16,6 +16,7 @@ export default options => {
     lib: false,
     isDevelopment: true,
     extra: null,
+    type: "lib",
     ...options,
   }
 
@@ -63,20 +64,10 @@ export default options => {
     config.externals = Object.keys(pkg.dependencies)
   }
 
-  if (options.lib === true) {
+  if (options.type === "lib") {
     Object.assign(config.output, {
       ...config.output,
-      libraryTarget: "umd2", // I don't know the difference to "umd" (it's not documented anywhere), but it has a "2" in it so it MUST be better! :D
-      library: {
-        root: camelCase(pkg.name),
-        amd: pkg.name,
-        commonjs: pkg.name,
-      },
-    })
-  } else if (isString(options.lib) || isObject(options.lib)) {
-    Object.assign(config.output, {
-      libraryTarget: "umd2", // I don't know the difference to "umd" (it's not documented anywhere), but it has a "2" in it so it MUST be better! :D
-      library: options.lib,
+      libraryTarget: "commonjs2", // I don't know the difference to "umd" (it's not documented anywhere), but it has a "2" in it so it MUST be better! :D
     })
   }
 
