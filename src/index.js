@@ -60,7 +60,6 @@ export default options => {
     },
   }
 
-
   if (options.isDevelopment) {
     Object.assign(config.output, {
       auxiliaryComment: {
