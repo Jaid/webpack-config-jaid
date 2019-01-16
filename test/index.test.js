@@ -120,36 +120,24 @@ it("should build a project that uses a lib that is also built with webpack-confi
   expect(builtLib(2)).toBe(246)
 })
 
-
 describe("should build a project with some external dependencies", () => {
   const packageRoot = path.join(__dirname, "depender")
   if (!fs.existsSync(path.join(packageRoot, "node_modules"))) {
     execSync(`cd "${packageRoot}" && npm install`)
   }
-  it("development environment", async () => {
-    const {outDir} = getProjectDir("depender")
-    await compile({
-      packageRoot,
-      outDir,
-      type: "cli",
-      isDevelopment: true,
+  for (const env of ["development", "production"]) {
+    it(`for ${env} environment`, async () => {
+      const {outDir} = getProjectDir("depender")
+      await compile({
+        packageRoot,
+        outDir,
+        type: "cli",
+        isDevelopment: env !== "production",
+      })
+      return coffee.fork(outDir)
+        .expect("stdout", "My name is valid!\n")
+        .expect("code", 0)
+        .end()
     })
-    return coffee.fork(outDir)
-      .expect("stdout", "My name is valid!\n")
-      .expect("code", 0)
-      .end()
-  })
-  it("production environment", async () => {
-    const {outDir} = getProjectDir("depender")
-    await compile({
-      packageRoot,
-      outDir,
-      type: "cli",
-      isDevelopment: false,
-    })
-    return coffee.fork(outDir)
-      .expect("stdout", "My name is valid!\n")
-      .expect("code", 0)
-      .end()
-  })
+  }
 })

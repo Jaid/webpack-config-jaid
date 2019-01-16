@@ -4,9 +4,6 @@ import {BannerPlugin} from "webpack"
 import Credits from "../Credits"
 
 module.exports = ({config, options, pkg}) => {
-  if (pkg.dependencies) {
-    config.externals = Object.keys(pkg.dependencies)
-  }
   if (!options.isDevelopment) {
     config.plugins = [
       ...config.plugins,

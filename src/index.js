@@ -105,6 +105,15 @@ export default options => {
     })
   }
 
+  if (pkg.dependencies) {
+    config.externals = (context, request, callback) => { // eslint-disable-line consistent-return
+      if (pkg.dependencies[request]) {
+        return callback(null, `commonjs2 ${request}`) // eslint-disable-line promise/prefer-await-to-callbacks
+      }
+      callback() // eslint-disable-line promise/prefer-await-to-callbacks
+    }
+  }
+
   if (options.extra) {
     return webpackMerge.smart(config, options.extra)
   } else {
