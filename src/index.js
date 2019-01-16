@@ -3,10 +3,8 @@ import path from "path"
 import readPkg from "read-pkg"
 import webpackMerge from "webpack-merge"
 import appRootPath from "app-root-path"
-import {isString, isObject, camelCase} from "lodash"
 import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
 import LodashWebpackPlugin from "lodash-webpack-plugin"
-import {BannerPlugin, EnvironmentPlugin} from "webpack"
 
 export default options => {
   options = {

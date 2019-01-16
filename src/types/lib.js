@@ -1,4 +1,5 @@
 import {camelCase} from "lodash"
+import {BannerPlugin} from "webpack"
 
 import Credits from "../Credits"
 

@@ -1,13 +1,17 @@
 /* eslint-disable promise/prefer-await-to-callbacks */
 
+import {execSync} from "child_process"
 import path from "path"
 
 import fs from "fs-extra"
 import pify from "pify"
 import webpack from "webpack"
 import makeDir from "make-dir"
+import coffee from "coffee"
 
 import webpackConfigNode from "../build"
+
+jest.setTimeout(60 * 1000)
 
 const getProjectDir = name => {
   const packageRoot = path.join(__dirname, name)
@@ -18,14 +22,25 @@ const getProjectDir = name => {
   }
 }
 
-it("should build a basic project", async () => {
+const compile = async config => {
+  const webpackConfig = webpackConfigNode(config)
+  await makeDir(config.outDir)
+  await fs.writeJson(path.join(config.outDir, "config.json"), webpackConfig)
+  const stats = (await pify(webpack)(webpackConfig)).toJson()
+  await fs.writeJson(path.join(config.outDir, "stats.json"), stats)
+  return {
+    webpackConfig,
+    stats,
+  }
+}
+
+it("should build a basic project in dev mode", async () => {
   const {packageRoot, outDir} = getProjectDir("basic")
-  expect(fs.existsSync(path.join(packageRoot, "src/index.js"))).toBeTruthy()
-  const config = webpackConfigNode({
+  const {stats, webpackConfig} = await compile({
     packageRoot,
     outDir,
   })
-  expect(config).toMatchObject({
+  expect(webpackConfig).toMatchObject({
     target: "node",
     mode: "development",
     module: {
@@ -44,10 +59,7 @@ it("should build a basic project", async () => {
       filename: "index.js",
     },
   })
-  const stats = await pify(webpack)(config)
-  const statsJson = stats.toJson()
-  fs.outputJsonSync(path.join(outDir, "stats.json"), statsJson)
-  expect(statsJson).toMatchObject({
+  expect(stats).toMatchObject({
     errors: [],
     warnings: [],
     hash: expect.stringMatching(/[\da-z]+/),
@@ -70,12 +82,11 @@ it("should build a basic project", async () => {
 
 it("should build a basic project in prod mode", async () => {
   const {packageRoot, outDir} = getProjectDir("basic")
-  const config = webpackConfigNode({
+  await compile({
     packageRoot,
     outDir,
     isDevelopment: false,
   })
-  await pify(webpack)(config)
   const builtLib = require(outDir).default
   expect(typeof builtLib).toBe("function")
   expect(builtLib()).toBe(123)
@@ -83,12 +94,11 @@ it("should build a basic project in prod mode", async () => {
 
 it("should build a project that uses a lib that is also built with webpack-config-node", async () => {
   const {packageRoot: libPackageRoot, outDir: libOutDir} = getProjectDir("basic")
-  const libConfig = webpackConfigNode({
+  await compile({
     packageRoot: libPackageRoot,
     outDir: libOutDir,
     isDevelopment: false,
   })
-  await pify(webpack)(libConfig)
   const packageRoot = path.join(libOutDir, "nested")
   const outDir = path.join(packageRoot, "dist")
   await makeDir(path.join(packageRoot, "src"))
@@ -98,24 +108,45 @@ it("should build a project that uses a lib that is also built with webpack-confi
     author: "Jaid",
   })
   fs.writeFileSync(path.join(packageRoot, "src", "index.js"), "import lib from \"../..\"\nexport default x => 2 * lib()")
-  const config = webpackConfigNode({
+  await compile({
     packageRoot,
     outDir,
-isDevelopment: false,
-
   })
-  await pify(webpack)(config)
   const builtLib = require(outDir).default
   expect(typeof builtLib).toBe("function")
   expect(builtLib(2)).toBe(246)
 })
 
-// it("should build a lib", callback => {
-//   const dir = getProjectDir("lib")
-//   const config = webpackConfigNode({
-//     packageRoot: dir,
-//   })
-//   webpack(config, (error, stats) => {
-//     callback()
-//   })
-// })
+
+describe("should build a project with some external dependencies", () => {
+  const packageRoot = path.join(__dirname, "depender")
+  if (!fs.existsSync(path.join(packageRoot, "node_modules"))) {
+    execSync(`cd "${packageRoot}" && npm install`)
+  }
+  it("development environment", async () => {
+    const {outDir} = getProjectDir("depender")
+    await compile({
+      packageRoot,
+      outDir,
+      type: "cli",
+      isDevelopment: true,
+    })
+    return coffee.fork(outDir)
+      .expect("stdout", "My name is valid!\n")
+      .expect("code", 0)
+      .end()
+  })
+  it("production environment", async () => {
+    const {outDir} = getProjectDir("depender")
+    await compile({
+      packageRoot,
+      outDir,
+      type: "cli",
+      isDevelopment: false,
+    })
+    return coffee.fork(outDir)
+      .expect("stdout", "My name is valid!\n")
+      .expect("code", 0)
+      .end()
+  })
+})

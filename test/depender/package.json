@@ -4,5 +4,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "author": "Jaid",
+  "dependencies": {
+    "validate-npm-package-name": "3.0.0",
+    "lodash": "4.17.11"
+  },
   "repository": "https://github.com/Jaid/webpack-config-node"
 }

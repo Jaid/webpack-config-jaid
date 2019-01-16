@@ -20,6 +20,8 @@
 
 # Test
 /test/*/dist/
+/test/*/node_modules/
+/test/*/package-lock.json
 
 # IDEs
 /.vscode/
