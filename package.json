@@ -12,7 +12,9 @@
     "email": "jaid.jsx@gmail.com"
   },
   "babel": {
-    "extends": "./config/babel.js"
+    "presets": [
+      "jaid"
+    ]
   },
   "eslintConfig": {
     "extends": "jaid"
@@ -22,13 +24,14 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
-    "babel-jest": "^23.6.0",
+    "@babel/node": "^7.2.2",
+    "babel-jest": "24.0.0-alpha.12",
     "babel-preset-jaid": "2.6.0",
     "chalk": "^2.4.2",
     "cross-env": "^5.2.0",
     "eslint": "^5.12.0",
     "eslint-config-jaid": "1.8.1",
-    "jest": "^23.6.0",
+    "jest": "24.0.0-alpha.12",
     "pretty-bytes": "^5.1.0",
     "rimraf": "^2.6.3",
     "webpack": "^4.28.4"
@@ -38,8 +41,9 @@
     "build:dev": "cross-env babel src --out-dir=build",
     "build:prod": "npm run clean && cross-env NODE_ENV=production babel src --out-dir=build",
     "prepublishOnly": "npm run build:prod",
-    "test": "npm run build:prod && cross-env babel-node test/basic/build.js",
-    "test:dev": "npm run build:dev && cross-env babel-node test/basic/build.js"
+    "test": "npm run build:prod && jest",
+    "test:dev": "npm run build:dev && jest",
+    "test:debug": "npm run build:dev && cross-env babel-node --inspect node_modules/jest/bin/jest.js --runInBand"
   },
   "peerDependencies": {
     "webpack": "^4.28.4"

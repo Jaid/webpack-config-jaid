@@ -1,4 +1,4 @@
-export default ({config, options, pkg}) => {
+module.exports = ({config, options, pkg}) => {
   if (pkg.dependencies) {
     config.externals = Object.keys(pkg.dependencies)
   }

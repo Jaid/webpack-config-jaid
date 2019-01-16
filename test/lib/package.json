@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "license": "MIT",
+  "main": "./build/index.js",
   "files": [
     "build/*"
   ],
@@ -10,6 +11,9 @@
     "name": "Jaid",
     "url": "https://github.com/jaid",
     "email": "jaid.jsx@gmail.com"
+  },
+  "dependencies": {
+    "lodash": "*"
   },
   "repository": "https://github.com/Jaid/webpack-config-node"
 }

@@ -19,6 +19,11 @@ export default options => {
     ...options,
   }
 
+  options = {
+    outDir: path.join(options.packageRoot, "dist"),
+    ...options,
+  }
+
   const fromPackage = directive => path.resolve(options.packageRoot, directive)
   const pkg = readPkg.sync({
     cwd: options.packageRoot,
@@ -52,7 +57,7 @@ export default options => {
     },
     plugins: [new FriendlyErrorsWebpackPlugin],
     output: {
-      path: path.resolve(options.packageRoot, "dist"),
+      path: options.outDir,
       filename: "index.js",
     },
     optimization: {
@@ -61,6 +66,7 @@ export default options => {
   }
 
   if (options.isDevelopment) {
+    config.devtool = "inline-source-map"
     Object.assign(config.output, {
       auxiliaryComment: {
         root: "[Exposing Section] root",
@@ -84,7 +90,8 @@ export default options => {
   }
 
   if (options.type) {
-    require(`./types/${options.type}`)({
+    const typeProvider = require(`./types/${options.type}`)
+    typeProvider({
       config,
       options,
       pkg,
