@@ -82,12 +82,6 @@ export default options => {
       moduleTrace: true,
       errorDetails: true,
     }
-  } else {
-      // new LodashWebpackPlugin({
-      //   shorthands: true,
-      //   flattening: true,
-      // }),
-    ]
   }
 
   if (options.type) {
