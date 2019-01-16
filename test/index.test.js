@@ -23,7 +23,10 @@ const getProjectDir = name => {
 }
 
 const compile = async config => {
-  const webpackConfig = webpackConfigNode(config)
+  const webpackConfig = webpackConfigNode({
+    clean: false,
+    ...config,
+  })
   await makeDir(config.outDir)
   await fs.writeJson(path.join(config.outDir, "config.json"), webpackConfig)
   const stats = (await pify(webpack)(webpackConfig)).toJson()

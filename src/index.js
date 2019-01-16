@@ -5,6 +5,8 @@ import webpackMerge from "webpack-merge"
 import appRootPath from "app-root-path"
 import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
 import LodashWebpackPlugin from "lodash-webpack-plugin"
+import CleanWebpackPlugin from "clean-webpack-plugin"
+import {isObject, isArray} from "lodash"
 
 export default options => {
   options = {
@@ -16,6 +18,7 @@ export default options => {
   }
 
   options = {
+    clean: !options.isDevelopment,
     outDir: path.join(options.packageRoot, "dist"),
     ...options,
   }
@@ -59,6 +62,16 @@ export default options => {
     optimization: {
       noEmitOnErrors: true,
     },
+  }
+
+  if (options.clean) {
+    if (isObject(options.clean)) {
+      config.plugins.push(new CleanWebpackPlugin([options.outDir], options.clean))
+    } else if (isArray(options.clean)) {
+      config.plugins.push(new CleanWebpackPlugin(options.clean[0], options.clean[1]))
+    } else if (options.clean === true) {
+      config.plugins.push(new CleanWebpackPlugin([options.outDir]))
+    }
   }
 
   if (options.isDevelopment) {
