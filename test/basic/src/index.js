@@ -1,3 +1,1 @@
-import fs from "fs"
-
-fs.readdirSync(".")
+export default () => 100 + Number("23")
