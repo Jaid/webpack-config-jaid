@@ -8,8 +8,6 @@ import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
 import LodashWebpackPlugin from "lodash-webpack-plugin"
 import {BannerPlugin, EnvironmentPlugin} from "webpack"
 
-import Credits from "./Credits"
-
 export default options => {
   options = {
     packageRoot: String(appRootPath),
@@ -75,13 +73,16 @@ export default options => {
         amd: "[Exposing Section] amd",
       },
     })
+    config.stats = {
+      all: false,
+      modules: true,
+      maxModules: 0,
+      errors: true,
+      warnings: true,
+      moduleTrace: true,
+      errorDetails: true,
+    }
   } else {
-    config.plugins = [
-      ...config.plugins,
-      new BannerPlugin({
-        banner: String(new Credits(pkg)),
-        entryOnly: true,
-      }),
       // new LodashWebpackPlugin({
       //   shorthands: true,
       //   flattening: true,

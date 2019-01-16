@@ -10,7 +10,11 @@ export default class Credits {
   }
 
   getPackageName() {
-    return `${this.pkg.name} ${this.pkg.version}`
+    if (this.pkg.version) {
+      return `${this.pkg.name} ${this.pkg.version}`
+    } else {
+      return this.pkg.name
+    }
   }
 
   getCopyright() {
