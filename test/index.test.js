@@ -95,7 +95,7 @@ it("should build a basic project in prod mode", async () => {
   expect(builtLib()).toBe(123)
 })
 
-it("should build a project that uses a lib that is also built with webpack-config-node", async () => {
+it("should build a project that uses a lib that is also built with webpack-config-jaid", async () => {
   const {packageRoot: libPackageRoot, outDir: libOutDir} = getProjectDir("basic")
   await compile({
     packageRoot: libPackageRoot,
@@ -106,7 +106,7 @@ it("should build a project that uses a lib that is also built with webpack-confi
   const outDir = path.join(packageRoot, "dist")
   await makeDir(path.join(packageRoot, "src"))
   fs.writeJsonSync(path.join(packageRoot, "package.json"), {
-    name: "webpack-config-node-test-nested",
+    name: "webpack-config-jaid-test-nested",
     version: "1.0.0",
     author: "Jaid",
   })

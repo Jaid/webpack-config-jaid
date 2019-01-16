@@ -1,5 +1,5 @@
 {
-  "name": "webpack-config-node-test",
+  "name": "webpack-config-jaid-test",
   "private": true,
   "version": "1.0.0",
   "license": "MIT",
@@ -15,5 +15,5 @@
   "dependencies": {
     "lodash": "*"
   },
-  "repository": "https://github.com/Jaid/webpack-config-node"
+  "repository": "https://github.com/Jaid/webpack-config-jaid"
 }

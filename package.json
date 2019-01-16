@@ -1,5 +1,5 @@
 {
-  "name": "webpack-config-node",
+  "name": "webpack-config-jaid",
   "version": "1.5.0",
   "license": "MIT",
   "main": "./build/index.js",
@@ -22,7 +22,7 @@
   "eslintConfig": {
     "extends": "jaid"
   },
-  "repository": "https://github.com/Jaid/webpack-config-node",
+  "repository": "https://github.com/Jaid/webpack-config-jaid",
   "description": "Takes tiny input and returns a Webpack config in the way I personally like.",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
