@@ -1,6 +1,6 @@
 {
   "name": "webpack-config-jaid",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "license": "MIT",
   "main": "./build/index.js",
   "files": [
