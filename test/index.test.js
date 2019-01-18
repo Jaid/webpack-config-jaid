@@ -88,7 +88,7 @@ it("should build a basic project in prod mode", async () => {
   await compile({
     packageRoot,
     outDir,
-    isDevelopment: false,
+    development: false,
   })
   const builtLib = require(outDir).default
   expect(typeof builtLib).toBe("function")
@@ -100,7 +100,7 @@ it("should build a project that uses a lib that is also built with webpack-confi
   await compile({
     packageRoot: libPackageRoot,
     outDir: libOutDir,
-    isDevelopment: false,
+    development: false,
   })
   const packageRoot = path.join(libOutDir, "nested")
   const outDir = path.join(packageRoot, "dist")
@@ -132,7 +132,7 @@ describe("should build a project with some external dependencies", () => {
         packageRoot,
         outDir,
         type: "cli",
-        isDevelopment: env !== "production",
+        development: env !== "production",
       })
       return coffee.fork(outDir)
         .expect("stdout", "My name is valid!\n")

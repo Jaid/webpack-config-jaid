@@ -4,7 +4,7 @@ import {BannerPlugin} from "webpack"
 import Credits from "../Credits"
 
 module.exports = ({config, options, pkg}) => {
-  if (!options.isDevelopment) {
+  if (!options.development) {
     config.plugins = [
       ...config.plugins,
       new BannerPlugin({

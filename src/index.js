@@ -4,21 +4,21 @@ import readPkg from "read-pkg"
 import webpackMerge from "webpack-merge"
 import appRootPath from "app-root-path"
 import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
-import LodashWebpackPlugin from "lodash-webpack-plugin"
+// import LodashWebpackPlugin from "lodash-webpack-plugin"
 import CleanWebpackPlugin from "clean-webpack-plugin"
 import {isObject, isArray} from "lodash"
 
 export default options => {
   options = {
     packageRoot: String(appRootPath),
-    isDevelopment: process.env.NODE_ENV !== "production",
+    development: process.env.NODE_ENV !== "production",
     extra: null,
     type: "lib",
     ...options,
   }
 
   options = {
-    clean: !options.isDevelopment,
+    clean: !options.development,
     outDir: path.join(options.packageRoot, "dist"),
     ...options,
   }
@@ -34,7 +34,7 @@ export default options => {
     resolve: {
       extensions: [".js", ".json", ".yml"],
     },
-    mode: options.isDevelopment ? "development" : "production",
+    mode: options.development ? "development" : "production",
     module: {
       rules: [
         {
@@ -74,7 +74,7 @@ export default options => {
     }
   }
 
-  if (options.isDevelopment) {
+  if (options.development) {
     config.devtool = "inline-source-map"
     Object.assign(config.output, {
       auxiliaryComment: {
