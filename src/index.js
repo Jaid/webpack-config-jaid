@@ -7,6 +7,7 @@ import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
 // import LodashWebpackPlugin from "lodash-webpack-plugin"
 import CleanWebpackPlugin from "clean-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
+import CopyWebpackPlugin from "copy-webpack-plugin"
 import {isObject, isArray} from "lodash"
 
 export default options => {
@@ -15,6 +16,7 @@ export default options => {
     development: process.env.NODE_ENV !== "production",
     extra: null,
     type: "lib",
+    include: false,
     publishimo: false,
     ...options,
   }
@@ -122,6 +124,13 @@ export default options => {
     }))
   } else if (typeof options.publishimo === "object") {
     config.plugins.push(new PublishimoWebpackPlugin(options.publishimo))
+  }
+
+  if (options.include) {
+    if (!Array.isArray(options.include)) {
+      options.include = [options.include]
+    }
+    config.plugins.push(new CopyWebpackPlugin(options.include))
   }
 
   if (options.extra) {
