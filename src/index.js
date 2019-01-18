@@ -11,7 +11,7 @@ import {isObject, isArray} from "lodash"
 export default options => {
   options = {
     packageRoot: String(appRootPath),
-    isDevelopment: true,
+    isDevelopment: process.env.NODE_ENV !== "production",
     extra: null,
     type: "lib",
     ...options,
