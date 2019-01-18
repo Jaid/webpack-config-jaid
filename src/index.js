@@ -6,6 +6,7 @@ import appRootPath from "app-root-path"
 import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
 // import LodashWebpackPlugin from "lodash-webpack-plugin"
 import CleanWebpackPlugin from "clean-webpack-plugin"
+import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import {isObject, isArray} from "lodash"
 
 export default options => {
@@ -14,6 +15,7 @@ export default options => {
     development: process.env.NODE_ENV !== "production",
     extra: null,
     type: "lib",
+    publishimo: false,
     ...options,
   }
 
@@ -112,6 +114,14 @@ export default options => {
       }
       callback() // eslint-disable-line promise/prefer-await-to-callbacks
     }
+  }
+
+  if (options.publishimo === true) {
+    config.plugins.push(new PublishimoWebpackPlugin({
+      // TODO: Add good default options here
+    }))
+  } else if (typeof options.publishimo === "object") {
+    config.plugins.push(new PublishimoWebpackPlugin(options.publishimo))
   }
 
   if (options.extra) {
