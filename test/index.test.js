@@ -125,14 +125,29 @@ it("should build a cli project with publishimo support", async () => {
   await compile({
     packageRoot,
     outDir,
-    development: true,
+    development: false,
     type: "cli",
     publishimo: {
-      author: {
-        name: "Jaid",
-        github: true,
+      publishimoOptions: {
+        author: {
+          name: "Jaid",
+          github: true,
+        },
       },
     },
+  })
+  const pkg = require(path.join(outDir, "package.json"))
+  expect(pkg).toMatchObject({
+    name: "cli-publishimo",
+    version: "9.9.9",
+    bin: "index.js",
+    author: {
+      name: "Jaid",
+      url: "https://github.com/Jaid",
+    },
+    bugs: "https://github.com/Jaid/cli-publishimo/issues",
+    homepage: "https://github.com/Jaid/cli-publishimo#readme",
+    repository: "github:Jaid/cli-publishimo",
   })
   return coffee.fork(outDir)
     .expect("stdout", "ABC")
