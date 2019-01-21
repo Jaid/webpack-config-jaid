@@ -120,6 +120,26 @@ it("should build a project that uses a lib that is also built with webpack-confi
   expect(builtLib(2)).toBe(246)
 })
 
+it("should build a cli project with publishimo support", async () => {
+  const {packageRoot, outDir} = getProjectDir("cli-publishimo")
+  await compile({
+    packageRoot,
+    outDir,
+    development: true,
+    type: "cli",
+    publishimo: {
+      author: {
+        name: "Jaid",
+        github: true,
+      },
+    },
+  })
+  return coffee.fork(outDir)
+    .expect("stdout", "ABC")
+    .expect("code", 0)
+    .end()
+})
+
 describe("should build a project with some external dependencies", () => {
   const packageRoot = path.join(__dirname, "depender")
   if (!fs.existsSync(path.join(packageRoot, "node_modules"))) {
