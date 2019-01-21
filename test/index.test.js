@@ -127,6 +127,7 @@ it("should build a cli project with publishimo support", async () => {
     outDir,
     development: false,
     type: "cli",
+    include: ["license.txt"],
     publishimo: {
       publishimoOptions: {
         author: {
@@ -149,6 +150,8 @@ it("should build a cli project with publishimo support", async () => {
     homepage: "https://github.com/Jaid/cli-publishimo#readme",
     repository: "github:Jaid/cli-publishimo",
   })
+  const license = fs.readFileSync(path.join(outDir, "license.txt"), "utf8")
+  expect(license).toMatch("Copyright")
   return coffee.fork(outDir)
     .expect("stdout", "ABC")
     .expect("code", 0)
