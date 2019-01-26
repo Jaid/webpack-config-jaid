@@ -56,7 +56,6 @@
     "fs-extra": "^7.0.1",
     "jest": "24.0.0-alpha.12",
     "make-dir": "^1.3.0",
-    "np": "^3.1.0",
     "pify": "^4.0.1",
     "pretty-bytes": "^5.1.0",
     "rimraf": "^2.6.3",
@@ -66,10 +65,9 @@
     "clean": "cross-env rimraf build/ test/*/dist/",
     "build:dev": "cross-env babel src --out-dir=build",
     "build:prod": "npm run clean && cross-env NODE_ENV=production babel src --out-dir=build",
-    "prepublishOnly": "npm run build:prod",
     "test": "npm run build:prod && jest",
     "test:dev": "npm run build:dev && jest",
     "test:debug": "npm run build:dev && cross-env babel-node --inspect node_modules/jest/bin/jest.js --runInBand",
-    "np": "np"
+    "release": "npm run build:prod && npm publish dist && cross-env git tag v$npm_package_version && git push --tags && cross-env opn https://github.com/$npm_package_author_name/$npm_package_name/releases/new?tag=v$npm_package_version"
   }
 }
