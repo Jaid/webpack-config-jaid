@@ -120,6 +120,44 @@ it("should build a project that uses a lib that is also built with webpack-confi
   expect(builtLib(2)).toBe(246)
 })
 
+it("should build a cli project with publishimo support", async () => {
+  const {packageRoot, outDir} = getProjectDir("cli-publishimo")
+  await compile({
+    packageRoot,
+    outDir,
+    development: false,
+    type: "cli",
+    include: ["license.txt"],
+    publishimo: {
+      publishimoOptions: {
+        author: {
+          name: "Jaid",
+          github: true,
+        },
+      },
+    },
+  })
+  const pkg = require(path.join(outDir, "package.json"))
+  expect(pkg).toMatchObject({
+    name: "cli-publishimo",
+    version: "9.9.9",
+    bin: "index.js",
+    author: {
+      name: "Jaid",
+      url: "https://github.com/Jaid",
+    },
+    bugs: "https://github.com/Jaid/cli-publishimo/issues",
+    homepage: "https://github.com/Jaid/cli-publishimo#readme",
+    repository: "github:Jaid/cli-publishimo",
+  })
+  const license = fs.readFileSync(path.join(outDir, "license.txt"), "utf8")
+  expect(license).toMatch("Copyright")
+  return coffee.fork(outDir)
+    .expect("stdout", "ABC")
+    .expect("code", 0)
+    .end()
+})
+
 describe("should build a project with some external dependencies", () => {
   const packageRoot = path.join(__dirname, "depender")
   if (!fs.existsSync(path.join(packageRoot, "node_modules"))) {

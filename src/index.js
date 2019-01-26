@@ -110,7 +110,7 @@ export default options => {
   }
 
   if (pkg.dependencies) {
-    config.externals = (context, request, callback) => { // eslint-disable-line consistent-return
+    config.externals = (context, request, callback) => { // eslint-disable-line promise/prefer-await-to-callbacks
       if (pkg.dependencies[request]) {
         return callback(null, `commonjs2 ${request}`) // eslint-disable-line promise/prefer-await-to-callbacks
       }
@@ -118,12 +118,11 @@ export default options => {
     }
   }
 
-  if (options.publishimo === true) {
+  if (options.publishimo) {
     config.plugins.push(new PublishimoWebpackPlugin({
-      // TODO: Add good default options here
+      autoMain: options.type === "cli" ? "bin" : true,
+      ...options.publishimo,
     }))
-  } else if (typeof options.publishimo === "object") {
-    config.plugins.push(new PublishimoWebpackPlugin(options.publishimo))
   }
 
   if (options.include) {
