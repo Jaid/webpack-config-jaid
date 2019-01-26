@@ -72,9 +72,9 @@ export default options => {
     if (isObject(options.clean)) {
       config.plugins.push(new CleanWebpackPlugin([options.outDir], options.clean))
     } else if (isArray(options.clean)) {
-      config.plugins.push(new CleanWebpackPlugin(options.clean[0], options.clean[1]))
+      config.plugins.push(new CleanWebpackPlugin(options.clean, {allowExternal: true}))
     } else if (options.clean === true) {
-      config.plugins.push(new CleanWebpackPlugin([options.outDir]))
+      config.plugins.push(new CleanWebpackPlugin([options.outDir], {allowExternal: true}))
     }
   }
 
