@@ -15,6 +15,8 @@ export default options => {
     packageRoot: String(appRootPath),
     development: process.env.NODE_ENV !== "production",
     extra: null,
+    extraProduction: null,
+    extraDevelopment: null,
     type: "lib",
     include: false,
     publishimo: false,
@@ -132,8 +134,22 @@ export default options => {
     config.plugins.push(new CopyWebpackPlugin(options.include))
   }
 
+  const extra = []
+
   if (options.extra) {
-    return webpackMerge.smart(config, options.extra)
+    extra.push(options.extra)
+  }
+
+  if (options.extraProduction && !options.development) {
+    extra.push(options.extraProduction)
+  }
+
+  if (options.extraDevelopment && options.development) {
+    extra.push(options.extraDevelopment)
+  }
+
+  if (extra.length) {
+    return webpackMerge.smart(config, ...extra)
   } else {
     return config
   }
