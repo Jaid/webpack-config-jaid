@@ -20,6 +20,7 @@
 
 # Test
 /test/*/dist/
+/test/*/dist-jsdoc
 /test/*/node_modules/
 /test/*/package-lock.json
 

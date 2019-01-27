@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Jaid",
+    "url": "https://github.com/jaid",
+    "email": "jaid.jsx@gmail.com"
+  },
+  "repository": "https://github.com/Jaid/webpack-config-jaid"
+}

@@ -179,3 +179,20 @@ describe("should build a project with some external dependencies", () => {
     })
   }
 })
+
+it("should build a project with publishimo and jsdoc-tsd-webpack-plugin", async () => {
+  const {packageRoot, outDir} = getProjectDir("documentation")
+  await compile({
+    packageRoot,
+    outDir,
+    development: false,
+    publishimo: {
+      publishimoOptions: {
+        fetchGithub: true,
+      },
+    },
+    documentation: true,
+  })
+  expect(fs.existsSync(path.join(packageRoot, "dist-jsdoc", "html"))).toBeTruthy()
+  expect(fs.existsSync(path.join(packageRoot, "dist-jsdoc", "tsd"))).toBeTruthy()
+})

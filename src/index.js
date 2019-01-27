@@ -4,9 +4,9 @@ import readPkg from "read-pkg"
 import webpackMerge from "webpack-merge"
 import appRootPath from "app-root-path"
 import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
-// import LodashWebpackPlugin from "lodash-webpack-plugin"
 import CleanWebpackPlugin from "clean-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
+import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import {isObject, isArray} from "lodash"
 
@@ -20,6 +20,7 @@ export default options => {
     type: "lib",
     include: false,
     publishimo: false,
+    documentation: false,
     ...options,
   }
 
@@ -125,6 +126,10 @@ export default options => {
       autoMain: options.type === "cli" ? "bin" : true,
       ...options.publishimo,
     }))
+  }
+
+  if (options.documentation) {
+    config.plugins.push(new JsdocTsdWebpackPlugin)
   }
 
   if (options.include) {
