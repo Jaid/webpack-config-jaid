@@ -34,6 +34,7 @@
     "lodash": "^4.17.11",
     "lodash-webpack-plugin": "^0.11.5",
     "pascal-case": "^2.0.1",
+    "jsdoc-tsd-webpack-plugin": "1.1.0",
     "publishimo-webpack-plugin": "1.7.2",
     "read-pkg": "^4.0.1",
     "stringify-author": "^0.1.3",
@@ -44,11 +45,8 @@
     "webpack": "^4.28.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
     "babel-jest": "24.0.0",
-    "babel-preset-jaid": "2.6.0",
+    "babel-preset-jaid": "2.7.2",
     "chalk": "^2.4.2",
     "coffee": "^5.2.1",
     "cross-env": "^5.2.0",
@@ -56,7 +54,6 @@
     "eslint-config-jaid": "1.10.0",
     "fs-extra": "^7.0.1",
     "jest": "24.0.0",
-    "jsdoc-tsd-webpack-plugin": "1.1.0",
     "make-dir": "^1.3.0",
     "opn-cli": "^4.0.0",
     "pify": "^4.0.1",
