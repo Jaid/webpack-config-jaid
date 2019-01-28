@@ -18,7 +18,12 @@ export default options => {
     extraProduction: null,
     extraDevelopment: null,
     type: "lib",
-    include: false,
+    include: [
+      "readme.*",
+      "README.*",
+      "license.*",
+      "LICENSE.*",
+    ],
     publishimo: false,
     documentation: false,
     ...options,
