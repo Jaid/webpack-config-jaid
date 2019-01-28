@@ -126,15 +126,16 @@ export default options => {
     }
   }
 
+  if (options.documentation) {
+    config.plugins.push(new JsdocTsdWebpackPlugin)
+  }
+
   if (options.publishimo) {
     config.plugins.push(new PublishimoWebpackPlugin({
       autoMain: options.type === "cli" ? "bin" : true,
+      autoTypes: Boolean(options.documentation),
       ...options.publishimo,
     }))
-  }
-
-  if (options.documentation) {
-    config.plugins.push(new JsdocTsdWebpackPlugin)
   }
 
   if (options.include) {
