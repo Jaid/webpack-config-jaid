@@ -193,6 +193,6 @@ it("should build a project with publishimo and jsdoc-tsd-webpack-plugin", async 
     },
     documentation: true,
   })
-  expect(fs.existsSync(path.join(packageRoot, "dist-jsdoc", "html"))).toBeTruthy()
-  expect(fs.existsSync(path.join(packageRoot, "dist-jsdoc", "tsd"))).toBeTruthy()
+  expect(fs.existsSync(path.join(packageRoot, "dist-jsdoc"))).toBeTruthy()
+  expect(fs.existsSync(path.join(outDir, "index.d.ts"))).toBeTruthy()
 })
