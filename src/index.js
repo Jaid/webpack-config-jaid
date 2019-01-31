@@ -127,9 +127,7 @@ export default options => {
   }
 
   if (options.documentation === true) {
-    config.plugins.push(new JsdocTsdWebpackPlugin({
-      babel: true,
-    }))
+    config.plugins.push(new JsdocTsdWebpackPlugin())
   } else if (isObject(options.documentation)) {
     config.plugins.push(new JsdocTsdWebpackPlugin(options.documentation))
   }
