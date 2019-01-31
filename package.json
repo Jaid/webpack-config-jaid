@@ -1,6 +1,6 @@
 {
   "name": "webpack-config-jaid",
-  "version": "1.22.1",
+  "version": "1.22.2",
   "license": "MIT",
   "main": "build/index.js",
   "files": [
@@ -34,7 +34,7 @@
     "lodash": "^4.17.11",
     "lodash-webpack-plugin": "^0.11.5",
     "pascal-case": "^2.0.1",
-    "jsdoc-tsd-webpack-plugin": "^1.5.1",
+    "jsdoc-tsd-webpack-plugin": "^1.5.2",
     "publishimo-webpack-plugin": "1.8.1",
     "read-pkg": "^4.0.1",
     "stringify-author": "^0.1.3",
