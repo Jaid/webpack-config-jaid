@@ -1,5 +1,3 @@
-module.exports = ({config, options, pkg}) => {
-  Object.assign(config, {
-    target: "node",
-  })
+export default config => {
+  config.target = "node"
 }

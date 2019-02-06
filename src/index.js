@@ -127,9 +127,11 @@ export default options => {
   }
 
   if (options.type) {
-    const typeProvider = require(`./types/${options.type}`)
-    typeProvider({
-      config,
+    const {default: typeProvider} = require(`./types/${options.type}`)
+    if (typeof typeProvider !== "function") {
+      throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeProvider}`)
+    }
+    typeProvider(config, {
       options,
       pkg,
       fromPackage,
