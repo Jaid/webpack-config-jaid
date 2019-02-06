@@ -41,6 +41,7 @@ const compile = async config => {
 it("should build a basic project in dev mode", async () => {
   const {packageRoot, outDir} = getProjectDir("basic")
   const {stats, webpackConfig} = await compile({
+    development: true,
     packageRoot,
     outDir,
   })
