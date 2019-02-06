@@ -1,3 +1,5 @@
+/** @module webpack-config-jaid */
+
 import path from "path"
 
 import readPkg from "read-pkg"
@@ -10,6 +12,24 @@ import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import {isObject, isArray} from "lodash"
 
+/**
+ * @typedef {object} webpackConfigJaidOptions
+ * @property {string} [packageRoot=appRootPath()] Directory of your Node project
+ * @property {boolean} [development=process.env.NODE_ENV] Webpack mode ("development" or "production")
+ * @property {object} [extra={}] Additional Webpack configuration
+ * @property {object} [extraProduction={}] Additional Webpack configuration that only gets applied in development mode
+ * @property {object} [extraDevelopment={}] Additional Webpack configuration that only gets applied in production mode
+ * @property {null|"cli"|"lib"|"libClass"} [type="lib"] The project type which will automatically add some configuration
+ * @property {array} [include=["readme.*","README.*","license.*","LICENSE.*"]] Files (relative to project directory) that get copied to dist directory
+ * @property {boolean|object} [publishimo=false] Set to true to include publishimo-webpack-plugin, or set as object to add options for the plugin instance
+ * @property {boolean|object} [documentation=false] Set to true to include jsdoc-tsd-webpack-plugin, or set as object to add options for the plugin instance
+ */
+
+/**
+ * Creates Webpack config based on given options
+ * @param {webpackConfigJaidOptions} options Given options
+ * @returns {object} Webpack configuration object
+ */
 export default options => {
   options = {
     packageRoot: String(appRootPath),
@@ -41,12 +61,12 @@ export default options => {
   })
 
   const config = {
-    target: "node",
     context: options.packageRoot,
     resolve: {
       extensions: [".js", ".json", ".yml"],
     },
     mode: options.development ? "development" : "production",
+    devtool: options.development ? "inline-source-map" : "source-map",
     module: {
       rules: [
         {
@@ -87,7 +107,6 @@ export default options => {
   }
 
   if (options.development) {
-    config.devtool = "inline-source-map"
     Object.assign(config.output, {
       auxiliaryComment: {
         root: "[Exposing Section] root",
@@ -133,11 +152,14 @@ export default options => {
   }
 
   if (options.publishimo) {
-    config.plugins.push(new PublishimoWebpackPlugin({
+    const publishimoConfig = {
       autoMain: options.type === "cli" ? "bin" : true,
       autoTypes: Boolean(options.documentation),
-      ...options.publishimo,
-    }))
+    }
+    if (typeof options.publishimo === "object") {
+      Object.assign(publishimoConfig, options.publishimo)
+    }
+    config.plugins.push(new PublishimoWebpackPlugin(publishimoConfig))
   }
 
   if (options.include) {
