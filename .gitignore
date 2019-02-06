@@ -9,21 +9,24 @@
 /yarn-error.log
 
 # npm
+/.npmrc
 /npm-debug.log
 /npm-debug.log.*
 
 # pnpm
+/pnpm-debug.log
 /shrinkwrap.yaml
 
-# Build
-/build/
+# Generated or temporary content
+/dist/
+/dist-jsdoc/
+
+# IDEs
+/.vscode/
+/.idea/
 
 # Test
 /test/*/dist/
 /test/*/dist-jsdoc
 /test/*/node_modules/
 /test/*/package-lock.json
-
-# IDEs
-/.vscode/
-/.idea/

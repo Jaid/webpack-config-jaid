@@ -9,7 +9,8 @@ import webpack from "webpack"
 import makeDir from "make-dir"
 import coffee from "coffee"
 
-import webpackConfigNode from "../build"
+const indexModule = (process.env.MAIN ? path.resolve(process.env.MAIN) : path.join(__dirname, "..", "src")) |> require
+const {default: webpackConfigJaid} = indexModule
 
 jest.setTimeout(60 * 1000)
 
@@ -23,7 +24,7 @@ const getProjectDir = name => {
 }
 
 const compile = async config => {
-  const webpackConfig = webpackConfigNode({
+  const webpackConfig = webpackConfigJaid({
     clean: false,
     ...config,
   })

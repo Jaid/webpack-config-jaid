@@ -1,8 +1,7 @@
 import pascalCase from "pascal-case"
 
-module.exports = ({config, options, pkg}) => {
+module.exports = ({config, pkg}) => {
   Object.assign(config.output, {
-    ...config.output,
     libraryTarget: "umd2",
     library: {
       root: pascalCase(pkg.name),
