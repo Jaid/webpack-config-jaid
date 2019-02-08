@@ -41,6 +41,7 @@ const compile = async config => {
 it("should build a basic project in dev mode", async () => {
   const {packageRoot, outDir} = getProjectDir("basic")
   const {stats, webpackConfig} = await compile({
+    type: "lib",
     development: true,
     packageRoot,
     outDir,
@@ -51,7 +52,7 @@ it("should build a basic project in dev mode", async () => {
     module: {
       rules: expect.arrayContaining([
         {
-          test: /\.js$/,
+          test: /\.jsx?$/,
           exclude: /node_modules\//,
           loader: "babel-loader",
         },
@@ -88,6 +89,7 @@ it("should build a basic project in dev mode", async () => {
 it("should build a basic project in prod mode", async () => {
   const {packageRoot, outDir} = getProjectDir("basic")
   await compile({
+    type: "lib",
     packageRoot,
     outDir,
     development: false,
@@ -100,6 +102,7 @@ it("should build a basic project in prod mode", async () => {
 it("should build a project that uses a lib that is also built with webpack-config-jaid", async () => {
   const {packageRoot: libPackageRoot, outDir: libOutDir} = getProjectDir("basic")
   await compile({
+    type: "lib",
     packageRoot: libPackageRoot,
     outDir: libOutDir,
     development: false,
@@ -114,6 +117,7 @@ it("should build a project that uses a lib that is also built with webpack-confi
   })
   fs.writeFileSync(path.join(packageRoot, "src", "index.js"), "import lib from \"../..\"\nexport default x => 2 * lib()")
   await compile({
+    type: "lib",
     packageRoot,
     outDir,
   })
