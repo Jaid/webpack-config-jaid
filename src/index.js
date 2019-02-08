@@ -46,6 +46,7 @@ export default options => {
     ],
     publishimo: false,
     documentation: false,
+    nodeExternals: true,
     ...options,
   }
 
@@ -61,9 +62,13 @@ export default options => {
   })
 
   const config = {
-    context: options.packageRoot,
+    context: path.resolve(options.packageRoot),
+    entry: fromPackage("src"),
     resolve: {
       extensions: [".js", ".json", ".yml"],
+      alias: {
+        lib: fromPackage("src/lib"),
+      },
     },
     mode: options.development ? "development" : "production",
     devtool: options.development ? "inline-source-map" : "source-map",
@@ -138,7 +143,7 @@ export default options => {
     })
   }
 
-  if (pkg.dependencies) {
+  if (options.nodeExternals && pkg.dependencies) {
     config.externals = (context, request, callback) => { // eslint-disable-line promise/prefer-await-to-callbacks
       if (pkg.dependencies[request]) {
         return callback(null, `commonjs2 ${request}`) // eslint-disable-line promise/prefer-await-to-callbacks
@@ -147,10 +152,13 @@ export default options => {
     }
   }
 
-  if (options.documentation === true) {
-    config.plugins.push(new JsdocTsdWebpackPlugin())
-  } else if (isObject(options.documentation)) {
-    config.plugins.push(new JsdocTsdWebpackPlugin(options.documentation))
+  if (options.documentation) {
+    const plugin = options.documentation === true ? new JsdocTsdWebpackPlugin : new JsdocTsdWebpackPlugin(options.documentation)
+    config.plugins.push(plugin)
+    if (options.clean) {
+      const distJsdocPath = path.join(path.dirname(options.outDir), "dist-jsdoc")
+      config.plugins.push(new CleanWebpackPlugin([distJsdocPath]))
+    }
   }
 
   if (options.publishimo) {
