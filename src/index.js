@@ -158,7 +158,7 @@ export default options => {
     config.plugins.push(plugin)
     if (options.clean) {
       const distJsdocPath = path.join(path.dirname(options.outDir), "dist-jsdoc")
-      config.plugins.push(new CleanWebpackPlugin([distJsdocPath]))
+      config.plugins.push(new CleanWebpackPlugin([distJsdocPath], {allowExternal: true}))
     }
   }
 
