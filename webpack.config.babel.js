@@ -1,10 +1,8 @@
-import webpackConfigJaid from "./src"
+import {configureLib} from "./src"
 
-export default webpackConfigJaid({
+export default configureLib({
   documentation: true,
   publishimo: {
-    publishimoOptions: {
-      fetchGithub: true,
-    },
+    fetchGithub: true,
   },
 })

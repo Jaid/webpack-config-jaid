@@ -22,17 +22,17 @@ import generateWebpackConfig from "./generateWebpackConfig"
  */
 export default generateWebpackConfig
 
-export const cli = options => generateWebpackConfig({
+export const configureCli = options => generateWebpackConfig({
   ...options,
   type: "cli",
 })
 
-export const lib = options => generateWebpackConfig({
+export const configureLib = options => generateWebpackConfig({
   ...options,
   type: "lib",
 })
 
-export const libClass = options => generateWebpackConfig({
+export const configureLibClass = options => generateWebpackConfig({
   ...options,
   type: "libClass",
 })

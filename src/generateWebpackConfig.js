@@ -29,7 +29,7 @@ export default options => {
     ...options,
   }
 
-  const fromPackage = directive => path.resolve(options.packageRoot, directive)
+  const fromPackage = (...directive) => path.resolve(options.packageRoot, ...directive)
 
   options = {
     clean: !options.development,

@@ -135,11 +135,9 @@ it("should build a cli project with publishimo support", async () => {
     type: "cli",
     include: ["license.txt"],
     publishimo: {
-      publishimoOptions: {
-        author: {
-          name: "Jaid",
-          github: true,
-        },
+      author: {
+        name: "Jaid",
+        github: true,
       },
     },
   })
@@ -193,9 +191,7 @@ it("should build a project with publishimo and jsdoc-tsd-webpack-plugin", async 
     outDir,
     development: false,
     publishimo: {
-      publishimoOptions: {
-        fetchGithub: true,
-      },
+      fetchGithub: true,
     },
     documentation: true,
   })
