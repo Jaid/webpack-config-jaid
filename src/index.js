@@ -50,13 +50,14 @@ export default options => {
     ...options,
   }
 
+  const fromPackage = directive => path.resolve(options.packageRoot, directive)
+
   options = {
     clean: !options.development,
-    outDir: path.join(options.packageRoot, "dist"),
+    outDir: fromPackage("dist"),
     ...options,
   }
 
-  const fromPackage = directive => path.resolve(options.packageRoot, directive)
   const pkg = readPkg.sync({
     cwd: options.packageRoot,
   })
