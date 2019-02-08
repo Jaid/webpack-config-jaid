@@ -1,6 +1,6 @@
 /** @module webpack-config-jaid */
 
-import generateWebpackConfig from "generateWebpackConfig"
+import generateWebpackConfig from "./generateWebpackConfig"
 
 /**
  * @typedef {object} webpackConfigJaidOptions
