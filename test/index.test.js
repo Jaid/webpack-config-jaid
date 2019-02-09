@@ -14,6 +14,7 @@ const webpackConfigJaid = require(indexModule)
 
 const setupTest = (name, packageRoot) => {
   const timeout = 60 * 1000
+  fss.ensureSymlink(path.resolve(__dirname, "..", "node_modules"), path.join(packageRoot, "node_modules"))
   describe(name, () => {
     for (const env of ["development", "production"]) {
       it(env, async () => {
