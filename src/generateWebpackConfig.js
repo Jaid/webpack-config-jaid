@@ -136,7 +136,7 @@ export default options => {
     const plugin = options.documentation === true ? new JsdocTsdWebpackPlugin : new JsdocTsdWebpackPlugin(options.documentation)
     config.plugins.push(plugin)
     if (options.clean) {
-      const htmlJsdocPath = path.join(path.dirname(options.outDir), "website")
+      const htmlJsdocPath = path.join(path.dirname(options.outDir), "homepage")
       const tsdJsdocPath = path.join(path.dirname(options.outDir), "tsd")
       config.plugins.push(new CleanWebpackPlugin([htmlJsdocPath, tsdJsdocPath], {allowExternal: true}))
     }
