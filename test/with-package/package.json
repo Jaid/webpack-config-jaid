@@ -1,0 +1,14 @@
+{
+  "name": "with-package",
+  "dependencies": {
+    "lodash": "4.17.11"
+  },
+  "devDependencies": {
+    "eslint": "5.13.0",
+    "babel-preset-jaid": "2.10.0",
+    "eslint-config-jaid": "1.11.0"
+  },
+  "eslintConfig": {
+    "extends": "jaid"
+  }
+}

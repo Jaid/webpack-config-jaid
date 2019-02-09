@@ -37,9 +37,14 @@ export default options => {
     ...options,
   }
 
-  const pkg = readPkg.sync({
-    cwd: options.packageRoot,
-  })
+  let pkg
+  try {
+    pkg = readPkg.sync({
+      cwd: options.packageRoot,
+    })
+  } catch {
+    pkg = {}
+  }
 
   const config = {
     context: path.resolve(options.packageRoot),
