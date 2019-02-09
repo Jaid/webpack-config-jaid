@@ -54,7 +54,7 @@
     "webpack-cli": "^3.2.3"
   },
   "scripts": {
-    "clean": "cross-env rimraf build/ test/*/dist/",
+    "clean": "cross-env rimraf **/dist/",
     "build:prod": "cross-env NODE_ENV=production webpack",
     "build:dev": "webpack",
     "test": "jest && npm run build:prod && cross-env MAIN=dist/package/production jest",
