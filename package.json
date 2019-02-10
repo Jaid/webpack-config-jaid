@@ -16,6 +16,7 @@
   "repository": "https://github.com/Jaid/webpack-config-jaid",
   "description": "Takes tiny input and returns a Webpack config in the way I personally like.",
   "dependencies": {
+    "@absolunet/fss": "^1.4.0",
     "aot-loader": "^1.0.1",
     "app-root-path": "^2.1.0",
     "babel-loader": "^8.0.5",
@@ -37,7 +38,6 @@
     "webpack": "^4.29.3"
   },
   "devDependencies": {
-    "@absolunet/fss": "^1.4.0",
     "babel-jest": "^24.1.0",
     "babel-preset-jaid": "^2.10.0",
     "chalk": "^2.4.2",

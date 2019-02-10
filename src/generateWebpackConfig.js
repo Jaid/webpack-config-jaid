@@ -9,6 +9,7 @@ import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import {isObject, isArray} from "lodash"
+import fss from "@absolunet/fss"
 
 const env = (process.env.NODE_ENV || "development").toLowerCase()
 
@@ -185,6 +186,10 @@ export default options => {
 
   const mergedConfig = extra.lenght ? webpackMerge.smart(config, ...extra) : config
 
+  if (options.configOutput) {
+    const outputFile = options.configOutput === true ? path.resolve(options.outDir, "webpackConfig.json5") : path.resolve(options.configOutput)
+    fss.outputJson5(outputFile, mergedConfig, {space: 2})
+  }
 
   return mergedConfig
 }
