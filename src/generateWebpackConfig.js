@@ -129,7 +129,7 @@ export default options => {
     typeProvider(config, {
       options,
       pkg,
-      fromPackage: fromRoot,
+      fromRoot,
     })
   }
 
