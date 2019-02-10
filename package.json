@@ -1,6 +1,6 @@
 {
   "name": "webpack-config-jaid",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
   "babel": {
     "presets": [
