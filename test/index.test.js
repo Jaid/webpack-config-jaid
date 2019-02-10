@@ -20,7 +20,7 @@ const setupTest = (name, packageRoot) => {
       it(env, async () => {
         const configPath = path.join(packageRoot, "webpack.config.js")
         const expectScriptPath = path.join(packageRoot, "expect.js")
-        const outDir = path.join(__dirname, "..", "dist", "test", `${name}-${env}`)
+        const outDir = path.join(__dirname, "..", "dist", "test", name, env)
         const packageOutDir = path.join(outDir, "package")
         const outputObject = (key, value) => fss.outputJson5(path.join(outDir, `${key}.json5`), sortKeys(value, {deep: true}), {space: 2})
         const development = env !== "production"
@@ -47,6 +47,7 @@ const setupTest = (name, packageRoot) => {
         } catch {}
         outputObject("benchmark", benchmark)
         const statsJson = stats.toJson()
+        expect(statsJson.errors).toEqual([])
         outputObject("stats", statsJson)
         if (fss.pathExists(expectScriptPath)) {
           const selfTest = require(expectScriptPath)
