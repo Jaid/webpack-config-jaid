@@ -10,10 +10,12 @@ import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import {isObject, isArray} from "lodash"
 
+const env = (process.env.NODE_ENV || "development").toLowerCase()
+
 export default options => {
   options = {
     packageRoot: String(appRootPath),
-    development: process.env.NODE_ENV !== "production",
+    development: env !== "production",
     extra: null,
     extraProduction: null,
     extraDevelopment: null,
@@ -26,14 +28,15 @@ export default options => {
     publishimo: false,
     documentation: false,
     nodeExternals: true,
+    configOutput: false,
     ...options,
   }
 
-  const fromPackage = (...directive) => path.resolve(options.packageRoot, ...directive)
+  const fromRoot = (...directive) => path.resolve(options.packageRoot, ...directive)
 
   options = {
     clean: !options.development,
-    outDir: fromPackage("dist", "package", process.env.NODE_ENV || "development"),
+    outDir: fromRoot("dist", "package", env),
     ...options,
   }
 
@@ -48,11 +51,12 @@ export default options => {
 
   const config = {
     context: path.resolve(options.packageRoot),
-    entry: fromPackage("src"),
+    entry: fromRoot("src"),
     resolve: {
       extensions: [".js", ".json", ".yml"],
       alias: {
-        lib: fromPackage("src/lib"),
+        root: fromRoot(),
+        lib: fromRoot("src", "lib"),
       },
     },
     mode: options.development ? "development" : "production",
@@ -124,7 +128,7 @@ export default options => {
     typeProvider(config, {
       options,
       pkg,
-      fromPackage,
+      fromPackage: fromRoot,
     })
   }
 
@@ -179,9 +183,8 @@ export default options => {
     extra.push(options.extraDevelopment)
   }
 
-  if (extra.length) {
-    return webpackMerge.smart(config, ...extra)
-  } else {
-    return config
-  }
+  const mergedConfig = extra.lenght ? webpackMerge.smart(config, ...extra) : config
+
+
+  return mergedConfig
 }
