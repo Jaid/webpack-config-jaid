@@ -10,10 +10,36 @@ import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import {isObject, isArray} from "lodash"
 import fss from "@absolunet/fss"
+import json5 from "json5"
+
+const debug = require("debug")("webpack-config-jaid")
 
 const env = (process.env.NODE_ENV || "development").toLowerCase()
+debug(`NODE_ENV: ${env}`)
 
 export default options => {
+  debug(`Options: ${options |> json5.stringify}`)
+
+  let typeProvider
+  let typeDefaultOptions
+  if (options.type) {
+    try {
+      typeProvider = require(`./types/${options.type}`)
+    } catch (error) {
+      if (typeof typeProvider !== "function") {
+        throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeProvider}`, error)
+      }
+    }
+    if (typeof typeProvider.defaultOptions === "function") {
+      typeDefaultOptions = typeProvider.defaultOptions({
+        env,
+        options,
+        fromRoot,
+      })
+      debug(`Including default options from ${options.type}: ${typeDefaultOptions |> json5.stringify}`)
+    }
+  }
+
   options = {
     packageRoot: String(appRootPath),
     development: env !== "production",
@@ -31,6 +57,7 @@ export default options => {
     documentation: false,
     nodeExternals: true,
     configOutput: false,
+    ...(typeDefaultOptions || {}),
     ...options,
   }
 
@@ -47,6 +74,7 @@ export default options => {
     pkg = readPkg.sync({
       cwd: options.packageRoot,
     })
+    debug(`Pkg data: ${pkg |> json5.stringify}`)
   } catch {
     pkg = {}
   }
@@ -82,7 +110,7 @@ export default options => {
         },
       ],
     },
-    plugins: [new FriendlyErrorsWebpackPlugin],
+    plugins: [],
     output: {
       path: options.outDir,
       filename: "index.js",
@@ -90,6 +118,10 @@ export default options => {
     optimization: {
       noEmitOnErrors: true,
     },
+  }
+
+  if (env !== "test") {
+    config.plugins.push(new FriendlyErrorsWebpackPlugin)
   }
 
   if (options.clean) {
@@ -120,18 +152,6 @@ export default options => {
       errorDetails: true,
       chunks: true,
     }
-  }
-
-  if (options.type) {
-    const {default: typeProvider} = require(`./types/${options.type}`)
-    if (typeof typeProvider !== "function") {
-      throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeProvider}`)
-    }
-    typeProvider(config, {
-      options,
-      pkg,
-      fromRoot,
-    })
   }
 
   if (options.nodeExternals && pkg.dependencies) {
@@ -171,7 +191,19 @@ export default options => {
     config.plugins.push(new CopyWebpackPlugin(options.include))
   }
 
+  debug(`Base config: ${config |> json5.stringify}`)
+
   const extra = []
+
+  if (typeof typeProvider?.webpackConfig === "function") {
+    const typeWebpackConfig = typeProvider.webpackConfig({
+      pkg,
+      env,
+      options,
+      fromRoot,
+    })
+    extra.push(typeWebpackConfig)
+  }
 
   if (options.extra) {
     extra.push(options.extra)
@@ -185,12 +217,18 @@ export default options => {
     extra.push(options.extraDevelopment)
   }
 
-  const mergedConfig = extra.lenght ? webpackMerge.smart(config, ...extra) : config
+  extra.forEach((extraEntry, index) => {
+    debug(`Extra config #${index + 1}: ${extraEntry |> json5.stringify}`)
+  })
+
+  const mergedConfig = extra.length ? webpackMerge.smart(config, ...extra) : config
 
   if (options.configOutput) {
     const outputFile = options.configOutput === true ? path.resolve(options.outDir, "webpackConfig.json5") : path.resolve(options.configOutput)
     fss.outputJson5(outputFile, mergedConfig, {space: 2})
   }
+
+  debug(`Final Webpack config: ${mergedConfig |> json5.stringify}`)
 
   return mergedConfig
 }

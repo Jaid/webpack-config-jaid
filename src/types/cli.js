@@ -1,3 +1,6 @@
-export default config => {
-  config.target = "node"
-}
+export const webpackConfig = () => ({
+  target: "node",
+  optimization: {
+    nodeEnv: false,
+  },
+})
