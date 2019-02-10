@@ -20,6 +20,7 @@ export default options => {
     extra: null,
     extraProduction: null,
     extraDevelopment: null,
+    type: null,
     include: [
       "readme.*",
       "README.*",
