@@ -25,6 +25,7 @@
     "debug": "^4.1.1",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "jsdoc-tsd-webpack-plugin": "^3.1.1",
+    "json5": "^2.1.0",
     "lodash": "^4.17.11",
     "lodash-webpack-plugin": "^0.11.5",
     "pascal-case": "^2.0.1",
@@ -63,7 +64,7 @@
     "build:dev": "webpack",
     "test": "jest && npm run build:prod && cross-env MAIN=dist/package/production jest",
     "test:dev": "npm run build:dev && jest",
-    "test:debug": "node --inspect=9229 node_modules/jest/bin/jest.js --runInBand",
+    "test:debug": "cross-env DEBUG=$(basename $PWD) node --inspect=9229 node_modules/jest/bin/jest.js --runInBand",
     "release": "npm test && cross-env git tag v$npm_package_version && git push --tags && cross-env opn https://github.com/$npm_package_author_name/$(basename $PWD)/releases/new?tag=v$npm_package_version"
   }
 }
