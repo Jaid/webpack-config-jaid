@@ -3,4 +3,7 @@ export const webpackConfig = () => ({
   optimization: {
     nodeEnv: false,
   },
+  output: {
+    filename: "cli.js",
+  },
 })

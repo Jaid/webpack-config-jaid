@@ -34,7 +34,6 @@ export default options => {
       typeDefaultOptions = typeProvider.defaultOptions({
         env,
         options,
-        fromRoot,
       })
       debug(`Including default options from ${options.type}: ${typeDefaultOptions |> json5.stringify}`)
     }
