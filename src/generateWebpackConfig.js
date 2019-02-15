@@ -11,6 +11,7 @@ import CopyWebpackPlugin from "copy-webpack-plugin"
 import {isObject, isArray} from "lodash"
 import fss from "@absolunet/fss"
 import json5 from "json5"
+import webpack from "webpack"
 
 const debug = require("debug")("webpack-config-jaid")
 
@@ -34,6 +35,7 @@ export default options => {
       typeDefaultOptions = typeProvider.defaultOptions({
         env,
         options,
+        webpack,
       })
       debug(`Including default options from ${options.type}: ${typeDefaultOptions |> json5.stringify}`)
     }
