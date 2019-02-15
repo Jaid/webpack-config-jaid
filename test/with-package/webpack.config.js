@@ -1,4 +1,4 @@
-exports.default = (webpackConfigJaid, packageRoot, outDir, development) => webpackConfigJaid.configureLib({
+exports.default = (webpackConfigJaid, packageRoot, outDir, development) => webpackConfigJaid.configureNodeLib({
   packageRoot,
   outDir,
   development,

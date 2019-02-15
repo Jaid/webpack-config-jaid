@@ -1,6 +1,6 @@
 const path = require("path")
 
-exports.default = (webpackConfigJaid, packageRoot, outDir, development) => webpackConfigJaid.configureLibClass({
+exports.default = (webpackConfigJaid, packageRoot, outDir, development) => webpackConfigJaid.configureNodeClass({
   packageRoot,
   outDir,
   development,

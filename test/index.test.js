@@ -29,7 +29,7 @@ const setupTest = (name, packageRoot) => {
         if (fss.pathExists(configPath)) {
           webpackConfig = require(configPath).default(webpackConfigJaid, packageRoot, packageOutDir, development)
         } else {
-          webpackConfig = webpackConfigJaid.configureLib({
+          webpackConfig = webpackConfigJaid.configureNodeLib({
             packageRoot,
             development,
             outDir: packageOutDir,

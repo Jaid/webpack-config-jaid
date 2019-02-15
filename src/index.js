@@ -9,7 +9,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {object} [extra={}] Additional Webpack configuration
  * @property {object} [extraProduction={}] Additional Webpack configuration that only gets applied in development mode
  * @property {object} [extraDevelopment={}] Additional Webpack configuration that only gets applied in production mode
- * @property {null|"cli"|"lib"|"libClass"} [type=null] The project type which will automatically add some configuration
+ * @property {null|"cli"|"nodeLib"|"nodeClass"} [type=null] The project type which will automatically add some configuration
  * @property {array} [include=["readme.*","README.*","license.*","LICENSE.*"]] Files (relative to project directory) that get copied to dist directory
  * @property {boolean|object} [publishimo=false] Set to true to include publishimo-webpack-plugin, or set as object to add options for the plugin instance
  * @property {boolean|object} [documentation=false] Set to true to include jsdoc-tsd-webpack-plugin, or set as object to add options for the plugin instance
@@ -38,23 +38,27 @@ export const configureCli = options => generateWebpackConfig({
 })
 
 /**
- * Creates Webpack config based on given options, uses type "lib"
- * @function configureLib
+ * Creates Webpack config based on given options, uses type "nodeLib"
+ * @function configureNodeLib
  * @param {webpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureLib = options => generateWebpackConfig({
+export const configureNodeLib = options => generateWebpackConfig({
   ...options,
-  type: "lib",
+  type: "nodeLib",
 })
 
 /**
- * Creates Webpack config based on given options, uses type "libClass"
- * @function configureLibClass
+ * Creates Webpack config based on given options, uses type "nodeClass"
+ * @function configureNodeClass
  * @param {webpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureLibClass = options => generateWebpackConfig({
+export const configureNodeClass = options => generateWebpackConfig({
   ...options,
-  type: "libClass",
+  type: "nodeClass",
 })
+
+// Backwards compatibility
+export const configureLib = configureNodeLib
+export const configureLibClass = configureNodeClass
