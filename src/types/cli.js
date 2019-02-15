@@ -1,3 +1,5 @@
+import {BannerPlugin} from "webpack"
+
 export const webpackConfig = () => ({
   target: "node",
   optimization: {
@@ -6,4 +8,10 @@ export const webpackConfig = () => ({
   output: {
     filename: "cli.js",
   },
+  plugins: [
+    new BannerPlugin({
+      banner: "#!/usr/bin/env node",
+      raw: true,
+    }),
+  ],
 })
