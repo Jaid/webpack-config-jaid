@@ -1,6 +1,6 @@
-import {configureNodeLib} from "./src"
+const configure = require("./src").configureNodeLib
 
-export default configureNodeLib({
+module.exports = configure({
   documentation: {babel: true},
   publishimo: {fetchGithub: true},
 })
