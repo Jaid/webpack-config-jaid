@@ -136,12 +136,16 @@ export default options => {
   }
 
   if (options.clean) {
+    const defaultOptions = {
+      allowExternal: true,
+      verbose: false,
+    }
     if (isObject(options.clean)) {
       config.plugins.push(new CleanWebpackPlugin([options.outDir], options.clean))
     } else if (isArray(options.clean)) {
-      config.plugins.push(new CleanWebpackPlugin(options.clean, {allowExternal: true}))
+      config.plugins.push(new CleanWebpackPlugin(options.clean, defaultOptions))
     } else if (options.clean === true) {
-      config.plugins.push(new CleanWebpackPlugin([options.outDir], {allowExternal: true}))
+      config.plugins.push(new CleanWebpackPlugin([options.outDir], defaultOptions))
     }
   }
 
