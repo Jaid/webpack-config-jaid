@@ -1,4 +1,4 @@
-const {default: PrepackWebpackPlugin} = require("prepack-webpack-plugin")
+// const {default: PrepackWebpackPlugin} = require("prepack-webpack-plugin")
 
 exports.default = (webpackConfigJaid, packageRoot, outDir, development) => webpackConfigJaid.configureUniversalLib({
   packageRoot,
