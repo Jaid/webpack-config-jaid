@@ -119,6 +119,16 @@ export default options => {
     optimization: {
       noEmitOnErrors: true,
     },
+    stats: {
+      all: false,
+      assets: true,
+      assetsSort: "!size",
+      excludeAssets: /.map$/,
+      colors: true,
+      warnings: true,
+      errors: true,
+      errorDetails: true,
+    },
   }
 
   if (env !== "test") {
@@ -144,15 +154,6 @@ export default options => {
         amd: "[Exposing Section] amd",
       },
     })
-    config.stats = {
-      all: false,
-      modules: true,
-      errors: true,
-      warnings: true,
-      moduleTrace: true,
-      errorDetails: true,
-      chunks: true,
-    }
   }
 
   if (options.nodeExternals && pkg.dependencies) {
