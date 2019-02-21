@@ -80,7 +80,3 @@ export const configureUniversalClass = options => generateWebpackConfig({
   ...options,
   type: "universalClass",
 })
-
-// Backwards compatibility
-export const configureLib = configureNodeLib
-export const configureLibClass = configureNodeClass
