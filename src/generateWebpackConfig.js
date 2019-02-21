@@ -90,10 +90,6 @@ export default options => {
     entry: fromRoot("src"),
     resolve: {
       extensions: [".js", ".json", ".yml"],
-      alias: {
-        root: fromRoot(),
-        lib: fromRoot("src", "lib"),
-      },
     },
     mode: options.development ? "development" : "production",
     devtool: options.development ? "inline-source-map" : "source-map",
