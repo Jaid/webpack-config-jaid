@@ -1,0 +1,11 @@
+{
+  "name": "prepack-test",
+  "babel": {
+    "presets": [
+      "jaid-node"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "jaid"
+  }
+}
