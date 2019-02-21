@@ -128,7 +128,7 @@ export default options => {
       all: false,
       assets: true,
       assetsSort: "!size",
-      excludeAssets: /.map$/,
+      excludeAssets: /.(map|d.ts)$/,
       colors: true,
       warnings: true,
       errors: true,
