@@ -9,7 +9,7 @@ import sortKeys from "sort-keys"
 const webpack = pify(require("webpack"))
 const getFolderSize = pify(require("get-folder-size"))
 
-const indexModule = (process.env.MAIN ? path.resolve(process.env.MAIN) : path.join(__dirname, "..", "src"))
+const indexModule = process.env.MAIN ? path.resolve(__dirname, "..", process.env.MAIN) : path.join(__dirname, "..", "src")
 const webpackConfigJaid = require(indexModule)
 
 const setupTest = (name, packageRoot) => {
