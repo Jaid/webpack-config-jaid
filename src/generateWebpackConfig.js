@@ -23,7 +23,6 @@ const defaultCleanWebpackPluginOptions = {
   verbose: false,
 }
 
-
 export default options => {
   debug(`Options: ${options |> json5.stringify}`)
 
