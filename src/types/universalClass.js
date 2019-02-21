@@ -1,5 +1,9 @@
 import pascalCase from "pascal-case"
 
+export const defaultOptions = () => ({
+  nodeExternals: false,
+})
+
 export const webpackConfig = ({pkg}) => {
   const config = {
     output: {

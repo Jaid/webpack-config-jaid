@@ -1,5 +1,9 @@
 import {camelCase} from "lodash"
 
+export const defaultOptions = () => ({
+  nodeExternals: false,
+})
+
 export const webpackConfig = ({pkg}) => {
   const config = {
     output: {
