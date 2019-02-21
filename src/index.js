@@ -9,7 +9,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {object} [extra={}] Additional Webpack configuration
  * @property {object} [extraProduction={}] Additional Webpack configuration that only gets applied in development mode
  * @property {object} [extraDevelopment={}] Additional Webpack configuration that only gets applied in production mode
- * @property {null|"cli"|"nodeLib"|"nodeClass"} [type=null] The project type which will automatically add some configuration
+ * @property {"cli"|"nodeLib"|"nodeClass"|"universalLib"|"universalClass"} [type=null] The project type which will automatically add some configuration
  * @property {array} [include=["readme.*","README.*","license.*","LICENSE.*"]] Files (relative to project directory) that get copied to dist directory
  * @property {boolean|object} [publishimo=false] Set to true to include publishimo-webpack-plugin, or set as object to add options for the plugin instance
  * @property {boolean|object} [documentation=false] Set to true to include jsdoc-tsd-webpack-plugin, or set as object to add options for the plugin instance
@@ -57,6 +57,28 @@ export const configureNodeLib = options => generateWebpackConfig({
 export const configureNodeClass = options => generateWebpackConfig({
   ...options,
   type: "nodeClass",
+})
+
+/**
+ * Creates Webpack config based on given options, uses type "universalLib"
+ * @function configureUniversalLib
+ * @param {webpackConfigJaidOptions} [options] Given options
+ * @returns {object} Webpack configuration object
+ */
+export const configureUniversalLib = options => generateWebpackConfig({
+  ...options,
+  type: "universalLib",
+})
+
+/**
+ * Creates Webpack config based on given options, uses type "universalClass"
+ * @function configureUniversalClass
+ * @param {webpackConfigJaidOptions} [options] Given options
+ * @returns {object} Webpack configuration object
+ */
+export const configureUniversalClass = options => generateWebpackConfig({
+  ...options,
+  type: "universalClass",
 })
 
 // Backwards compatibility
