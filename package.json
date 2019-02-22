@@ -4,7 +4,7 @@
   "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
   "babel": {
     "presets": [
-      "jaid-node"
+      "jaid"
     ]
   },
   "eslintConfig": {
@@ -12,7 +12,10 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "coverageDirectory": "dist/jest/coverage"
+    "coverageDirectory": "dist/jest/coverage",
+    "collectCoverageFrom": [
+      "src/**"
+    ]
   },
   "dependencies": {
     "@absolunet/fss": "^1.4.0",
