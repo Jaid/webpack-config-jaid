@@ -18,11 +18,6 @@ const debug = require("debug")("webpack-config-jaid")
 const env = (process.env.NODE_ENV || "development").toLowerCase()
 debug(`NODE_ENV: ${env}`)
 
-const defaultCleanWebpackPluginOptions = {
-  allowExternal: true,
-  verbose: false,
-}
-
 export default options => {
   debug(`Options: ${options |> json5.stringify}`)
 
@@ -138,11 +133,17 @@ export default options => {
 
   if (options.clean) {
     if (isObject(options.clean)) {
-      config.plugins.push(new CleanWebpackPlugin([options.outDir], options.clean))
+      config.plugins.push(new CleanWebpackPlugin(options.clean))
     } else if (isArray(options.clean)) {
-      config.plugins.push(new CleanWebpackPlugin(options.clean, defaultCleanWebpackPluginOptions))
+      config.plugins.push(new CleanWebpackPlugin({
+        verbose: false,
+        cleanOnceBeforeBuildPatterns: options.clean,
+      }))
     } else if (options.clean === true) {
-      config.plugins.push(new CleanWebpackPlugin([options.outDir], defaultCleanWebpackPluginOptions))
+      config.plugins.push(new CleanWebpackPlugin({
+        verbose: false,
+        cleanOnceBeforeBuildPatterns: [options.outDir],
+      }))
     }
   }
 
@@ -172,7 +173,10 @@ export default options => {
     if (options.clean) {
       const htmlJsdocPath = path.join(path.dirname(options.outDir), "homepage")
       const tsdJsdocPath = path.join(path.dirname(options.outDir), "tsd")
-      config.plugins.push(new CleanWebpackPlugin([htmlJsdocPath, tsdJsdocPath], defaultCleanWebpackPluginOptions))
+      config.plugins.push(new CleanWebpackPlugin({
+        verbose: false,
+        cleanOnceBeforeBuildPatterns: [htmlJsdocPath, tsdJsdocPath],
+      }))
     }
   }
 
