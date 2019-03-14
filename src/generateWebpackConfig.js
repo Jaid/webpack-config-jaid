@@ -16,11 +16,9 @@ import webpack from "webpack"
 const debug = require("debug")("webpack-config-jaid")
 
 const env = (process.env.NODE_ENV || "development").toLowerCase()
-const isDevelopment = env !== "production"
-
-debug(`NODE_ENV: ${env}`)
 
 export default options => {
+  debug(`NODE_ENV: ${env}`)
   debug(`Options: ${options |> json5.stringify}`)
 
   let typeProvider
@@ -36,7 +34,6 @@ export default options => {
     if (typeof typeProvider.defaultOptions === "function") {
       typeDefaultOptions = typeProvider.defaultOptions({
         env,
-        isDevelopment,
         options,
         webpack,
       })
@@ -46,7 +43,7 @@ export default options => {
 
   options = {
     packageRoot: String(appRootPath),
-    development: isDevelopment,
+    development: env !== "production",
     extra: null,
     extraProduction: null,
     extraDevelopment: null,
@@ -114,7 +111,12 @@ export default options => {
         },
       ],
     },
-    plugins: [],
+    plugins: [
+      new webpack.LoaderOptionsPlugin({
+        debug: options.development,
+        minimize: !options.development,
+      }),
+    ],
     output: {
       path: options.outDir,
       filename: "index.js",
@@ -213,7 +215,6 @@ export default options => {
     const typeWebpackConfig = typeProvider.webpackConfig({
       pkg,
       env,
-      isDevelopment,
       options,
       fromRoot,
     })
