@@ -16,6 +16,8 @@ import webpack from "webpack"
 const debug = require("debug")("webpack-config-jaid")
 
 const env = (process.env.NODE_ENV || "development").toLowerCase()
+const isDevelopment = env !== "production"
+
 debug(`NODE_ENV: ${env}`)
 
 export default options => {
@@ -34,6 +36,7 @@ export default options => {
     if (typeof typeProvider.defaultOptions === "function") {
       typeDefaultOptions = typeProvider.defaultOptions({
         env,
+        isDevelopment,
         options,
         webpack,
       })
@@ -43,7 +46,7 @@ export default options => {
 
   options = {
     packageRoot: String(appRootPath),
-    development: env !== "production",
+    development: isDevelopment,
     extra: null,
     extraProduction: null,
     extraDevelopment: null,
@@ -104,6 +107,10 @@ export default options => {
         {
           test: /\.ya?ml$/,
           loader: "yml-loader",
+        },
+        {
+          test: /\.txt$/,
+          loader: "raw-loader",
         },
       ],
     },
@@ -206,6 +213,7 @@ export default options => {
     const typeWebpackConfig = typeProvider.webpackConfig({
       pkg,
       env,
+      isDevelopment,
       options,
       fromRoot,
     })
