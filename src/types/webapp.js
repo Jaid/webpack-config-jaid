@@ -10,6 +10,10 @@ import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import webpackMerge from "webpack-merge"
 import webpack from "webpack"
 
+export const defaultOptions = () => ({
+  nodeExternals: false,
+})
+
 const getPostcssConfig = options => {
   const plugins = []
 
