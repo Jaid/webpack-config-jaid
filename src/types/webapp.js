@@ -49,9 +49,6 @@ const getPostcssConfig = options => {
       "unspecified-properties-position": "bottomAlphabetical",
     })
     addPlugin("-ordered-values") // Sorts arguments of properties, border for example
-    addPlugin("cssnano", { // Minifies output
-      reduceIdents: true, // http://cssnano.co/guides/optimisations
-    })
   }
 
   return {
