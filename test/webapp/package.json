@@ -1,0 +1,6 @@
+{
+  "name": "webapp",
+  "dependencies": {
+    "postcss-nested": "^4.1.2"
+  }
+}

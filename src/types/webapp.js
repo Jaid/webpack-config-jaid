@@ -15,7 +15,7 @@ const getPostcssConfig = options => {
 
   const addPlugin = (plugin, pluginOptions) => {
     const pluginName = plugin[0] === "-" ? `postcss${plugin}` : plugin
-    plugins.push(require(pluginName)(pluginOptions))
+    plugins.push(__non_webpack_require__(pluginName)(pluginOptions))
   }
 
   addPlugin("-nested") // Resolves nested blocks
