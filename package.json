@@ -23,6 +23,7 @@
     "lodash": "^4.17.11",
     "lodash-webpack-plugin": "^0.11.5",
     "markdown-loader": "^5.0.0",
+    "node-sass": "^4.11.0",
     "pascal-case": "^2.0.1",
     "postcss-center": "^1.1.0",
     "postcss-easings": "^2.0.0",
