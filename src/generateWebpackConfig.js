@@ -1,4 +1,5 @@
 import path from "path"
+import fs from "fs"
 
 import readPkg from "read-pkg"
 import webpackMerge from "webpack-merge"
@@ -80,9 +81,12 @@ export default options => {
     pkg = {}
   }
 
+  const specificEntry = fromRoot("src", `index.${env}.js`)
+  const entry = fs.existsSync(specificEntry) ? specificEntry : fromRoot("src")
+
   const config = {
+    entry,
     context: path.resolve(options.packageRoot),
-    entry: fromRoot("src"),
     resolve: {
       extensions: [".js", ".json", ".yml"],
     },
@@ -216,6 +220,7 @@ export default options => {
       pkg,
       env,
       options,
+      initialWebpackConfig,
       fromRoot,
     })
     extra.push(typeWebpackConfig)

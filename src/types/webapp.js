@@ -65,7 +65,7 @@ const getPostcssConfig = options => {
   }
 }
 
-export const webpackConfig = ({options, pkg, fromRoot}) => {
+export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) => {
   const port = process.env.webpackPort || 1212
   const title = options.title || pkg.title || pkg.config?.title || "App"
 
@@ -157,7 +157,7 @@ export const webpackConfig = ({options, pkg, fromRoot}) => {
         "react-hot-loader/patch",
         `webpack-dev-server/client?http://localhost:${port}/`,
         "webpack/hot/only-dev-server",
-        fromRoot("src"),
+        initialWebpackConfig.entry,
       ],
       devServer: {
         port,
