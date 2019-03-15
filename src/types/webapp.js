@@ -156,7 +156,7 @@ export const webpackConfig = ({options, pkg, fromRoot}) => {
         overlay: true,
         stats: "errors-only",
         headers: {"Access-Control-Allow-Origin": "*"},
-        contentBase: path.resolve(__dirname, "..", "dist"),
+        contentBase: fromRoot("dist", "package", "development"),
         historyApiFallback: {
           verbose: true,
           disableDotRule: false,
