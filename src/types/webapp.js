@@ -21,7 +21,12 @@ const getPostcssConfig = options => {
     if (pluginName[0] === "-") {
       pluginName = `postcss${pluginName}`
     }
-    const plugin = (global.__non_webpack_require__ ? __non_webpack_require__ : require)(pluginName)(pluginOptions)
+    let plugin
+    try {
+      plugin = __non_webpack_require__(pluginName)(pluginOptions)
+    } catch {
+      plugin = require(pluginName)(pluginOptions)
+    }
     plugins.push(plugin)
   }
 
