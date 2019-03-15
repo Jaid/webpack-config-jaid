@@ -81,8 +81,16 @@ export default options => {
     pkg = {}
   }
 
+  let entry
   const specificEntry = fromRoot("src", `index.${env}.js`)
-  const entry = fs.existsSync(specificEntry) ? specificEntry : fromRoot("src")
+  if (fs.existsSync(specificEntry)) {
+    entry = specificEntry
+    debug("Using environment-specific entry %s", specificEntry)
+  } else {
+    const defaultEntry = fromRoot("src")
+    entry = defaultEntry
+    debug("Couldn not find entry %s, using %s instead", specificEntry, defaultEntry)
+  }
 
   const config = {
     entry,
