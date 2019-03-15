@@ -76,6 +76,11 @@ export const webpackConfig = ({options, pkg, fromRoot}) => {
   }
 
   let additionalWebpackConfig = {
+    target: "web",
+    output: {
+      publicPath: `http://localhost:${port}/dist/`,
+      filename: options.development ? "index.js" : "[hash:base64:6].[ext]",
+    },
     module: {
       rules: [
         {
