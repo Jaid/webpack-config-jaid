@@ -176,6 +176,11 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
         },
       },
       plugins: [new webpack.HotModuleReplacementPlugin],
+      resolve: {
+        alias: {
+          "react-dom": "@hot-loader/react-dom",
+        },
+      },
     })
   }
 
