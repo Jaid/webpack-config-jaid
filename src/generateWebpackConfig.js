@@ -220,8 +220,8 @@ export default options => {
       pkg,
       env,
       options,
-      initialWebpackConfig,
       fromRoot,
+      initialWebpackConfig: config,
     })
     extra.push(typeWebpackConfig)
   }
