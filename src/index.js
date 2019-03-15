@@ -16,6 +16,10 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {boolean} [nodeExternals=true] If true, package dependencies will be loaded at runtime with require(), if false, they will be bundled
  * @property {boolean|string} [configOutput=false] Path to a file where the generated Webpack config gets written to
  * @property {boolean|string[]|object} [clean=!options.development] If false, no files and folders will be removed. If true, removed folders will be decided automatically. If an array is given, its paths will be removed. If an object is given, removed folders will be decided automatically and `options.clean` will be forwarded to the constructor of CleanWebpackPlugin.
+ * @property {string} [title] Project title
+ * @property {boolean|object} [robots=false] For type `webapp`: If `true`, output robots.txt
+ * @property {string} [icon] For type `webapp`: If typeof `string`, this will be used as path to png icon
+ * @property {string} [domain] For type `webapp`: If typeof `string`, this will be used as domain for CNAME
  */
 
 /**
