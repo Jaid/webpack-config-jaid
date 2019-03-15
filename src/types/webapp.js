@@ -86,7 +86,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
   let additionalWebpackConfig = {
     target: "web",
     output: {
-      publicPath: `http://localhost:${port}/dist/`,
+      publicPath: `http://localhost:${port}`,
       filename: options.development ? "index.js" : "[chunkhash:6].js",
     },
     module: {
@@ -155,13 +155,13 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     additionalWebpackConfig = webpackMerge.smart(additionalWebpackConfig, {
       entry: [
         "react-hot-loader/patch",
-        `webpack-dev-server/client?http://localhost:${port}/`,
+        `webpack-dev-server/client?http://localhost:${port}`,
         "webpack/hot/only-dev-server",
         initialWebpackConfig.entry,
       ],
       devServer: {
         port,
-        publicPath: `http://localhost:${port}/dist/`,
+        publicPath: `http://localhost:${port}`,
         inline: true,
         lazy: false,
         hot: true,
