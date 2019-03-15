@@ -17,9 +17,12 @@ export const defaultOptions = () => ({
 const getPostcssConfig = options => {
   const plugins = []
 
-  const addPlugin = (plugin, pluginOptions) => {
-    const pluginName = plugin[0] === "-" ? `postcss${plugin}` : plugin
-    plugins.push(__non_webpack_require__(pluginName)(pluginOptions))
+  const addPlugin = (pluginName, pluginOptions) => {
+    if (pluginName[0] === "-") {
+      pluginName = `postcss${pluginName}`
+    }
+    const plugin = (global.__non_webpack_require__ ? __non_webpack_require__ : require)(pluginName)(pluginOptions)
+    plugins.push(plugin)
   }
 
   addPlugin("-nested") // Resolves nested blocks
@@ -79,7 +82,7 @@ export const webpackConfig = ({options, pkg, fromRoot}) => {
     target: "web",
     output: {
       publicPath: `http://localhost:${port}/dist/`,
-      filename: options.development ? "index.js" : "[hash:base64:6].[ext]",
+      filename: options.development ? "index.js" : "[chunkhash:6].js",
     },
     module: {
       rules: [
