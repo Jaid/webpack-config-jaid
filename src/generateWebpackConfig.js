@@ -115,7 +115,7 @@ export default options => {
         },
         {
           test: /\.jsx?$/,
-          exclude: /node_modules\//,
+          include: fromRoot("src"),
           loader: "babel-loader",
         },
         {
