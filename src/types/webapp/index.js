@@ -1,16 +1,14 @@
-import path from "path"
-
 import {isObject} from "lodash"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import CnamePlugin from "cname-webpack-plugin"
 import WebappPlugin from "webapp-webpack-plugin"
 import HtmlPlugin from "html-webpack-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
+import MonacoEditorPlugin from "monaco-editor-webpack-plugin"
 import webpackMerge from "webpack-merge"
 import webpack from "webpack"
 
-import getDefaultStyleRules from "./getDefaultStyleRules"
-import getMonacoStyleRules from "./getMonacoStyleRules"
+import getPostcssConfig from "./getPostcssConfig"
 
 export const defaultOptions = () => ({
   nodeExternals: false,
@@ -19,6 +17,29 @@ export const defaultOptions = () => ({
 export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) => {
   const port = process.env.webpackPort || 1212
   const title = options.title || pkg.title || pkg.config?.title || "App"
+  const srcDirectory = fromRoot("src")
+
+  const internalCssLoader = {
+    loader: "css-loader",
+    options: {
+      sourceMap: options.development,
+      modules: true,
+      localIdentName: options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]",
+    },
+  }
+
+  const externalCssLoader = {
+    loader: "css-loader",
+    options: {
+      sourceMap: options.development,
+      localIdentName: options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:4]",
+    },
+  }
+
+  const postcssLoader = {
+    loader: "postcss-loader",
+    options: getPostcssConfig(options),
+  }
 
   let additionalWebpackConfig = {
     target: "web",
@@ -35,6 +56,40 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
         {
           test: /\.md$/,
           use: ["html-loader", "markdown-loader"],
+        },
+        {
+          test: /\.(css|postcss|scss)$/,
+          use: {
+            loader: "style-loader",
+            options: {
+              hmr: options.development,
+              singleton: !options.development,
+            },
+          },
+        },
+        {
+          test: /\.css$/,
+          include: srcDirectory,
+          use: [
+            internalCssLoader,
+            postcssLoader,
+          ],
+        },
+        {
+          test: /\.css$/,
+          exclude: srcDirectory,
+          use: [
+            externalCssLoader,
+            postcssLoader,
+          ],
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            cssLoader,
+            postcssLoader,
+            "sass-loader",
+          ],
         },
       ],
     },
@@ -131,8 +186,12 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
       additionalWebpackConfig.plugins.push(new RobotsTxtPlugin(options.robots))
     }
   }
+  if (options.includeMonacoEditor) {
+    const pluginOptions = isObject(options.includeMonacoEditor) ? options.includeMonacoEditor : {
+      languages: ["javascript", "json"],
+    }
+    additionalWebpackConfig.plugins.push(new MonacoEditorPlugin(pluginOptions))
+  }
 
-  const styleRules = (options.includeMonacoEditor ? getMonacoStyleRules : getDefaultStyleRules)(options, fromRoot)
-
-  return webpackMerge.smart(additionalWebpackConfig, styleRules)
+  return additionalWebpackConfig
 }

@@ -52,7 +52,7 @@
   "devDependencies": {
     "@hot-loader/react-dom": "^16.8.4",
     "babel-jest": "^24.5.0",
-    "babel-preset-jaid": "^5.5.0",
+    "babel-preset-jaid": "^5.6.1",
     "chalk": "^2.4.2",
     "coffee": "^5.2.1",
     "cross-env": "^5.2.0",
