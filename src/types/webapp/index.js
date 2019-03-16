@@ -86,7 +86,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
         {
           test: /\.scss$/,
           use: [
-            cssLoader,
+            internalCssLoader,
             postcssLoader,
             "sass-loader",
           ],
