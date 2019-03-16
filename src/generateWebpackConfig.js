@@ -59,6 +59,11 @@ export default options => {
     documentation: false,
     nodeExternals: true,
     configOutput: false,
+    title: null,
+    robots: false,
+    icon: null,
+    domain: null,
+    includeMonacoEditor: false,
     ...(typeDefaultOptions || {}),
     ...options,
   }
