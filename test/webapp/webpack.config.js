@@ -2,4 +2,5 @@ exports.default = (webpackConfigJaid, packageRoot, outDir, development) => webpa
   packageRoot,
   outDir,
   development,
+  includeMonacoEditor: true,
 })

@@ -5,83 +5,20 @@ import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import CnamePlugin from "cname-webpack-plugin"
 import WebappPlugin from "webapp-webpack-plugin"
 import HtmlPlugin from "html-webpack-plugin"
-// import HarddiskPlugin from "html-webpack-harddisk-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import webpackMerge from "webpack-merge"
 import webpack from "webpack"
+
+import getDefaultStyleRules from "./getDefaultStyleRules"
+import getMonacoStyleRules from "./getMonacoStyleRules"
 
 export const defaultOptions = () => ({
   nodeExternals: false,
 })
 
-const getPostcssConfig = options => {
-  const plugins = []
-
-  const addPlugin = (pluginName, pluginOptions) => {
-    if (pluginName[0] === "-") {
-      pluginName = `postcss${pluginName}`
-    }
-    let plugin
-    try {
-      plugin = __non_webpack_require__(pluginName)(pluginOptions)
-    } catch {
-      plugin = require(pluginName)(pluginOptions)
-    }
-    plugins.push(plugin)
-  }
-
-  addPlugin("-nested") // Resolves nested blocks
-  addPlugin("-preset-env") // Adds a bunch of CSS features
-  addPlugin("-easings") // Translates some easings from http://easings.net/
-  addPlugin("-import") // Inlines @import statements
-  addPlugin("-center") // Adds "top: center" and "left: center"
-
-  if (!options.development) {
-    addPlugin("-sorting", { // Sorts property names alphabetically
-      order: [
-        "custom-properties",
-        "dollar-variables",
-        "declarations",
-        "rules",
-        "at-rules",
-      ],
-      "properties-order": [
-        "content",
-        "display",
-        "flex",
-        "width",
-        "height",
-        "margin",
-        "padding",
-      ],
-      "unspecified-properties-position": "bottomAlphabetical",
-    })
-    addPlugin("-ordered-values") // Sorts arguments of properties, border for example
-  }
-
-  return {
-    plugins,
-    ident: "postcss",
-  }
-}
-
 export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) => {
   const port = process.env.webpackPort || 1212
   const title = options.title || pkg.title || pkg.config?.title || "App"
-
-  const cssLoader = {
-    loader: "css-loader",
-    options: {
-      sourceMap: options.development,
-      modules: true,
-      localIdentName: options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]",
-    },
-  }
-
-  const postcssLoader = {
-    loader: "postcss-loader",
-    options: getPostcssConfig(options),
-  }
 
   let additionalWebpackConfig = {
     target: "web",
@@ -91,31 +28,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     },
     module: {
       rules: [
-        {
-          test: /\.(css|postcss|scss)$/,
-          use: {
-            loader: "style-loader",
-            options: {
-              hmr: options.development,
-              singleton: !options.development,
-            },
-          },
-        },
-        {
-          test: /\.(css|postcss)$/,
-          use: [
-            cssLoader,
-            postcssLoader,
-          ],
-        },
-        {
-          test: /\.scss$/, // scss without local css-modules
-          use: [
-            cssLoader,
-            postcssLoader,
-            "sass-loader",
-          ],
-        },
         {
           test: /\.(png|jpe?g|gif|svg|woff2|ico)$/,
           loader: "url-loader",
@@ -220,5 +132,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     }
   }
 
-  return additionalWebpackConfig
+  const styleRules = (options.includeMonacoEditor ? getMonacoStyleRules : getDefaultStyleRules)(options, fromRoot)
+
+  return webpackMerge.smart(additionalWebpackConfig, styleRules)
 }

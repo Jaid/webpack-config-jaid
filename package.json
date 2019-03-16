@@ -62,6 +62,7 @@
     "get-folder-size": "^2.0.1",
     "jest": "^24.5.0",
     "make-dir": "^2.1.0",
+    "monaco-editor": "^0.16.1",
     "opn-cli": "^4.0.0",
     "pify": "^4.0.1",
     "prepack": "^0.2.54",
