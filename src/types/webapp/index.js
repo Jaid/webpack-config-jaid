@@ -50,7 +50,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     module: {
       rules: [
         {
-          test: /\.(png|jpe?g|gif|svg|woff2|ico)$/,
+          test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot|otf|ico)$/,
           loader: "url-loader",
         },
         {
