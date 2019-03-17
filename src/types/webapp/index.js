@@ -16,7 +16,17 @@ export const defaultOptions = () => ({
 })
 
 export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) => {
-  const port = process.env.webpackPort || 1212
+  const port = process.env.webpackPort
+  const publicPath = do{
+    if (port) {
+      `http://localhost:${port}/`
+    } else if (!options.development && options.domain) {
+      `https://${domain}/`
+    } else if (options.development) {
+      fromRoot("src")
+    }
+    ""
+  }
   const title = options.title || pkg.title || pkg.config?.title || "App"
   const srcDirectory = fromRoot("src")
 
@@ -91,7 +101,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
   let additionalWebpackConfig = {
     target: "web",
     output: {
-      publicPath: `http://localhost:${port}/`,
+      publicPath,
       filename: options.development ? "index.js" : "[chunkhash:6].js",
     },
     module: {
@@ -143,7 +153,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     ],
   }
 
-  if (options.development) {
+  if (port) {
     additionalWebpackConfig = webpackMerge.smart(additionalWebpackConfig, {
       entry: [
         "react-hot-loader/patch",
@@ -153,7 +163,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
       ],
       devServer: {
         port,
-        publicPath: `http://localhost:${port}/`,
+        publicPath,
         inline: true,
         lazy: false,
         hot: true,
