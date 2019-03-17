@@ -17,18 +17,18 @@ export const defaultOptions = () => ({
 
 export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) => {
   const port = process.env.webpackPort
-  const publicPath = do{
+  const srcDirectory = fromRoot("src")
+  const publicPath = do {
     if (port) {
       `http://localhost:${port}/`
     } else if (!options.development && options.domain) {
       `https://${domain}/`
     } else if (options.development) {
-      fromRoot("src")
+      srcDirectory
     }
     ""
   }
   const title = options.title || pkg.title || pkg.config?.title || "App"
-  const srcDirectory = fromRoot("src")
 
   const cssIdentName = options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]"
 
