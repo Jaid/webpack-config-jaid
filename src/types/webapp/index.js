@@ -20,12 +20,14 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
   const title = options.title || pkg.title || pkg.config?.title || "App"
   const srcDirectory = fromRoot("src")
 
+  const cssIdentName = options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]"
+
   const internalCssLoader = {
     loader: "css-loader",
     options: {
       sourceMap: options.development,
       modules: true,
-      localIdentName: options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]",
+      localIdentName: cssIdentName,
     },
   }
 
@@ -33,7 +35,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     loader: "css-loader",
     options: {
       sourceMap: options.development,
-      localIdentName: options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:4]",
+      localIdentName: cssIdentName,
     },
   }
 
@@ -96,7 +98,18 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
       rules: [
         {
           test: /\.(png|jpg|jpeg|webp|gif|svg|woff2|ttf|eot|otf|ico|mp4|flv)$/,
-          loader: "url-loader",
+          use: {
+            loader: "url-loader",
+            options: {
+              limit: 4000,
+              fallback: {
+                loader: "file-loader",
+                options: {
+                  name: options.development ? "[path][name].[ext]" : "[hash:base62:8].[ext]",
+                },
+              },
+            },
+          },
         },
         {
           test: /\.md$/,
