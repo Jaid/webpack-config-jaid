@@ -21,6 +21,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {string} [icon=null] For type `webapp`: If typeof `string`, this will be used as path to png icon
  * @property {string} [domain] For type `webapp`: If typeof `string`, this will be used as domain for CNAME
  * @property {boolean|object} [includeMonacoEditor=false] For type `webapp`: If `true`, Monaco editor will be included with basic configuration. If typeof `object`, this will be used as configuration for MonacoEditorWebpackPlugin constructor.
+ * @property {boolean} [createCssFile=false] For type `webapp`: If `true`, `extract-text-webpack-plugin` will be used to create a separate CSS file. If typeof `object`, this will be used as configuration for MiniCssExtractPlugin constructor.
  */
 
 /**

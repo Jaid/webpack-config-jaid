@@ -5,6 +5,7 @@ import WebappPlugin from "webapp-webpack-plugin"
 import HtmlPlugin from "html-webpack-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import MonacoEditorPlugin from "monaco-editor-webpack-plugin"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import webpackMerge from "webpack-merge"
 import webpack from "webpack"
 
@@ -41,6 +42,50 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     options: getPostcssConfig(options),
   }
 
+  const styleLoaders = [
+    {
+      test: /\.(css|scss)$/,
+      use: {
+        loader: options.createCssFile ? MiniCssExtractPlugin.loader : "style-loader",
+        options: {
+          hmr: options.development,
+          singleton: !options.development,
+        },
+      },
+    },
+    {
+      test: /\.css$/,
+      include: srcDirectory,
+      use: [
+        internalCssLoader,
+        postcssLoader,
+      ],
+    },
+    {
+      test: /\.css$/,
+      exclude: srcDirectory,
+      use: [
+        externalCssLoader,
+        postcssLoader,
+      ],
+    },
+    {
+      test: /\.scss$/,
+      use: [
+        internalCssLoader,
+        postcssLoader,
+        "resolve-url-loader",
+        {
+          loader: "sass-loader",
+          options: {
+            sourceMap: true,
+            sourceMapContents: false,
+          },
+        },
+      ],
+    },
+  ]
+
   let additionalWebpackConfig = {
     target: "web",
     output: {
@@ -50,54 +95,14 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     module: {
       rules: [
         {
-          test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot|otf|ico)$/,
+          test: /\.(png|jpg|jpeg|webp|gif|svg|woff2|ttf|eot|otf|ico|mp4|flv)$/,
           loader: "url-loader",
         },
         {
           test: /\.md$/,
           use: ["html-loader", "markdown-loader"],
         },
-        {
-          test: /\.(css|postcss|scss)$/,
-          use: {
-            loader: "style-loader",
-            options: {
-              hmr: options.development,
-              singleton: !options.development,
-            },
-          },
-        },
-        {
-          test: /\.css$/,
-          include: srcDirectory,
-          use: [
-            internalCssLoader,
-            postcssLoader,
-          ],
-        },
-        {
-          test: /\.css$/,
-          exclude: srcDirectory,
-          use: [
-            externalCssLoader,
-            postcssLoader,
-          ],
-        },
-        {
-          test: /\.scss$/,
-          use: [
-            internalCssLoader,
-            postcssLoader,
-            "resolve-url-loader",
-            {
-              loader: "sass-loader",
-              options: {
-                sourceMap: true,
-                sourceMapContents: false,
-              },
-            },
-          ],
-        },
+        ...styleLoaders,
       ],
     },
     plugins: [
@@ -184,20 +189,31 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
         },
       }))
     }
+
     if (options.domain) {
       additionalWebpackConfig.plugins.push(new CnamePlugin({domain: options.domain}))
     }
+
     if (options.robots === true) {
       additionalWebpackConfig.plugins.push(new RobotsTxtPlugin)
     } else if (isObject(options.robots)) {
       additionalWebpackConfig.plugins.push(new RobotsTxtPlugin(options.robots))
     }
   }
+
   if (options.includeMonacoEditor) {
     const pluginOptions = isObject(options.includeMonacoEditor) ? options.includeMonacoEditor : {
       languages: ["javascript", "json"],
     }
     additionalWebpackConfig.plugins.push(new MonacoEditorPlugin(pluginOptions))
+  }
+
+  if (options.createCssFile) {
+    const pluginOptions = isObject(options.createCssFile) ? options.createCssFile : {
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }
+    additionalWebpackConfig.plugins.push(new MiniCssExtractPlugin(pluginOptions))
   }
 
   return additionalWebpackConfig

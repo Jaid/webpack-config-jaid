@@ -64,6 +64,7 @@ export default options => {
     icon: null,
     domain: null,
     includeMonacoEditor: false,
+    createCssFile: false,
     ...(typeDefaultOptions || {}),
     ...options,
   }
