@@ -6,6 +6,7 @@ import HtmlPlugin from "html-webpack-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import MonacoEditorPlugin from "monaco-editor-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import webpackMerge from "webpack-merge"
 import webpack from "webpack"
 
@@ -221,6 +222,21 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
       additionalWebpackConfig.plugins.push(new RobotsTxtPlugin)
     } else if (isObject(options.robots)) {
       additionalWebpackConfig.plugins.push(new RobotsTxtPlugin(options.robots))
+    }
+
+    if (options.optimizeCss) {
+      const pluginOptions = isObject(options.optimizeCss) ? options.optimizeCss : {
+        cssProcessorPluginOptions: {
+          preset: [
+            "advanced",
+            {
+              discardComments: {removeAll: true},
+            },
+          ],
+        },
+      }
+
+      additionalWebpackConfig.plugins.push(new OptimizeCssAssetsPlugin(pluginOptions))
     }
   }
 

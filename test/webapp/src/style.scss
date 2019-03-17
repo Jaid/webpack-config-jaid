@@ -4,8 +4,13 @@
   src: url("./FiraCode.otf");
 }
 
+// This is a nice background color!
 $bodyBackground: #36393F;
 
 body {
   background: $bodyBackground;
+}
+
+div#popup {
+  z-index: 50000;
 }
