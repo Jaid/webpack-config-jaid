@@ -233,8 +233,8 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
 
   if (options.createCssFile) {
     const pluginOptions = isObject(options.createCssFile) ? options.createCssFile : {
-      filename: "[name].css",
-      chunkFilename: "[id].css",
+      filename: options.development ? "[name].css" : "[contenthash:6].css",
+      chunkFilename: options.development ? "[id].css" : "[contenthash:6].css",
     }
     additionalWebpackConfig.plugins.push(new MiniCssExtractPlugin(pluginOptions))
   }
