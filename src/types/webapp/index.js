@@ -101,6 +101,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
 
   let additionalWebpackConfig = {
     target: "web",
+    node: {
+      fs: "empty",
+    },
     output: {
       publicPath,
       filename: options.development ? "index.js" : "[chunkhash:6].js",
