@@ -1,3 +1,4 @@
 import {trim} from "lodash"
+import css from "./style.scss"
 
-export default trim(" 123 ")
+document.querySelector("body > div").innerText = trim(" 123 ")
