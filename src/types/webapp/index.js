@@ -59,7 +59,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     {
       test: /\.(css|scss)$/,
       use: {
-        loader: (options.createCssFile && !options.development) ? MiniCssExtractPlugin.loader : "style-loader",
+        loader: (options.createCssFile && !port) ? MiniCssExtractPlugin.loader : "style-loader",
         options: {
           hmr: options.development,
           singleton: !options.development,
