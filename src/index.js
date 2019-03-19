@@ -20,7 +20,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {boolean|object} [robots=false] For type `webapp`: If `true`, output robots.txt
  * @property {string} [icon=null] For type `webapp`: If typeof `string`, this will be used as path to png icon
  * @property {string} [domain] For type `webapp`: If typeof `string`, this will be used as domain for CNAME
- * @property {boolean|object} [includeMonacoEditor=false] For type `webapp`: If `true`, Monaco editor will be included with basic configuration. If typeof `object`, this will be used as configuration for MonacoEditorWebpackPlugin constructor.
+ * @property {boolean|object} [includeMonacoEditor=false] For type `webapp`: If `true`, Monaco editor will be included with basic configuration. If typeof `object`, this will be used as configuration for MonacoEditorWebpackPlugin constructor. If `isArray`, this will be used for `languages` field.
  * @property {boolean} [createCssFile=false] For type `webapp`: If `true`, `extract-text-webpack-plugin` will be used to create a separate CSS file. If typeof `object`, this will be used as configuration for MiniCssExtractPlugin constructor.
  * @property {boolean} [optimizeCss=false] For type `webapp`: If `true`, `optimize-css-assets-webpack-plugin` will be used minify output CSS. If typeof `object`, this will be used as configuration for OptimizeCssAssetsPlugin constructor.
  */
