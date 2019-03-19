@@ -245,12 +245,12 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
 
   if (options.includeMonacoEditor) {
     let pluginOptions
-    if (isObject(options.includeMonacoEditor)) {
-      pluginOptions = options.includeMonacoEditor
-    } else if (Array.isArray(options.includeMonacoEditor)) {
+    if (Array.isArray(options.includeMonacoEditor)) {
       pluginOptions = {
         languages: options.includeMonacoEditor,
       }
+    } else if (isObject(options.includeMonacoEditor)) {
+      pluginOptions = options.includeMonacoEditor
     } else {
       pluginOptions = {
         languages: ["javascript", "plaintext"],
