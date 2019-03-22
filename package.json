@@ -4,7 +4,7 @@
   "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
   "dependencies": {
     "@absolunet/fss": "^1.6.0",
-    "@babel/runtime": "^7.3.4",
+    "@babel/runtime": "^7.4.2",
     "aot-loader": "^1.0.1",
     "app-root-path": "^2.1.0",
     "babel-loader": "^8.0.5",
