@@ -6,7 +6,7 @@
     "@absolunet/fss": "^1.6.0",
     "@babel/runtime": "^7.3.4",
     "aot-loader": "^1.0.1",
-    "app-root-path": "^2.1.0",
+    "app-root-path": "^2.2.1",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^2.0.1",
     "cname-webpack-plugin": "^1.0.5",
