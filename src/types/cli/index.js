@@ -1,4 +1,6 @@
-import {BannerPlugin} from "webpack"
+export const defaultOptions = () => ({
+  hashbang: "/usr/bin/env node",
+})
 
 export const webpackConfig = () => ({
   target: "node",
@@ -8,10 +10,4 @@ export const webpackConfig = () => ({
   output: {
     filename: "cli.js",
   },
-  plugins: [
-    new BannerPlugin({
-      banner: "#!/usr/bin/env node",
-      raw: true,
-    }),
-  ],
 })

@@ -9,10 +9,11 @@ import CleanWebpackPlugin from "clean-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
-import {isObject, isArray} from "lodash"
+import {isObject, isArray, isString} from "lodash"
 import fss from "@absolunet/fss"
 import json5 from "json5"
 import webpack from "webpack"
+import ensureStart from "ensure-start"
 
 const debug = require("debug")("webpack-config-jaid")
 
@@ -66,6 +67,7 @@ export default options => {
     includeMonacoEditor: false,
     createCssFile: true,
     optimizeCss: true,
+    hashbang: null,
     ...(typeDefaultOptions || {}),
     ...options,
   }
@@ -224,6 +226,13 @@ export default options => {
       options.include = [options.include]
     }
     config.plugins.push(new CopyWebpackPlugin(options.include))
+  }
+
+  if (isString(options.hashbang)) {
+    config.plugins.push(new webpack.BannerPlugin({
+      banner: ensureStart(options.hashbang.trim(), "#!"),
+      raw: true,
+    }))
   }
 
   debug(`Base config: ${config |> json5.stringify}`)
