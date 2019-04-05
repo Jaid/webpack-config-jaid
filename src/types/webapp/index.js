@@ -111,7 +111,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     module: {
       rules: [
         {
-          test: /\.(png|jpg|jpeg|webp|gif|svg|woff2|ttf|eot|otf|ico|mp4|flv)$/,
+          test: /\.(png|jpg|jpeg|webp|gif|ico|svg|woff2|ttf|eot|otf|mp4|flv|webm|mp3|flac|ogg|m4a|aac)$/,
           use: {
             loader: "url-loader",
             options: {
