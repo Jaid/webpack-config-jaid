@@ -154,6 +154,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
       new ScriptExtPlugin({
         defaultAttribute: "defer",
       }),
+      new webpack.DefinePlugin({
+        "process.browser": "true",
+      }),
     ],
   }
 
