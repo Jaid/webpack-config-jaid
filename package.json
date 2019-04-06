@@ -8,6 +8,7 @@
     "aot-loader": "^1.0.1",
     "app-root-path": "^2.2.1",
     "babel-loader": "^8.0.5",
+    "buffer-loader": "^0.1.0",
     "clean-webpack-plugin": "^2.0.1",
     "cname-webpack-plugin": "^1.0.5",
     "copy-webpack-plugin": "^5.0.2",
@@ -55,6 +56,10 @@
     "webpack-merge": "^4.2.1",
     "yml-loader": "^2.1.0"
   },
+  "optionalDependencies": {
+    "monaco-editor": "^0.16.2",
+    "monaco-editor-webpack-plugin": "^1.7.0"
+  },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.8.6",
     "babel-jest": "^24.7.1",
@@ -68,8 +73,6 @@
     "get-folder-size": "^2.0.1",
     "jest": "^24.7.1",
     "make-dir": "^3.0.0",
-    "monaco-editor": "^0.16.2",
-    "monaco-editor-webpack-plugin": "^1.7.0",
     "opn-cli": "^4.0.0",
     "pify": "^4.0.1",
     "prepack": "^0.2.54",
