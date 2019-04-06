@@ -95,10 +95,22 @@ export const configureUniversalClass = options => generateWebpackConfig({
  * @param {webpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureWebapp = options => generateWebpackConfig({
-  ...options,
-  type: "webapp",
-})
+export const configureWebapp = options => {
+  if (options.includeMonacoEditor) {
+    for (const neededModule of ["monaco-editor", "monaco-editor-webpack-plugin"]) {
+      try {
+        require(neededModule)
+      } catch (error) {
+        console.error(`Need package ${neededModule}`)
+        throw error
+      }
+    }
+  }
+  return generateWebpackConfig({
+    ...options,
+    type: "webapp",
+  })
+}
 
 /**
  * Creates Webpack config based on given options, uses type "nodeScript"
