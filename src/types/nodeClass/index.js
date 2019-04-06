@@ -6,6 +6,13 @@ export const webpackConfig = ({pkg}) => {
     optimization: {
       nodeEnv: false,
     },
+    node: {
+      __dirname: false,
+      __filename: false,
+      process: false,
+      Buffer: false,
+      setImmediate: false,
+    },
     output: {
       libraryTarget: "umd2",
     },
