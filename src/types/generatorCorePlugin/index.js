@@ -1,4 +1,4 @@
-import {camelCase, isObject, isArray} from "lodash"
+import {camelCase, isObject, isArray, isUndefined} from "lodash"
 import {configureNode} from "src/configFragments"
 
 const generatorCorePackageField = "generator-core-version"
@@ -19,6 +19,11 @@ export const processOptions = options => {
   }
   if (publishimoOptions.includeFields |> isArray) {
     publishimoOptions.includeFields.push(generatorCorePackageField)
+  } else {
+    publishimoOptions.includeFields = [generatorCorePackageField]
+  }
+  if (publishimoOptions.productionOnly |> isUndefined) {
+    publishimoOptions.productionOnly = false
   }
   publishimoOptions[generatorCorePackageField] = `^${generatorCoreLatestVersion}`
 }
