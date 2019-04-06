@@ -9,6 +9,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import webpackMerge from "webpack-merge"
 import webpack from "webpack"
+import {binaryAssetTest} from "src/configFragments"
 
 import getPostcssConfig from "./getPostcssConfig"
 
@@ -111,7 +112,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) =>
     module: {
       rules: [
         {
-          test: /\.(png|jpg|jpeg|webp|gif|ico|svg|woff2|ttf|eot|otf|mp4|flv|webm|mp3|flac|ogg|m4a|aac)$/,
+          test: binaryAssetTest,
           use: {
             loader: "url-loader",
             options: {

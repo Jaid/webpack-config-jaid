@@ -97,13 +97,11 @@ export const configureUniversalClass = options => generateWebpackConfig({
  */
 export const configureWebapp = options => {
   if (options.includeMonacoEditor) {
-    for (const neededModule of ["monaco-editor", "monaco-editor-webpack-plugin"]) {
-      try {
-        require(neededModule)
-      } catch (error) {
-        console.error(`Need package ${neededModule}`)
-        throw error
-      }
+    try {
+      __non_webpack_require__("monaco-editor-webpack-plugin")
+    } catch (error) {
+      console.error("Need package monaco-editor-webpack-plugin")
+      throw error
     }
   }
   return generateWebpackConfig({
