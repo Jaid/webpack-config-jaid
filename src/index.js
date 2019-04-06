@@ -110,3 +110,14 @@ export const configureNodeScript = options => generateWebpackConfig({
   ...options,
   type: "nodeScript",
 })
+
+/**
+ * Creates Webpack config based on given options, uses type "photoshopPlugin"
+ * @function configurePhotoshopPlugin
+ * @param {webpackConfigJaidOptions} [options] Given options
+ * @returns {object} Webpack configuration object
+ */
+export const configurePhotoshopPlugin = options => generateWebpackConfig({
+  ...options,
+  type: "photoshopPlugin",
+})
