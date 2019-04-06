@@ -9,7 +9,7 @@ import CleanWebpackPlugin from "clean-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
-import {isObject, isArray, isString} from "lodash"
+import {isObject, isArray, isString, isFunction} from "lodash"
 import fss from "@absolunet/fss"
 import json5 from "json5"
 import webpack from "webpack"
@@ -78,6 +78,13 @@ export default options => {
     clean: !options.development,
     outDir: fromRoot("dist", "package", env),
     ...options,
+  }
+
+  if (typeProvider?.processOptions |> isFunction) {
+    typeProvider.processOptions(options, {
+      env,
+      fromRoot,
+    })
   }
 
   let pkg
@@ -239,7 +246,7 @@ export default options => {
 
   const extra = []
 
-  if (typeof typeProvider?.webpackConfig === "function") {
+  if (typeProvider?.webpackConfig |> isFunction) {
     const typeWebpackConfig = typeProvider.webpackConfig({
       pkg,
       env,

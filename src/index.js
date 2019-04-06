@@ -9,7 +9,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {object} [extra={}] Additional Webpack configuration
  * @property {object} [extraProduction={}] Additional Webpack configuration that only gets applied in development mode
  * @property {object} [extraDevelopment={}] Additional Webpack configuration that only gets applied in production mode
- * @property {"cli"|"nodeLib"|"nodeClass"|"universalLib"|"universalClass"|"webapp"|"nodeScript"|"photoshopPlugin"} [type=null] The project type which will automatically add some configuration
+ * @property {"cli"|"nodeLib"|"nodeClass"|"universalLib"|"universalClass"|"webapp"|"nodeScript"|"photoshopPlugin"|"coreGeneratorPlugin"} [type=null] The project type which will automatically add some configuration
  * @property {array} [include=["readme.*","README.*","license.*","LICENSE.*"]] Files (relative to project directory) that get copied to dist directory
  * @property {boolean|object} [publishimo=false] Set to true to include publishimo-webpack-plugin, or set as object to add options for the plugin instance
  * @property {boolean|object} [documentation=false] Set to true to include jsdoc-tsd-webpack-plugin, or set as object to add options for the plugin instance
@@ -130,4 +130,15 @@ export const configureNodeScript = options => generateWebpackConfig({
 export const configurePhotoshopPlugin = options => generateWebpackConfig({
   ...options,
   type: "photoshopPlugin",
+})
+
+/**
+ * Creates Webpack config based on given options, uses type "generatorCorePlugin"
+ * @function configureGeneratorCorePlugin
+ * @param {webpackConfigJaidOptions} [options] Given options
+ * @returns {object} Webpack configuration object
+ */
+export const configureGeneratorCorePlugin = options => generateWebpackConfig({
+  ...options,
+  type: "photoshopgeneratorCorePluginPlugin",
 })
