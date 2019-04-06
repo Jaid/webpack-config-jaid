@@ -140,5 +140,5 @@ export const configurePhotoshopPlugin = options => generateWebpackConfig({
  */
 export const configureGeneratorCorePlugin = options => generateWebpackConfig({
   ...options,
-  type: "photoshopgeneratorCorePluginPlugin",
+  type: "generatorCorePlugin",
 })
