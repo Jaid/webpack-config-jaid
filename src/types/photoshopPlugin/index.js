@@ -1,6 +1,10 @@
 import {j2xParser as XmlWriter} from "fast-xml-parser"
 import webpack from "webpack"
 
+export const defaultOptions = () => ({
+  nodeExternals: false,
+})
+
 export const webpackConfig = ({pkg, options}) => ({
   target: "node",
   optimization: {
