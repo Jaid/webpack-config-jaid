@@ -73,7 +73,7 @@
     "get-folder-size": "^2.0.1",
     "jest": "^24.7.1",
     "make-dir": "^3.0.0",
-    "opn-cli": "^4.0.0",
+    "opn-cli": "^4.1.0",
     "pify": "^4.0.1",
     "prepack": "^0.2.54",
     "pretty-bytes": "^5.1.0",
