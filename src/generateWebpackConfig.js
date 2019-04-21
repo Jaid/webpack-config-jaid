@@ -257,6 +257,10 @@ export default options => {
     extra.push(typeWebpackConfig)
   }
 
+  if (typeProvider?.defines |> isObject) {
+    config.plugins.push(new webpack.DefinePlugin(typeProvider.defines))
+  }
+
   if (options.extra) {
     extra.push(options.extra)
   }
