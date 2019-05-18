@@ -63,7 +63,7 @@
   "devDependencies": {
     "@hot-loader/react-dom": "^16.8.6",
     "babel-jest": "^24.8.0",
-    "babel-preset-jaid": "^6.2.0",
+    "babel-preset-jaid": "^6.2.1",
     "chalk": "^2.4.2",
     "coffee": "^5.2.1",
     "cross-env": "^5.2.0",
@@ -79,7 +79,7 @@
     "pretty-bytes": "^5.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-hot-loader": "^4.8.5",
+    "react-hot-loader": "^4.8.6",
     "rimraf": "^2.6.3",
     "sort-keys": "^3.0.0",
     "winston": "^3.2.1"
