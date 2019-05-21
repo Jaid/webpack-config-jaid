@@ -24,6 +24,10 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {boolean} [createCssFile=false] For type `webapp`: If `true`, `extract-text-webpack-plugin` will be used to create a separate CSS file. If typeof `object`, this will be used as configuration for MiniCssExtractPlugin constructor.
  * @property {boolean} [optimizeCss=false] For type `webapp`: If `true`, `optimize-css-assets-webpack-plugin` will be used minify output CSS. If typeof `object`, this will be used as configuration for OptimizeCssAssetsPlugin constructor.
  * @property {string} [hashbang=null] If typeof `string`, writes a hashbang to the top of the entry script. If it does not start with `!#`, it will be added automatically.
+ * @property {false|string} [licenseFileName=null] If typeof `string`, this will be the file where the third party license comments get extracted to.
+ * @property {false|RegExp} [licenseCommentRegex=null] If typeof `RegExp`, this will be used to determine which comments are third party license comments.
+ * @property {object} [terserOptions] Additional options for `terser`
+ * @property {object} [terserPluginOptions] Additional options for `terser-webpack-plugin`
  */
 
 /**

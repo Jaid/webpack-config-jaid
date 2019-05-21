@@ -14,6 +14,8 @@ import fss from "@absolunet/fss"
 import json5 from "json5"
 import webpack from "webpack"
 import ensureStart from "ensure-start"
+import terser from "terser"
+import TerserPlugin from "terser-webpack-plugin"
 
 const debug = require("debug")("webpack-config-jaid")
 
@@ -56,6 +58,18 @@ export default options => {
       "license.*",
       "LICENSE.*",
     ],
+    licenseFileName: null,
+    licenseCommentRegex: null,
+    terserOptions: {
+      compress: {
+        passes: 5,
+      },
+    },
+    terserPluginOptions: {
+      cache: true,
+      parallel: true,
+      sourceMap: true,
+    },
     publishimo: false,
     documentation: false,
     nodeExternals: true,
@@ -240,6 +254,26 @@ export default options => {
       banner: ensureStart(options.hashbang.trim(), "#!"),
       raw: true,
     }))
+  }
+
+  if (!options.development) {
+    let extractComments = false
+    if (options.licenseFileName || options.licenseCommentRegex) {
+      extractComments = {
+        condition: options.licenseCommentRegex || /^\**!|@preserve|@license|@cc_on/i,
+        filename: options.licenseFileName || "thirdParty.js",
+        banner: false,
+      }
+      config.optimization.minimizer = [
+        new TerserPlugin({
+          extractComments,
+          minify: file => {
+            return terser.minify(file, options.terserOptions)
+          },
+          ...options.terserPluginOptions,
+        }),
+      ]
+    }
   }
 
   debug(`Base config: ${config |> json5.stringify}`)
