@@ -2,6 +2,7 @@ import {configureNode} from "src/configFragments"
 
 export const defaultOptions = () => ({
   nodeExternals: false,
+  include: false,
   terserOptions: {
     toplevel: true,
     compress: {
