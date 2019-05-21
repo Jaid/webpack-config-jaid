@@ -132,3 +132,14 @@ export const configureGeneratorCorePlugin = options => generateWebpackConfig({
   ...options,
   type: "generatorCorePlugin",
 })
+
+/**
+ * Creates Webpack config based on given options, uses type "portableScript"
+ * @function configurePortableScript
+ * @param {webpackConfigJaidOptions} [options] Given options
+ * @returns {object} Webpack configuration object
+ */
+export const configurePortableScript = options => generateWebpackConfig({
+  ...options,
+  type: "portableScript",
+})
