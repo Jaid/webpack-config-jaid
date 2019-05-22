@@ -9,12 +9,21 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import webpackMerge from "webpack-merge"
 import webpack from "webpack"
-import {binaryAssetTest} from "src/configFragments"
+import {binaryAssetTest, commonTerserOptions} from "src/configFragments"
 
 import getPostcssConfig from "./getPostcssConfig"
 
 export const defaultOptions = () => ({
   nodeExternals: false,
+  terserOptions: {
+    ...commonTerserOptions,
+    toplevel: true,
+    compress: {
+      passes: 5,
+      unsafe: true,
+      drop_console: true,
+    },
+  },
 })
 
 export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) => {

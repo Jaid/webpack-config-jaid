@@ -1,8 +1,18 @@
 import {camelCase, isObject, isArray, isUndefined} from "lodash"
-import {configureNode} from "src/configFragments"
+import {configureNode, commonTerserOptions} from "src/configFragments"
 
 const generatorCorePackageField = "generator-core-version"
 const generatorCoreLatestVersion = "3.12"
+
+export const defaultOptions = () => ({
+  terserOptions: {
+    ...commonTerserOptions,
+    toplevel: true,
+    output: {
+      ecma: 5,
+    },
+  },
+})
 
 export const processOptions = options => {
   const publishimoOptions = options.publishimo

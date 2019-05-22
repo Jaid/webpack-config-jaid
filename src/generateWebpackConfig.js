@@ -67,6 +67,8 @@ export default options => {
     },
     terserPluginOptions: {
       sourceMap: true,
+      cache: false,
+      parallel: false,
     },
     publishimo: false,
     documentation: false,
@@ -263,6 +265,7 @@ export default options => {
         banner: false,
       }
     }
+    debug("terserOptions: %o", options.terserOptions)
     config.optimization.minimizer = [
       new TerserPlugin({
         extractComments,
@@ -273,7 +276,6 @@ export default options => {
       }),
     ]
   }
-
 
   debug(`Base config: ${config |> json5.stringify}`)
 

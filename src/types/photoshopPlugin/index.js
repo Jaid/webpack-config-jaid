@@ -1,8 +1,16 @@
 import {j2xParser as XmlWriter} from "fast-xml-parser"
 import webpack from "webpack"
+import {commonTerserOptions} from "src/configFragments"
 
 export const defaultOptions = () => ({
   nodeExternals: false,
+  terserOptions: {
+    ...commonTerserOptions,
+    toplevel: true,
+    output: {
+      ecma: 5,
+    },
+  },
 })
 
 export const webpackConfig = ({pkg, options}) => ({

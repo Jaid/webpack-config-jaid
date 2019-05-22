@@ -1,5 +1,18 @@
-import {configureNode} from "src/configFragments"
+import {configureNode, commonTerserOptions} from "src/configFragments"
 import pascalCase from "pascal-case"
+
+export const defaultOptions = () => ({
+  terserOptions: {
+    ...commonTerserOptions,
+    toplevel: true,
+    module: true,
+    compress: {
+      passes: 5,
+      unsafe: true,
+      drop_console: true,
+    },
+  },
+})
 
 export const webpackConfig = ({pkg}) => {
   const config = {

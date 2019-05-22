@@ -1,7 +1,7 @@
 {
   "name": "with-package",
   "dependencies": {
-    "lodash": "4.17.11"
+    "ensure-start": "1.0.3"
   },
   "devDependencies": {
     "eslint": "5.13.0",

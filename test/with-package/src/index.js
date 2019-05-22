@@ -1,3 +1,5 @@
-import {trim} from "lodash"
+import ensureStart from "ensure-start"
 
-export default trim(" 123 ")
+const getLinkFromDomain = domain => ensureStart(domain, "https://")
+
+export default getLinkFromDomain("jaid.codes")
