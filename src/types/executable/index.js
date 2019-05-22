@@ -8,8 +8,10 @@ export const defaultOptions = () => ({
     toplevel: true,
     compress: {
       passes: 5,
+      ecma: 6,
       unsafe: true,
       drop_console: true,
+      booleans_as_integers: true,
     },
   },
 })
