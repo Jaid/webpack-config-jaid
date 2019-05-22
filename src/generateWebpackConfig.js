@@ -66,8 +66,6 @@ export default options => {
       },
     },
     terserPluginOptions: {
-      cache: true,
-      parallel: true,
       sourceMap: true,
     },
     publishimo: false,
@@ -264,17 +262,18 @@ export default options => {
         filename: options.licenseFileName || "thirdParty.js",
         banner: false,
       }
-      config.optimization.minimizer = [
-        new TerserPlugin({
-          extractComments,
-          minify: file => {
-            return terser.minify(file, options.terserOptions)
-          },
-          ...options.terserPluginOptions,
-        }),
-      ]
     }
+    config.optimization.minimizer = [
+      new TerserPlugin({
+        extractComments,
+        minify: file => {
+          return terser.minify(file, options.terserOptions)
+        },
+        ...options.terserPluginOptions,
+      }),
+    ]
   }
+
 
   debug(`Base config: ${config |> json5.stringify}`)
 
