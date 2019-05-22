@@ -7,7 +7,7 @@ export const defaultOptions = () => ({
     ...commonTerserOptions,
     toplevel: true,
     compress: {
-      passes: 5,
+      ...commonTerserOptions.compress,
       ecma: 6,
       unsafe: true,
       booleans_as_integers: true,

@@ -5,7 +5,7 @@ export const defaultOptions = () => ({
     ...commonTerserOptions,
     toplevel: true,
     compress: {
-      passes: 5,
+      ...commonTerserOptions.compress,
       unsafe: true,
     },
   },
