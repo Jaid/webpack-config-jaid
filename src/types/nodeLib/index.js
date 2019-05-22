@@ -4,13 +4,13 @@ import {configureNode, commonTerserOptions} from "src/configFragments"
 export const defaultOptions = () => ({
   terserOptions: {
     ...commonTerserOptions,
-    // toplevel: true,
-    // module: true,
-    // compress: {
-    //   passes: 5,
-    //   // unsafe: true,
-    //   drop_console: true,
-    // },
+    toplevel: true,
+    module: true,
+    compress: {
+      passes: 5,
+      unsafe: true,
+      drop_console: true,
+    },
   },
 })
 
