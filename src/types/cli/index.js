@@ -8,7 +8,6 @@ export const defaultOptions = () => ({
     compress: {
       passes: 5,
       unsafe: true,
-      drop_console: true,
     },
   },
 })
