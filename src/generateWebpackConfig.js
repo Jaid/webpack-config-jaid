@@ -59,7 +59,6 @@ export default options => {
       "LICENSE.*",
     ],
     licenseFileName: null,
-    licenseCommentRegex: null,
     terserOptions: {
       compress: {
         passes: 5,
@@ -257,21 +256,10 @@ export default options => {
   }
 
   if (!options.development) {
-    let extractComments = false
-    if (options.licenseFileName || options.licenseCommentRegex) {
-      extractComments = {
-        condition: options.licenseCommentRegex || /^\**!|@preserve|@license|@cc_on/i,
-        filename: options.licenseFileName || "thirdParty.js",
-        banner: false,
-      }
-    }
     debug("terserOptions: %o", options.terserOptions)
     config.optimization.minimizer = [
       new TerserPlugin({
-        extractComments,
-        minify: file => {
-          return terser.minify(file, options.terserOptions)
-        },
+        minify: file => terser.minify(file, options.terserOptions),
         ...options.terserPluginOptions,
       }),
     ]
