@@ -9,13 +9,15 @@ import CleanWebpackPlugin from "clean-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
-import {isObject, isArray, isString, isFunction} from "lodash"
+import {isObject, isArray, isString, isFunction, sortBy} from "lodash"
 import fss from "@absolunet/fss"
 import json5 from "json5"
 import webpack from "webpack"
 import ensureStart from "ensure-start"
 import terser from "terser"
 import TerserPlugin from "terser-webpack-plugin"
+import {LicenseWebpackPlugin} from "license-webpack-plugin"
+import immer from "immer"
 
 const debug = require("debug")("webpack-config-jaid")
 
@@ -58,7 +60,7 @@ export default options => {
       "license.*",
       "LICENSE.*",
     ],
-    licenseFileName: null,
+    licenseFileName: "thirdPartyLicenses.txt",
     terserOptions: {
       compress: {
         passes: 5,
@@ -263,6 +265,23 @@ export default options => {
         ...options.terserPluginOptions,
       }),
     ]
+  }
+
+  if (!options.development && options.licenseFileName) {
+    config.plugins.push(new LicenseWebpackPlugin({
+      outputFilename: options.licenseFileName,
+      renderLicenses: licenses => licenses
+      |> #.map(license => license.name ? license : immer(draft => {
+        draft.name = _PKG_NAME || "Unknown package"
+      }))
+      |> sortBy(#, (({name}) => name))
+      |> #.map(license => {
+        const text = license.licenseText?.trim() || "No license defined."
+        const versionString = license.packageJson?.version ? ` ${license.packageJson.version}` : ""
+        return `=== ${license.name}${versionString} ===\n\n${text}`
+      })
+      |> #.join("\n\n"),
+    }))
   }
 
   debug(`Base config: ${config |> json5.stringify}`)
