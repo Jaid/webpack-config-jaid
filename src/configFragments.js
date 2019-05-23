@@ -9,6 +9,7 @@ export const commonTerserOptions = {
   },
   output: {
     ecma: 8,
+    comments: (astTop, astToken) => /^!.+jaid\.jsx@gmail\.com/s.test(astToken.value),
   },
 }
 
