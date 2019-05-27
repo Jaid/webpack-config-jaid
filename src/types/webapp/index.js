@@ -25,9 +25,9 @@ export const defaultOptions = () => ({
   },
 })
 
-export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig}) => {
+export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, entryFolder}) => {
   const port = process.env.webpackPort
-  const srcDirectory = fromRoot("src")
+  const srcDirectory = entryFolder
   const publicPath = do {
     if (port) {
       `http://localhost:${port}/`

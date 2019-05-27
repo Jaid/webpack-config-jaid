@@ -49,6 +49,7 @@ export default options => {
 
   options = {
     packageRoot: String(appRootPath),
+    sourceFolder: "src",
     development: env !== "production",
     extra: null,
     extraProduction: null,
@@ -112,15 +113,17 @@ export default options => {
     pkg = {}
   }
 
+  const entryFolder = options.sourceFolder ? fromRoot(options.sourceFolder) : options.packageRoot
+
   let entry
-  const specificEntry = fromRoot("src", `index.${env}.js`)
+  const specificEntry = path.join(entryFolder, `index.${env}.js`)
   if (fs.existsSync(specificEntry)) {
     entry = specificEntry
     debug("Using environment-specific entry %s", specificEntry)
   } else {
-    const defaultEntry = fromRoot("src")
+    const defaultEntry = entryFolder
     entry = defaultEntry
-    debug("Couldn not find entry %s, using %s instead", specificEntry, defaultEntry)
+    debug("Could not find entry %s, using %s instead", specificEntry, defaultEntry)
   }
 
   const config = {
@@ -141,7 +144,7 @@ export default options => {
         },
         {
           test: /\.jsx?$/,
-          include: fromRoot("src"),
+          include: entryFolder,
           loader: "babel-loader",
         },
         {
@@ -294,6 +297,7 @@ export default options => {
       env,
       options,
       fromRoot,
+      entryFolder,
       initialWebpackConfig: config,
     })
     extra.push(typeWebpackConfig)

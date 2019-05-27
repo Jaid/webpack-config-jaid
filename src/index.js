@@ -27,6 +27,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {false|string} [licenseFileName=null] If typeof `string`, this will be the file where the third party license comments get extracted to.
  * @property {object} [terserOptions] Additional options for `terser`
  * @property {object} [terserPluginOptions] Additional options for `terser-webpack-plugin`
+ * @property {string} [sourceFolder=path.join(packageRoot, "src")] Folder where an `index.js` is placed in
  */
 
 /**
