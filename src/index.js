@@ -23,6 +23,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {boolean|object} [includeMonacoEditor=false] For type `webapp`: If `true`, Monaco editor will be included with basic configuration. If typeof `object`, this will be used as configuration for MonacoEditorWebpackPlugin constructor. If `isArray`, this will be used for `languages` field.
  * @property {boolean} [createCssFile=false] For type `webapp`: If `true`, `extract-text-webpack-plugin` will be used to create a separate CSS file. If typeof `object`, this will be used as configuration for MiniCssExtractPlugin constructor.
  * @property {boolean} [optimizeCss=false] For type `webapp`: If `true`, `optimize-css-assets-webpack-plugin` will be used minify output CSS. If typeof `object`, this will be used as configuration for OptimizeCssAssetsPlugin constructor.
+ * @property {boolean} [inlineSource=false] For type `webapp`: If `true`, CSS and JavaScript content will be directly included into the HTML file
  * @property {string} [hashbang=null] If typeof `string`, writes a hashbang to the top of the entry script. If it does not start with `!#`, it will be added automatically.
  * @property {false|string} [licenseFileName=null] If typeof `string`, this will be the file where the third party license comments get extracted to.
  * @property {object} [terserOptions] Additional options for `terser`

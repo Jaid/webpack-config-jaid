@@ -3,6 +3,7 @@ import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import CnamePlugin from "cname-webpack-plugin"
 import WebappPlugin from "webapp-webpack-plugin"
 import HtmlPlugin from "html-webpack-plugin"
+import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import MonacoEditorPlugin from "monaco-editor-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
@@ -146,6 +147,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
         title,
         debug: options.development,
         alwaysWriteToDisk: true,
+        inlineSource: ".(js|css)$",
         minify: options.development ? false : {
           removeAttributeQuotes: true,
           collapseWhitespace: true,
@@ -160,10 +162,15 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
           useShortDoctype: true,
         },
       }),
-      new ScriptExtPlugin({
-        defaultAttribute: "defer",
-      }),
     ],
+  }
+
+  if (options.inlineSource) {
+    additionalWebpackConfig.plugins.push(new HtmlInlineSourcePlugin)
+  } else {
+    additionalWebpackConfig.plugins.push(new ScriptExtPlugin({
+      defaultAttribute: "defer",
+    }))
   }
 
   if (port) {
