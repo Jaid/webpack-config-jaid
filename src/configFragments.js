@@ -6,6 +6,12 @@ export const binaryAssetTest = /\.(png|jpg|jpeg|webp|gif|ico|svg|woff2|ttf|eot|o
 export const commonTerserOptions = {
   compress: {
     passes: process.env.TRAVIS_TAG ? 10 : 1,
+    unsafe_comps: true,
+    unsafe_math: true,
+    unsafe_methods: true,
+    unsafe_proto: true,
+    unsafe_regexp: true,
+    unsafe_undefined: true
   },
   output: {
     ecma: 8,

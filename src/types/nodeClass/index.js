@@ -6,10 +6,6 @@ export const defaultOptions = () => ({
     ...commonTerserOptions,
     toplevel: true,
     module: true,
-    compress: {
-      ...commonTerserOptions.compress,
-      unsafe: true,
-    },
   },
 })
 

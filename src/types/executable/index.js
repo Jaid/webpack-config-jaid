@@ -8,7 +8,6 @@ export const defaultOptions = () => ({
     compress: {
       ...commonTerserOptions.compress,
       ecma: 6,
-      unsafe: true,
       booleans_as_integers: true,
     },
   },
