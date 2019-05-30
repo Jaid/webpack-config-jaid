@@ -8,10 +8,8 @@ export const commonTerserOptions = {
     passes: process.env.TRAVIS_TAG ? 10 : 1,
     unsafe_comps: true,
     unsafe_math: true,
-    unsafe_methods: true,
-    unsafe_proto: true,
     unsafe_regexp: true,
-    unsafe_undefined: true
+    unsafe_undefined: true,
   },
   output: {
     ecma: 8,
