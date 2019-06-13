@@ -32,7 +32,7 @@ export default options => {
   let pkg
   try {
     pkg = readPkg.sync({
-      cwd: options.packageRoot,
+      cwd: options.packageRoot || String(appRootPath),
     })
     debug(`Pkg data: ${pkg |> json5.stringify}`)
   } catch {
@@ -40,7 +40,7 @@ export default options => {
   }
 
   if (pkg.webpackConfigJaid) {
-    debug("Found webpackConfigJaid options: %j", pkg.webpackConfigJaid)
+    debug("Found webpackConfigJaid field in pkg: %j", pkg.webpackConfigJaid)
     if (pkg.webpackConfigJaid |> isString) {
       options = {
         ...options,
