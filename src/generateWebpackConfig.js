@@ -27,6 +27,31 @@ export default options => {
   debug(`NODE_ENV: ${env}`)
   debug(`Options: ${options |> json5.stringify}`)
 
+  let pkg
+  try {
+    pkg = readPkg.sync({
+      cwd: options.packageRoot,
+    })
+    debug(`Pkg data: ${pkg |> json5.stringify}`)
+  } catch {
+    pkg = {}
+  }
+
+  if (pkg.webpackConfigJaid) {
+    debug("Found webpackConfigJaid options: %j", pkg.webpackConfigJaid)
+    if (pkg.webpackConfigJaid |> isString) {
+      options = {
+        ...options,
+        type: pkg.webpackConfigJaid,
+      }
+    } else {
+      options = {
+        ...options,
+        ...pkg.webpackConfigJaid,
+      }
+    }
+  }
+
   let typeProvider
   let typeDefaultOptions
   if (options.type) {
@@ -101,16 +126,6 @@ export default options => {
       env,
       fromRoot,
     })
-  }
-
-  let pkg
-  try {
-    pkg = readPkg.sync({
-      cwd: options.packageRoot,
-    })
-    debug(`Pkg data: ${pkg |> json5.stringify}`)
-  } catch {
-    pkg = {}
   }
 
   const entryFolder = options.sourceFolder ? fromRoot(options.sourceFolder) : options.packageRoot
@@ -261,23 +276,32 @@ export default options => {
   }
 
   if (!options.development) {
-    debug("terserOptions: %o", options.terserOptions)
-    config.optimization.minimizer = [
-      new TerserPlugin({
-        minify: file => terser.minify(file, options.terserOptions),
-        ...options.terserPluginOptions,
-      }),
-    ]
+    if (options.terserOptions === false) {
+      debug("terserOptions is false, skipping minification")
+      config.optimization.minimize = false
+    } else {
+      debug("terserOptions: %o", options.terserOptions)
+      config.optimization.minimizer = [
+        new TerserPlugin({
+          minify: file => terser.minify(file, options.terserOptions),
+          ...options.terserPluginOptions,
+        }),
+      ]
+    }
   }
 
   if (!options.development && options.licenseFileName) {
     config.plugins.push(new LicenseWebpackPlugin({
+      stats: {
+        warnings: false,
+        errors: true,
+      },
       outputFilename: options.licenseFileName,
       renderLicenses: licenses => licenses
       |> #.map(license => license.name ? license : immer(draft => {
         draft.name = _PKG_NAME || "Unknown package"
       }))
-      |> sortBy(#, (({name}) => name))
+      |> sortBy(#, ({name}) => name)
       |> #.map(license => {
         const text = license.licenseText?.trim() || "No license defined."
         const versionString = license.packageJson?.version ? ` ${license.packageJson.version}` : ""
