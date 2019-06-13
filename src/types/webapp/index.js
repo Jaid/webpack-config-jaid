@@ -43,8 +43,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     loader: "css-loader",
     options: {
       sourceMap: options.development,
-      modules: true,
-      localIdentName: cssIdentName,
+      modules: {
+        localIdentName: cssIdentName,
+      },
     },
   }
 
@@ -52,7 +53,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     loader: "css-loader",
     options: {
       sourceMap: options.development,
-      localIdentName: cssIdentName,
+      modules: {
+        localIdentName: cssIdentName,
+      },
     },
   }
 
