@@ -19,7 +19,9 @@ import TerserPlugin from "terser-webpack-plugin"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import immer from "immer"
 
-const debug = require("debug")("webpack-config-jaid")
+
+const DeepScopePlugin = require("webpack-deep-scope-plugin").default
+const debug = require("debug")(_PKG_NAME)
 
 const env = (process.env.NODE_ENV || "development").toLowerCase()
 
@@ -195,6 +197,10 @@ export default options => {
       errors: true,
       errorDetails: true,
     },
+  }
+
+  if (options.development) {
+    config.plugins.push(new DeepScopePlugin)
   }
 
   if (env !== "test") {
