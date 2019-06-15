@@ -19,7 +19,6 @@ import TerserPlugin from "terser-webpack-plugin"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import immer from "immer"
 
-
 const DeepScopePlugin = require("webpack-deep-scope-plugin").default
 const debug = require("debug")(_PKG_NAME)
 
@@ -43,13 +42,13 @@ export default options => {
     debug("Found webpackConfigJaid field in pkg: %j", pkg.webpackConfigJaid)
     if (pkg.webpackConfigJaid |> isString) {
       options = {
-        ...options,
         type: pkg.webpackConfigJaid,
+        ...options,
       }
     } else {
       options = {
-        ...options,
         ...pkg.webpackConfigJaid,
+        ...options,
       }
     }
   }
