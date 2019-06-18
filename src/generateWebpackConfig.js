@@ -22,7 +22,7 @@ import immer from "immer"
 const DeepScopePlugin = require("webpack-deep-scope-plugin").default
 const debug = require("debug")(_PKG_NAME)
 
-const env = (process.env.NODE_ENV || "development").toLowerCase()
+const env = process.env.NODE_ENV.toLowerCase?.() || "development"
 
 export default options => {
   debug(`NODE_ENV: ${env}`)
