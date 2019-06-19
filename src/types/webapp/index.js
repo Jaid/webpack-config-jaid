@@ -29,7 +29,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     if (port) {
       `http://localhost:${port}/`
     } else if (!options.development && options.domain) {
-      `https://${domain}/`
+      `https://${options.domain}/`
     } else if (options.development) {
       srcDirectory
     }
@@ -68,7 +68,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     {
       test: /\.(css|scss)$/,
       use: {
-        loader: (options.createCssFile && !port) ? MiniCssExtractPlugin.loader : "style-loader",
+        loader: options.createCssFile && !port ? MiniCssExtractPlugin.loader : "style-loader",
         options: {
           hmr: options.development,
           singleton: !options.development,

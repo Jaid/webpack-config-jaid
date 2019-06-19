@@ -110,7 +110,7 @@ export default options => {
     createCssFile: true,
     optimizeCss: true,
     hashbang: null,
-    ...(typeDefaultOptions || {}),
+    ...typeDefaultOptions || {},
     ...options,
   }
 
