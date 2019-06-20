@@ -78,7 +78,6 @@
     "get-folder-size": "^2.0.1",
     "jest": "^24.8.0",
     "make-dir": "^3.0.0",
-    "open-cli": "^5.0.0",
     "pify": "^4.0.1",
     "prepack": "^0.2.54",
     "pretty-bytes": "^5.2.0",
