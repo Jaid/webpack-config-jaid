@@ -19,6 +19,7 @@
     "fast-xml-parser": "^3.12.16",
     "file-loader": "^4.0.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "handlebars-loader": "^1.7.1",
     "html-loader": "^0.5.5",
     "html-webpack-harddisk-plugin": "^1.0.1",
     "html-webpack-inline-source-plugin": "0.0.10",

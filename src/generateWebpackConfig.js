@@ -171,6 +171,10 @@ export default options => {
           test: /\.txt$/,
           loader: "raw-loader",
         },
+        {
+          test: /\.(hbs|handlebars)$/,
+          loader: "handlebars-loader",
+        },
       ],
     },
     plugins: [
