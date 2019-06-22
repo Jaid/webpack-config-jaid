@@ -155,7 +155,7 @@ export default options => {
         {
           test: /\.jsx?$/,
           enforce: "post",
-          resourceQuery: /\?aot$/,
+          resourceQuery: /aot$/,
           loader: "aot-loader",
         },
         {
@@ -173,7 +173,21 @@ export default options => {
         },
         {
           test: /\.(hbs|handlebars)$/,
-          loader: "handlebars-loader",
+          oneOf: [
+            {
+              resourceQuery: /html/,
+              loader: "handlebars-loader",
+            },
+            {
+              loader: "handlebars-loader",
+              options: {
+                precompileOptions: {
+                  noEscape: true,
+                },
+              },
+            },
+          ]
+          ,
         },
       ],
     },
