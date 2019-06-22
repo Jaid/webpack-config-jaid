@@ -15,6 +15,8 @@ import ensureStart from "ensure-start"
 
 import getPostcssConfig from "./getPostcssConfig"
 
+const base64UrlLimit = 1000
+
 const binaryAssetTest = /\.(svg|woff2|ttf|eot|otf|mp4|flv|webm|mp3|flac|ogg|m4a|aac)$/
 
 const imageAssetTest = /\.(png|jpg|jpeg|webp|gif)$/
@@ -127,15 +129,74 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
           use: {
             loader: "url-loader",
             options: {
-              limit: 4000,
+              limit: base64UrlLimit,
               fallback: {
                 loader: "file-loader",
                 options: {
-                  name: options.development ? "[path][name].[ext]" : "[hash:base62:8].[ext]",
+                  name: options.development ? "[path][name].[ext]" : "[hash:base62:6].[ext]",
                 },
               },
             },
           },
+        },
+        {
+          test: imageAssetTest,
+          oneOf: [
+            {
+              resourceQuery: /\?untouched(&|$)/,
+              use: {
+                loader: "url-loader",
+                options: {
+                  limit: base64UrlLimit,
+                  fallback: {
+                    loader: "file-loader",
+                    options: {
+                      name: options.development ? "[path][name]-untouched.[ext]" : "[hash:base62:6].[ext]",
+                    },
+                  },
+                },
+              },
+            },
+            {
+              resourceQuery: /[&?]responsive(&|$)/,
+              loader: "responsive-loader",
+              options: {
+                name: options.development ? "[path][name]-responsive-[width]p.[ext]" : "[hash:base62:6][width].[ext]",
+                placeholder: true,
+                placeholderSize: 32,
+                quality: 95,
+                adapter: require("responsive-loader/sharp"),
+                sizes: [
+                  16,
+                  32,
+                  64,
+                  128,
+                  256,
+                  512,
+                  1024,
+                ],
+              },
+            },
+            {
+              use: [
+                {
+                  loader: "url-loader",
+                  options: {
+                    limit: base64UrlLimit,
+                    fallback: {
+                      loader: "file-loader",
+                      options: {
+                        name: options.development ? "[path][name]-webp.webp" : "[hash:base62:6].webp",
+                      },
+                    },
+                  },
+                },
+                {
+                  loader: "webp-loader?{quality: 95, nearLossless: 50, sharpness: 5}",
+                },
+              ],
+            },
+          ],
         },
         {
           test: /\.md$/,
@@ -222,8 +283,8 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
           developerName: pkg.author?.name,
           developerURL: pkg.author?.url,
           version: pkg.version,
-          background: ensureStart(options.backgroundColor || "13061b", "#"),
-          theme_color: ensureStart(options.themeColor || "a12fdc", "#"),
+          background: ensureStart(options.backgroundColor, "#"),
+          theme_color: ensureStart(options.themeColor, "#"),
           orientation: "portrait",
           icons: {
             appleIcon: {offset: 10},

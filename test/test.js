@@ -1,5 +1,3 @@
-/* eslint-disable promise/prefer-await-to-callbacks */
-
 import path from "path"
 
 import fss from "@absolunet/fss"

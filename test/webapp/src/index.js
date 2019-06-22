@@ -1,7 +1,11 @@
 import {trim} from "lodash"
 import css from "./style.scss"
-import icon from "./perk.png"
+import icon from "./perk.png?responsive"
 
-document.body.innerHTML = "<div/>"
-document.querySelector("body > div").innerText = trim(" 123 ")
+window.icon = icon
+
+document.body.innerHTML = `<div/>`
+const img = document.createElement("img")
+img.src = icon.toString()
+document.querySelector("body > div").append(img)
 window.message =  `This is a ${process.browser ? "browser" : "non-browser"} environment`
