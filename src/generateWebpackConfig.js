@@ -148,22 +148,27 @@ export default options => {
     entry,
     context: path.resolve(options.packageRoot),
     resolve: {
-      extensions: [".js", ".json", ".yml"],
+      extensions: [".js", ".jsx", ".ts", ".tsx", ".json", ".yml"],
     },
     mode: options.development ? "development" : "production",
     devtool: options.development ? "inline-source-map" : "source-map",
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
-          enforce: "post",
-          resourceQuery: /aot$/,
-          loader: "aot-loader",
-        },
-        {
-          test: /\.jsx?$/,
-          include: entryFolder,
-          loader: "babel-loader",
+          test: /\.(js|jsx|ts|tsx)$/,
+          oneOf: [
+            {
+              resourceQuery: /\?aot/,
+              use: [
+                "aot-loader",
+                "babel-loader",
+              ],
+            },
+            {
+              include: entryFolder,
+              loader: "babel-loader",
+            },
+          ],
         },
         {
           test: /\.ya?ml$/,
@@ -177,7 +182,7 @@ export default options => {
           test: /\.(hbs|handlebars)$/,
           oneOf: [
             {
-              resourceQuery: /html/,
+              resourceQuery: /\?html/,
               loader: "handlebars-loader",
             },
             {
