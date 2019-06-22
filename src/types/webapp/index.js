@@ -161,7 +161,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
               resourceQuery: /[&?]responsive(&|$)/,
               loader: "responsive-loader",
               options: {
-                name: options.development ? "[path][name]-responsive-[width]p.[ext]" : "[hash:base62:6][width].[ext]",
+                name: options.development ? "[path][name]-responsive-[width]p.[ext]" : "[hash:base62:6].[ext]",
                 placeholder: true,
                 placeholderSize: 32,
                 quality: 95,
