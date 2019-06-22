@@ -4,5 +4,6 @@ exports.default = (webpackConfigJaid, packageRoot, outDir, development) => webpa
   packageRoot,
   outDir,
   development,
+  backgroundColor: "13061b",
   icon: path.join(__dirname, "src", "perk.png")
 })

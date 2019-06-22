@@ -1,8 +1,6 @@
 import webpackMerge from "webpack-merge"
 import {DefinePlugin} from "webpack"
 
-export const binaryAssetTest = /\.(png|jpg|jpeg|webp|gif|ico|svg|woff2|ttf|eot|otf|mp4|flv|webm|mp3|flac|ogg|m4a|aac)$/
-
 export const commonTerserOptions = {
   compress: {
     passes: process.env.TRAVIS_TAG ? 10 : 1,

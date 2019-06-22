@@ -10,9 +10,14 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import webpackMerge from "webpack-merge"
 import webpack from "webpack"
-import {binaryAssetTest, commonTerserOptions} from "src/configFragments"
+import {commonTerserOptions} from "src/configFragments"
+import ensureStart from "ensure-start"
 
 import getPostcssConfig from "./getPostcssConfig"
+
+const binaryAssetTest = /\.(svg|woff2|ttf|eot|otf|mp4|flv|webm|mp3|flac|ogg|m4a|aac)$/
+
+const imageAssetTest = /\.(png|jpg|jpeg|webp|gif)$/
 
 export const defaultOptions = () => ({
   nodeExternals: false,
@@ -208,7 +213,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       additionalWebpackConfig.plugins.push(new WebappPlugin({
         logo: options.icon,
         prefix: "/",
-        cache: "dist/cache/webapp-webpack-plugin",
+        cache: fromRoot("dist", "cache", "webapp-webpack-plugin"),
         inject: true,
         emitStats: false,
         favicons: {
@@ -217,8 +222,8 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
           developerName: pkg.author?.name,
           developerURL: pkg.author?.url,
           version: pkg.version,
-          background: "#283c31",
-          theme_color: "#adffb3",
+          background: ensureStart(options.backgroundColor || "13061b", "#"),
+          theme_color: ensureStart(options.themeColor || "a12fdc", "#"),
           orientation: "portrait",
           icons: {
             appleIcon: {offset: 10},

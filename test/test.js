@@ -5,6 +5,7 @@ import path from "path"
 import fss from "@absolunet/fss"
 import pify from "pify"
 import sortKeys from "sort-keys"
+import ms from "ms.macro"
 
 const webpack = pify(require("webpack"))
 const getFolderSize = pify(require("get-folder-size"))
@@ -13,7 +14,7 @@ const indexModule = process.env.MAIN ? path.resolve(__dirname, "..", process.env
 const webpackConfigJaid = require(indexModule)
 
 const setupTest = (name, packageRoot) => {
-  const timeout = 60 * 1000
+  const timeout = ms`5 minutes`
   describe(name, () => {
     for (const env of ["development", "production"]) {
       it(env, async () => {

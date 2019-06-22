@@ -30,6 +30,8 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {object} [terserPluginOptions] Additional options for `terser-webpack-plugin`
  * @property {string} [sourceFolder=path.join(packageRoot, "src")] Folder where an `index.js` is placed in
  * @property {string} [outDir=path.join(packageRoot, "dist", "package", env)] Output destination
+ * @property {string} [backgroundColor=13061b] For type `webapp` if `options.icon` is defined: The webapp background color
+ * @property {string} [themeColor=a12fdc] For type `webapp` if `options.icon` is defined: The webapp theme color
  */
 
 /**
