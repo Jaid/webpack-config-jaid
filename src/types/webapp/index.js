@@ -21,6 +21,8 @@ const binaryAssetTest = /\.(svg|woff2|ttf|eot|otf|mp4|flv|webm|mp3|flac|ogg|m4a|
 
 const imageAssetTest = /\.(png|jpg|jpeg|webp|gif)$/
 
+const debug = require("debug")(_PKG_NAME)
+
 export const defaultOptions = () => ({
   nodeExternals: false,
   terserOptions: {
@@ -33,7 +35,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   const port = process.env.webpackPort
   const srcDirectory = entryFolder
   const publicPath = do {
-    if (port) {
+    if (options.publicPath) {
+      options.publicPath
+    } else if (port) {
       `http://localhost:${port}/`
     } else if (!options.development && options.domain) {
       `https://${options.domain}/`
@@ -42,7 +46,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     }
     ""
   }
+  debug("Public path: %s", publicPath)
   const title = options.title || pkg.title || pkg.config?.title || "App"
+  debug("Title: %s", title)
 
   const cssIdentName = options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]"
 
@@ -133,6 +139,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
               fallback: {
                 loader: "file-loader",
                 options: {
+                  publicPath,
                   name: options.development ? "[path][name].[ext]" : "[hash:base62:6].[ext]",
                 },
               },
@@ -151,6 +158,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
                   fallback: {
                     loader: "file-loader",
                     options: {
+                      publicPath,
                       name: options.development ? "[path][name]-untouched.[ext]" : "[hash:base62:6].[ext]",
                     },
                   },
@@ -186,6 +194,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
                     fallback: {
                       loader: "file-loader",
                       options: {
+                        publicPath,
                         name: options.development ? "[path][name]-webp.webp" : "[hash:base62:6].webp",
                       },
                     },
@@ -273,7 +282,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     if (options.icon) {
       additionalWebpackConfig.plugins.push(new WebappPlugin({
         logo: options.icon,
-        prefix: "/",
+        prefix: publicPath,
         cache: fromRoot("dist", "cache", "webapp-webpack-plugin"),
         inject: true,
         emitStats: false,
