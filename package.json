@@ -74,6 +74,8 @@
     "get-folder-size": "^2.0.1",
     "jest": "^24.8.0",
     "make-dir": "^3.0.0",
+    "monaco-editor": "^0.17.0",
+    "monaco-editor-webpack-plugin": "^1.7.0",
     "open-cli": "^5.0.0",
     "pify": "^4.0.1",
     "prepack": "^0.2.54",
