@@ -21,7 +21,8 @@ export default options => {
   addPlugin("-center") // Adds "top: center" and "left: center"
 
   if (!options.development) {
-    addPlugin("-sorting", { // Sorts property names alphabetically
+    // Sorts property names alphabetically
+    addPlugin("-sorting", {
       order: [
         "custom-properties",
         "dollar-variables",

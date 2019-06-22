@@ -208,7 +208,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       additionalWebpackConfig.plugins.push(new WebappPlugin({
         logo: options.icon,
         prefix: "/",
-        cache: "cache/webapp-webpack-plugin",
+        cache: "dist/cache/webapp-webpack-plugin",
         inject: true,
         emitStats: false,
         favicons: {
