@@ -112,6 +112,7 @@ export default options => {
     hashbang: null,
     backgroundColor: "13061b",
     themeColor: "a12fdc",
+    excludeLocale: true,
     ...typeDefaultOptions || {},
     ...options,
   }
@@ -339,6 +340,10 @@ export default options => {
       })
       |> #.join("\n\n"),
     }))
+  }
+
+  if (options.excludeLocale) {
+    config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/))
   }
 
   debug(`Base config: ${config |> json5.stringify}`)

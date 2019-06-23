@@ -33,6 +33,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {string} [backgroundColor=13061b] For type `webapp` if `options.icon` is defined: The webapp background color
  * @property {string} [themeColor=a12fdc] For type `webapp` if `options.icon` is defined: The webapp theme color
  * @property {string} [publicPath] Like `webpackConfig.publicPath`, but also applies to any plugin
+ * @property {boolean} [excludeLocale=true] Exclude i18n data for `moment`
  */
 
 /**
