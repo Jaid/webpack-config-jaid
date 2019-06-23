@@ -290,8 +290,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   if (!options.development) {
     if (options.icon) {
       additionalWebpackConfig.plugins.push(new WebappPlugin({
+        publicPath,
         logo: options.icon,
-        prefix: publicPath,
+        prefix: "/",
         cache: fromRoot("dist", "cache", "webapp-webpack-plugin"),
         inject: true,
         emitStats: false,
