@@ -146,48 +146,21 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
             },
           },
         },
-        {
-          test: imageAssetTest,
-          oneOf: [
-            {
-              resourceQuery: /\?untouched(&|$)/,
-              use: {
-                loader: "url-loader",
-                options: {
-                  limit: base64UrlLimit,
-                  fallback: {
-                    loader: "file-loader",
-                    options: {
-                      publicPath,
-                      name: options.development ? "[path][name]-untouched.[ext]" : "[hash:base62:6].[ext]",
-                    },
-                  },
-                },
-              },
+        options.development
+          ? {
+            test: imageAssetTest,
+            loader: "file-loader",
+            options: {
+              publicPath,
+              name: "[path][name]-untouched.[ext]",
             },
-            {
-              resourceQuery: /\?responsive(&|$)/,
-              loader: "responsive-loader",
-              options: {
-                name: options.development ? "[path][name]-responsive-[width]p.[ext]" : "[hash:base62:6].[ext]",
-                placeholder: true,
-                placeholderSize: 32,
-                quality: 95,
-                adapter: require("responsive-loader/sharp"),
-                sizes: [
-                  16,
-                  32,
-                  64,
-                  128,
-                  256,
-                  512,
-                  1024,
-                ],
-              },
-            },
-            {
-              use: [
-                {
+          }
+          : {
+            test: imageAssetTest,
+            oneOf: [
+              {
+                resourceQuery: /\?untouched(&|$)/,
+                use: {
                   loader: "url-loader",
                   options: {
                     limit: base64UrlLimit,
@@ -195,18 +168,54 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
                       loader: "file-loader",
                       options: {
                         publicPath,
-                        name: options.development ? "[path][name]-webp.webp" : "[hash:base62:6].webp",
+                        name: "[hash:base62:6].[ext]",
                       },
                     },
                   },
                 },
-                {
-                  loader: "webp-loader?{quality: 95, nearLossless: 50, sharpness: 5}",
+              },
+              {
+                resourceQuery: /\?set(&|$)/,
+                loader: "responsive-loader",
+                options: {
+                  name: "[hash:base62:6].[ext]",
+                  placeholder: true,
+                  placeholderSize: 32,
+                  quality: 95,
+                  adapter: require("responsive-loader/sharp"),
+                  sizes: [
+                    16,
+                    32,
+                    64,
+                    128,
+                    256,
+                    512,
+                    1024,
+                  ],
                 },
-              ],
-            },
-          ],
-        },
+              },
+              {
+                use: [
+                  {
+                    loader: "url-loader",
+                    options: {
+                      limit: base64UrlLimit,
+                      fallback: {
+                        loader: "file-loader",
+                        options: {
+                          publicPath,
+                          name: "[hash:base62:6].webp",
+                        },
+                      },
+                    },
+                  },
+                  {
+                    loader: "webp-loader?{quality: 95, nearLossless: 50, sharpness: 5}",
+                  },
+                ],
+              },
+            ],
+          },
         {
           test: /\.md$/,
           use: ["html-loader", "markdown-loader"],
