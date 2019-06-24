@@ -113,6 +113,7 @@ export default options => {
     backgroundColor: "13061b",
     themeColor: "a12fdc",
     excludeLocale: true,
+    appDescription: pkg.description || pkg.title || null,
     ...typeDefaultOptions || {},
     ...options,
   }

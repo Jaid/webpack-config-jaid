@@ -298,7 +298,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
         emitStats: false,
         favicons: {
           appName: title,
-          appDescription: pkg.description,
+          appDescription: options.appDescription,
           developerName: pkg.author?.name,
           developerURL: pkg.author?.url,
           version: pkg.version,
