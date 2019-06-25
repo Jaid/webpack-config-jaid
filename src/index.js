@@ -35,6 +35,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {string} [publicPath] Like `webpackConfig.publicPath`, but also applies to any plugin
  * @property {boolean} [excludeLocale=true] Exclude i18n data for `moment`
  * @property {string} [appDescription=pkg.description || pkg.title]
+ * @property {string} [twitterSiteHandle] For type `webapp`: Twitter handle of the website for the output HTML's meta tags
  */
 
 /**

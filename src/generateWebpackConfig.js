@@ -114,6 +114,7 @@ export default options => {
     themeColor: "a12fdc",
     excludeLocale: true,
     appDescription: pkg.description || pkg.title || null,
+    twitterSiteHandle: null,
     ...typeDefaultOptions || {},
     ...options,
   }
