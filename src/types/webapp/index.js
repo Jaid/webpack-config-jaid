@@ -47,7 +47,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     }
   }
   debug("Public path: %s", publicPath)
+
   const title = options.title || pkg.title || pkg.config?.title || "App"
+  const description = options.appDescription || pkg.description || title
   debug("Title: %s", title)
 
   const meta = {
@@ -56,12 +58,14 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   }
 
   if (!options.development) {
-    meta.description = options.appDescription
+    meta.description = description
     meta["format-detection"] = "telephone=no"
     meta["og:type"] = "website"
     meta["twitter:card"] = "summary"
     meta["og:updated_time"] = Date.now()
     meta["og:determiner"] = ""
+    meta["og:description"] = description
+    meta["twitter:description"] = description
 
     if (pkg.author?.name) {
       meta.author = pkg.author?.name
@@ -82,11 +86,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     if (title) {
       meta["og:title"] = title
       meta["twitter:title"] = title
-    }
-
-    if (meta.description) {
-      meta["og:description"] = meta.description
-      meta["twitter:description"] = meta.description
     }
 
     if (options.domain) {
@@ -349,8 +348,8 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
         inject: true,
         emitStats: false,
         favicons: {
-          appName: meta["application-name"],
-          appDescription: meta.description,
+          appName: title,
+          appDescription: description,
           developerName: meta.author,
           developerURL: pkg.author?.url,
           version: pkg.version,
