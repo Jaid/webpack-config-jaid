@@ -37,6 +37,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {string} [appDescription=pkg.description || pkg.title]
  * @property {string} [twitterSiteHandle] For type `webapp`: Twitter handle of the website for the output HTML's meta tags
  * @property {string} [twitterAuthorHandle] For type `webapp`: Twitter handle of the author for the output HTML's meta tags
+ * @property {string} [locale=en-US] App language
  */
 
 /**
