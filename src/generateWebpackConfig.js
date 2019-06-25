@@ -32,6 +32,7 @@ export default options => {
   try {
     pkg = readPkg.sync({
       cwd: options.packageRoot || String(appRootPath),
+      normalize: true,
     })
     debug(`Pkg data: ${pkg |> json5.stringify}`)
   } catch {

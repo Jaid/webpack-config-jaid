@@ -48,7 +48,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   }
   debug("Public path: %s", publicPath)
 
-  const title = options.title || pkg.title || pkg.config?.title || "App"
+  const title = options.title || pkg.title || pkg.config?.title || pkg.name || "App"
   const description = options.appDescription || pkg.description || title
   debug("Title: %s", title)
 
@@ -343,8 +343,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       const faviconsConfig = {
         appName: title,
         appDescription: description,
-        developerName: meta.author,
-        developerURL: pkg.author?.url,
         version: pkg.version,
         background: ensureStart(options.backgroundColor, "#"),
         theme_color: ensureStart(options.themeColor, "#"),
@@ -355,6 +353,12 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
           coast: {offset: 10},
           firefox: {offset: 15},
         },
+      }
+      if (meta.author) {
+        faviconsConfig.developerName = meta.author
+      }
+      if (pkg.author?.url) {
+        faviconsConfig.developerURL = pkg.author.url
       }
       additionalWebpackConfig.plugins.push(new WebappPlugin({
         publicPath,
