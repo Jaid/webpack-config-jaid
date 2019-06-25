@@ -115,6 +115,7 @@ export default options => {
     excludeLocale: true,
     appDescription: pkg.description || pkg.title || null,
     twitterSiteHandle: null,
+    twitterAuthorHandle: null,
     ...typeDefaultOptions || {},
     ...options,
   }

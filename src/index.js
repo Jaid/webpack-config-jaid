@@ -36,6 +36,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {boolean} [excludeLocale=true] Exclude i18n data for `moment`
  * @property {string} [appDescription=pkg.description || pkg.title]
  * @property {string} [twitterSiteHandle] For type `webapp`: Twitter handle of the website for the output HTML's meta tags
+ * @property {string} [twitterAuthorHandle] For type `webapp`: Twitter handle of the author for the output HTML's meta tags
  */
 
 /**
