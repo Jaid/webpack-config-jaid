@@ -34,7 +34,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {string} [themeColor=a12fdc] For type `webapp` if `options.icon` is defined: The webapp theme color
  * @property {string} [publicPath] Like `webpackConfig.publicPath`, but also applies to any plugin
  * @property {boolean} [excludeLocale=true] Exclude i18n data for `moment`
- * @property {string} [appDescription=pkg.description || pkg.title]
+ * @property {string} [appDescription]
  * @property {string} [twitterSiteHandle] For type `webapp`: Twitter handle of the website for the output HTML's meta tags
  * @property {string} [twitterAuthorHandle] For type `webapp`: Twitter handle of the author for the output HTML's meta tags
  * @property {string} [locale=en-US] App language
