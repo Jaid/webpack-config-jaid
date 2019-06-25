@@ -50,6 +50,57 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   const title = options.title || pkg.title || pkg.config?.title || "App"
   debug("Title: %s", title)
 
+  const meta = {
+    viewport: "width=device-width,initial-scale=1,user-scalable=no",
+    HandheldFriendly: true,
+  }
+
+  if (!options.development) {
+    meta.description = options.appDescription
+    meta["format-detection"] = "telephone=no"
+    meta["og:type"] = "website"
+    meta["twitter:card"] = "summary"
+    meta["og:updated_time"] = Date.now()
+    meta["og:determiner"] = ""
+
+    if (pkg.author?.name) {
+      meta.author = pkg.author?.name
+    }
+
+    if (options.locale) {
+      meta["og:locale"] = options.locale.replace("-", "_")
+    }
+
+    if (options.twitterSiteHandle || options.twitterAuthorHandle) {
+      meta["twitter:site"] = options.twitterSiteHandle || options.twitterAuthorHandle
+    }
+
+    if (options.twitterAuthorHandle) {
+      meta["twitter:creator"] = options.twitterAuthorHandle
+    }
+
+    if (title) {
+      meta["og:title"] = title
+      meta["twitter:title"] = title
+    }
+
+    if (meta.description) {
+      meta["og:description"] = meta.description
+      meta["twitter:description"] = meta.description
+    }
+
+    if (options.domain) {
+      const baseUrl = `https://${options.domain}/`
+      const imageUrl = `${baseUrl}coast-228x228.png`
+      meta["og:url"] = baseUrl
+      meta["og:image:width"] = 228
+      meta["og:image:height"] = 228
+      meta["og:image:type"] = "image/png"
+      meta["og:image"] = imageUrl
+      meta["twitter:image"] = imageUrl
+    }
+  }
+
   const cssIdentName = options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]"
 
   const internalCssLoader = {
@@ -226,6 +277,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     plugins: [
       new HtmlPlugin({
         title,
+        meta,
         debug: options.development,
         alwaysWriteToDisk: true,
         inlineSource: ".(js|css)$",
@@ -297,9 +349,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
         inject: true,
         emitStats: false,
         favicons: {
-          appName: title,
-          appDescription: options.appDescription,
-          developerName: pkg.author?.name,
+          appName: meta["application-name"],
+          appDescription: meta.description,
+          developerName: meta.author,
           developerURL: pkg.author?.url,
           version: pkg.version,
           background: ensureStart(options.backgroundColor, "#"),
