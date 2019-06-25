@@ -340,6 +340,22 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
 
   if (!options.development) {
     if (options.icon) {
+      const faviconsConfig = {
+        appName: title,
+        appDescription: description,
+        developerName: meta.author,
+        developerURL: pkg.author?.url,
+        version: pkg.version,
+        background: ensureStart(options.backgroundColor, "#"),
+        theme_color: ensureStart(options.themeColor, "#"),
+        orientation: "portrait",
+        icons: {
+          appleIcon: {offset: 10},
+          appleStartup: true,
+          coast: {offset: 10},
+          firefox: {offset: 15},
+        },
+      }
       additionalWebpackConfig.plugins.push(new WebappPlugin({
         publicPath,
         logo: options.icon,
@@ -347,22 +363,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
         cache: fromRoot("dist", "cache", "webapp-webpack-plugin"),
         inject: true,
         emitStats: false,
-        favicons: {
-          appName: title,
-          appDescription: description,
-          developerName: meta.author,
-          developerURL: pkg.author?.url,
-          version: pkg.version,
-          background: ensureStart(options.backgroundColor, "#"),
-          theme_color: ensureStart(options.themeColor, "#"),
-          orientation: "portrait",
-          icons: {
-            appleIcon: {offset: 10},
-            appleStartup: true,
-            coast: {offset: 10},
-            firefox: {offset: 15},
-          },
-        },
+        favicons: faviconsConfig,
       }))
     }
 
