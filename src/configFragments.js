@@ -32,7 +32,7 @@ export const configureNode = webpackConfig => webpackMerge.smart({
   module: {
     rules: [
       {
-        test: /\.(png|jpg|jpeg|webp|gif|svg|woff2|ttf|eot|otf|mp4|flv|webm|mp3|flac|ogg|m4a|aac)$/,
+        test: /\.(png|jpg|jpeg|webp|gif|svg|woff|woff2|ttf|eot|otf|mp4|flv|webm|mp3|flac|ogg|m4a|aac)$/,
         use: "buffer-loader",
       },
     ],
