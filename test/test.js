@@ -12,7 +12,7 @@ const indexModule = process.env.MAIN ? path.resolve(__dirname, "..", process.env
 const webpackConfigJaid = require(indexModule)
 
 const setupTest = (name, packageRoot) => {
-  const timeout = ms`5 minutes`
+  const timeout = ms`10 minutes`
   describe(name, () => {
     for (const env of ["development", "production"]) {
       it(env, async () => {
