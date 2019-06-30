@@ -376,7 +376,14 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     }
 
     if (options.robots === true) {
-      additionalWebpackConfig.plugins.push(new RobotsTxtPlugin)
+      if (options.domain) {
+        additionalWebpackConfig.plugins.push(new RobotsTxtPlugin({
+          host: `https://${options.domain}`,
+          sitemap: `https://${options.domain}/sitemap.xml`,
+        }))
+      } else {
+        additionalWebpackConfig.plugins.push(new RobotsTxtPlugin)
+      }
     } else if (isObject(options.robots)) {
       additionalWebpackConfig.plugins.push(new RobotsTxtPlugin(options.robots))
     }
