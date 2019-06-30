@@ -76,11 +76,11 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     }
 
     if (options.twitterSiteHandle || options.twitterAuthorHandle) {
-      meta["twitter:site"] = options.twitterSiteHandle || options.twitterAuthorHandle
+      meta["twitter:site"] = ensureStart(options.twitterSiteHandle || options.twitterAuthorHandle, "@")
     }
 
     if (options.twitterAuthorHandle) {
-      meta["twitter:creator"] = options.twitterAuthorHandle
+      meta["twitter:creator"] = ensureStart(options.twitterAuthorHandle, "@")
     }
 
     if (title) {
