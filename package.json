@@ -75,7 +75,7 @@
     "coffee": "^5.2.1",
     "cross-env": "^5.2.0",
     "eslint": "^6.0.1",
-    "eslint-config-jaid": "^1.17.0",
+    "eslint-config-jaid": "^1.18.0",
     "fs-extra": "^8.1.0",
     "get-folder-size": "^2.0.1",
     "jest": "^24.8.0",
