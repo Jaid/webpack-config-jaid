@@ -38,6 +38,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {string} [twitterSiteHandle] For type `webapp`: Twitter handle of the website for the output HTML's meta tags
  * @property {string} [twitterAuthorHandle] For type `webapp`: Twitter handle of the author for the output HTML's meta tags
  * @property {string} [locale=en-US] App language
+ * @property {boolean|object} [sitemap=true] For type `webapp`: If `true`, `sitemap-xml-webpack-plugin` will be used to output a `sitemap.xml`. If typeof `object`, this will be used as configuration for SitemapXmlWebpackPlugin constructor.
  */
 
 /**

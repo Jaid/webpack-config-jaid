@@ -118,6 +118,7 @@ export default options => {
     twitterSiteHandle: null,
     twitterAuthorHandle: null,
     locale: "en-US",
+    sitemap: true,
     ...typeDefaultOptions || {},
     ...options,
   }

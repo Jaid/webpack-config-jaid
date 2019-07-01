@@ -8,6 +8,7 @@ import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import MonacoEditorPlugin from "monaco-editor-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
+import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import webpackMerge from "webpack-merge"
 import webpack from "webpack"
 import {commonTerserOptions} from "src/configFragments"
@@ -386,6 +387,20 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       }
     } else if (isObject(options.robots)) {
       additionalWebpackConfig.plugins.push(new RobotsTxtPlugin(options.robots))
+    }
+
+    if (options.sitemap) {
+      if (!options.domain) {
+        throw new Error("options.sitemap is truthy, but options.domain is not set")
+      }
+      if (options.sitemap === true) {
+        additionalWebpackConfig.plugins.push(new SitemapXmlPlugin(options.domain))
+      } else if (options.sitemap |> isObject) {
+        additionalWebpackConfig.plugins.push(new SitemapXmlPlugin({
+          domain: options.domain,
+          ...options.sitemap,
+        }))
+      }
     }
 
     if (options.optimizeCss) {
