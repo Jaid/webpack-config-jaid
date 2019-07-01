@@ -181,6 +181,18 @@ export default options => {
           loader: "yml-loader",
         },
         {
+          test: /\.lines$/,
+          loader: "lines-loader",
+        },
+        {
+          test: /\.rlines$/,
+          loader: "lines-loader",
+          options: {
+            sort: true,
+            random: true,
+          },
+        },
+        {
           test: /\.txt$/,
           loader: "raw-loader",
         },
