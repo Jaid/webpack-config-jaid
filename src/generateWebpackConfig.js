@@ -304,6 +304,13 @@ export default options => {
       autoMain: options.type === "cli" ? "bin" : true,
       autoTypes: Boolean(options.documentation),
     }
+    if (options.nodeExternals === false) {
+      publishimoConfig.excludeFields = [
+        "dependencies",
+        "optionalDependencies",
+        "peerDependencies",
+      ]
+    }
     if (typeof options.publishimo === "object") {
       Object.assign(publishimoConfig, options.publishimo)
     }
