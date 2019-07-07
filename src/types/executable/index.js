@@ -5,11 +5,6 @@ export const defaultOptions = () => ({
   terserOptions: {
     ...commonTerserOptions,
     toplevel: true,
-    compress: {
-      ...commonTerserOptions.compress,
-      ecma: 6,
-      booleans_as_integers: true,
-    },
   },
 })
 
