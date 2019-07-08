@@ -445,13 +445,13 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   }
 
   const getGoogleAnalyticsTrackingId = () => {
-    if (this.options.googleAnalyticsTrackingId |> isEmpty) {
+    if (options.googleAnalyticsTrackingId |> isEmpty) {
       return false
     }
-    if (this.options.googleAnalyticsOnlyInProduction && options.development) {
+    if (options.googleAnalyticsOnlyInProduction && options.development) {
       return false
     }
-    return this.options.googleAnalyticsTrackingId
+    return options.googleAnalyticsTrackingId
   }
 
   additionalWebpackConfig.plugins.push(new webpack.DefinePlugin({
