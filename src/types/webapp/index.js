@@ -1,4 +1,5 @@
 import {isObject} from "lodash"
+import {isEmpty} from "has-content"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import CnamePlugin from "cname-webpack-plugin"
 import WebappPlugin from "webapp-webpack-plugin"
@@ -442,6 +443,20 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     }
     additionalWebpackConfig.plugins.push(new MiniCssExtractPlugin(pluginOptions))
   }
+
+  const getGoogleAnalyticsTrackingId = () => {
+    if (this.options.googleAnalyticsTrackingId |> isEmpty) {
+      return false
+    }
+    if (this.options.googleAnalyticsOnlyInProduction && options.development) {
+      return false
+    }
+    return this.options.googleAnalyticsTrackingId
+  }
+
+  additionalWebpackConfig.plugins.push(new webpack.DefinePlugin({
+    GOOGLE_ANALYTICS_TRACKING_ID: getGoogleAnalyticsTrackingId() |> JSON.stringify,
+  }))
 
   return additionalWebpackConfig
 }
