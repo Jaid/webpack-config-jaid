@@ -88,7 +88,7 @@
     "pretty-bytes": "^5.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-hot-loader": "^4.12.4",
+    "react-hot-loader": "^4.12.5",
     "rimraf": "^2.6.3",
     "sort-keys": "^3.0.0",
     "terser": "^4.1.0",
