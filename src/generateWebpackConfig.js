@@ -241,6 +241,9 @@ export default options => {
       errors: true,
       errorDetails: true,
     },
+    performance: {
+      maxEntrypointSize: 4 * 1000 * 1000, // 4 MB
+    },
   }
 
   if (options.development) {
