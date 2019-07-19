@@ -243,6 +243,7 @@ export default options => {
     },
     performance: {
       maxEntrypointSize: 4 * 1000 * 1000, // 4 MB
+      maxAssetSize: 4 * 1000 * 1000, // 4 MB
     },
   }
 
