@@ -234,7 +234,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
                   placeholder: true,
                   placeholderSize: 32,
                   quality: 95,
-                  adapter: require("responsive-loader/sharp"),
                   sizes: [
                     16,
                     32,
