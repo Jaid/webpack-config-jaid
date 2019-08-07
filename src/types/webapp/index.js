@@ -40,19 +40,15 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       options.publicPath
     } else if (port) {
       `http://localhost:${port}/`
-    } else if (!options.development && options.domain) {
-      if (process.env.CI) {
-        `//${options.domain}/`
-      } else {
-        "/"
-      }
+    } else if (!options.development && options.domain && process.env.CI) {
+      `//${options.domain}/`
     } else if (options.development) {
       srcDirectory
     } else {
       ""
     }
   }
-  debug("Public path: %s", publicPath)
+  debug("Public path: \"%s\"", publicPath)
 
   const title = options.title || pkg.title || pkg.config?.title || pkg.name || "App"
   const description = options.appDescription || pkg.description || title
