@@ -38,7 +38,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {string} [twitterSiteHandle] For type `webapp`: Twitter handle of the website for the output HTML's meta tags
  * @property {string} [twitterAuthorHandle] For type `webapp`: Twitter handle of the author for the output HTML's meta tags
  * @property {string} [locale=en-US] App language
- * @property {boolean|object} [sitemap=true] For type `webapp`: If `true`, `sitemap-xml-webpack-plugin` will be used to output a `sitemap.xml`. If typeof `object`, this will be used as configuration for SitemapXmlWebpackPlugin constructor.
+ * @property {boolean|object} [sitemap=false] For type `webapp`: If `true`, `sitemap-xml-webpack-plugin` will be used to output a `sitemap.xml`. If typeof `object`, this will be used as configuration for SitemapXmlWebpackPlugin constructor.
  * @property {string} [googleAnalyticsTrackingId] For type `webapp`: If typeof `string`, will be used as the Google Analytics tracking id and resolves any occurence of `GOOGLE_ANALYTICS_TRACKING_ID` to given id
  * @property {boolean} [googleAnalyticsOnlyInProduction=true] For type `webapp`: If `true`, option `googleAnalyticsTrackingId` will be ignored in any environment but `production`
  */
