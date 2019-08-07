@@ -41,7 +41,11 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     } else if (port) {
       `http://localhost:${port}/`
     } else if (!options.development && options.domain) {
-      `https://${options.domain}/`
+      if (process.env.CI) {
+        `//${options.domain}/`
+      } else {
+        "/"
+      }
     } else if (options.development) {
       srcDirectory
     } else {
