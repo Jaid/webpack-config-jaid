@@ -133,8 +133,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       use: {
         loader: options.createCssFile && !port ? MiniCssExtractPlugin.loader : "style-loader",
         options: {
-          hmr: options.development,
-          singleton: !options.development,
+          injectType: options.development ? "linkTag" : "singletonStyleTag",
         },
       },
     },
