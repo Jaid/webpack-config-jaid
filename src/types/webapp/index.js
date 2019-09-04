@@ -163,7 +163,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
           loader: "sass-loader",
           options: {
             sourceMap: true,
-            sourceMapContents: false,
           },
         },
       ],
