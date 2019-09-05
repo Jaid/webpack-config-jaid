@@ -61,7 +61,7 @@
     "webapp-webpack-plugin": "^2.7.1",
     "webp-loader": "^0.5.0",
     "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7",
+    "webpack-cli": "^3.3.8",
     "webpack-deep-scope-plugin": "^1.6.2",
     "webpack-dev-server": "^3.8.0",
     "webpack-merge": "^4.2.2",
@@ -70,7 +70,7 @@
   "devDependencies": {
     "@hot-loader/react-dom": "^16.9.0",
     "babel-jest": "^24.9.0",
-    "babel-preset-jaid": "^6.9.1",
+    "babel-preset-jaid": "^6.9.2",
     "browserslist-config-jaid-node": "^2.2.2",
     "chalk": "^2.4.2",
     "coffee": "^5.2.2",
@@ -81,7 +81,7 @@
     "get-folder-size": "^2.0.1",
     "jest": "^24.9.0",
     "make-dir": "^3.0.0",
-    "monaco-editor": "^0.17.1",
+    "monaco-editor": "^0.18.0",
     "monaco-editor-webpack-plugin": "^1.7.0",
     "open-cli": "^5.0.0",
     "pify": "^4.0.1",
@@ -93,7 +93,7 @@
     "rimraf": "^3.0.0",
     "sort-keys": "^4.0.0",
     "terser": "^4.2.1",
-    "terser-webpack-plugin": "^1.4.1",
+    "terser-webpack-plugin": "^2.0.0",
     "winston": "^3.2.1"
   },
   "scripts": {
