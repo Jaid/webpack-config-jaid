@@ -1,4 +1,5 @@
 version: ~> 1.0
+os: linux
 language: node_js
 #node_js: [node, lts/*] sharp is currently not prebuilt for Node 13.1.0, so it breaks CI
 node_js: "12.13.0"
@@ -17,22 +18,22 @@ jobs:
         - provider: pages
           local_dir: dist/page
           fqdn: $domain
-          skip_cleanup: true
-          github_token: $GITHUB_TOKEN
+          #skip_cleanup: true
+          token: $GITHUB_TOKEN
           on:
             tags: true
             condition: "-f ~/deployPage"
         - provider: releases
           file_glob: true
           file: dist/github/*
-          skip_cleanup: true
-          api_key: $GITHUB_TOKEN
+          #skip_cleanup: true
+          token: $GITHUB_TOKEN
           on:
             tags: true
             condition: "-f ~/deployReleases"
         - provider: script
           script: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc && npm publish dist/package/production
-          skip_cleanup: true
+          #skip_cleanup: true
           on:
             tags: true
             condition: "-f ~/deployNpm"
