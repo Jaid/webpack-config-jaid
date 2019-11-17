@@ -1,6 +1,6 @@
 language: node_js
 #node_js: [node, lts/*] sharp is currently not prebuilt for Node 13.1.0, so it breaks CI
-node_js: [lts/*]
+node_js: 12.13.0
 script:
   - curl https://gist.githubusercontent.com/Jaid/284917bd3e938add97b699a18b957d8c/raw/ciNode.bash | bash
 jobs:
