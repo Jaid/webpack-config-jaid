@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "5.27.16",
+  "version": "5.27.17",
   "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
   "dependencies": {
     "@absolunet/fss": "^1.6.2",
