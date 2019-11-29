@@ -126,6 +126,13 @@ export default options => {
 
   const fromRoot = (...directive) => path.resolve(options.packageRoot, ...directive)
 
+  // output.path of Webpack config must be an absolute path, forcing here
+  if (options.outDir && !path.isAbsolute(options.outDir)) {
+    const absoluteOutDir = fromRoot(options.outDir)
+    debug(`Rewriting outDir ${options.outDir} to ${absoluteOutDir}`)
+    options.outDir = fromRoot(options.outDir)
+  }
+
   options = {
     clean: !options.development,
     outDir: fromRoot("dist", "package", env),

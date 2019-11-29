@@ -3,8 +3,8 @@ import {configureNode, commonTerserOptions} from "src/configFragments"
 export const defaultOptions = () => ({
   terserOptions: {
     ...commonTerserOptions,
+    toplevel: true,
   },
-  toplevel: true,
   include: false,
   nodeExternals: false,
   outDir: "build",
