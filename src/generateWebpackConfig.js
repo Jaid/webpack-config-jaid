@@ -24,7 +24,7 @@ const debug = require("debug")(_PKG_NAME)
 
 const env = process.env.NODE_ENV.toLowerCase?.() || "development"
 
-export default options => {
+export default (options={}) => {
   debug(`NODE_ENV: ${env}`)
   debug(`Options: ${options |> json5.stringify}`)
 
