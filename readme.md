@@ -5,21 +5,6 @@ Takes tiny input and returns a Webpack config in the way I personally like.
 
 
 
-## Try it out
-Open a browser's JavaScript console and execute:
-
-```javascript
-const scriptElement = document.createElement("script");
-scriptElement.setAttribute("type","text/javascript");
-scriptElement.setAttribute("src","https://unpkg.com/webpack-config-jaid@5.29.1");
-document.querySelector("head").appendChild(scriptElement);
-```
-
-The module is now loaded in a variable.
-
-```javascript
-typeof webpack-config-jaid.default
-```
 
 
 ## License
