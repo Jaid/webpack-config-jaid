@@ -1,0 +1,12 @@
+{
+  "name": "umd2-name-test",
+  "devDependencies": {
+    "eslint": "5.13.0",
+    "babel-preset-jaid": "2.10.0",
+    "eslint-config-jaid": "1.11.0"
+  },
+  "eslintConfig": {
+    "extends": "jaid"
+  },
+  "webpackConfigJaid": "universalLib"
+}

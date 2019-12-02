@@ -1,0 +1,1 @@
+export default (firstNumber, secondNumber) => firstNumber + secondNumber

@@ -1,5 +1,6 @@
-import {configureNode, commonTerserOptions} from "src/configFragments"
 import pascalCase from "pascal-case"
+
+import {commonTerserOptions, configureNode} from "src/configFragments"
 
 export const defaultOptions = () => ({
   terserOptions: {
