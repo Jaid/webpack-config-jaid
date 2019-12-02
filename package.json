@@ -107,5 +107,6 @@
     "test:dev": "npm run build:dev && NODE_ENV=test MAIN=$(npx find-by-extension-cli js --fullPath --cwd dist/package/development) jest --runInBand",
     "test:debug": "DEBUG=\"$(basename $PWD),$(basename $PWD):*\" NODE_ENV=test node --inspect=9229 node_modules/jest/bin/jest.js --runInBand"
   },
-  "name": "webpack-config-jaid"
+  "name": "webpack-config-jaid",
+  "description": "Takes tiny input and returns a Webpack config in the way I personally like."
 }
