@@ -8,6 +8,7 @@ export const defaultOptions = () => ({
     toplevel: true,
     module: true,
   },
+  publishimo: true,
 })
 
 export const webpackConfig = ({pkg}) => {

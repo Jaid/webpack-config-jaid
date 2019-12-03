@@ -1,4 +1,4 @@
-import {configureNode, commonTerserOptions} from "src/configFragments"
+import {commonTerserOptions, configureNode} from "src/configFragments"
 
 export const defaultOptions = () => ({
   hashbang: "/usr/bin/env node",
@@ -6,6 +6,7 @@ export const defaultOptions = () => ({
     ...commonTerserOptions,
     toplevel: true,
   },
+  publishimo: true,
 })
 
 export const webpackConfig = () => configureNode({
