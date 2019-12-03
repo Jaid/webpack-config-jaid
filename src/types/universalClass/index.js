@@ -1,4 +1,4 @@
-import pascalCase from "pascal-case"
+import {pascalCase} from "pascal-case"
 
 import {commonTerserOptions} from "src/configFragments"
 
