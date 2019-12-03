@@ -1,4 +1,5 @@
 import {camelCase} from "lodash"
+
 import {commonTerserOptions} from "src/configFragments"
 
 export const defaultOptions = () => ({
@@ -13,7 +14,7 @@ export const defaultOptions = () => ({
 export const webpackConfig = ({pkg}) => {
   const config = {
     output: {
-      libraryTarget: "umd",
+      libraryTarget: "umd2",
       globalObject: "this",
     },
   }
