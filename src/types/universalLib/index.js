@@ -1,4 +1,4 @@
-import {camelCase} from "lodash"
+import camelcase from "camelcase"
 
 import {commonTerserOptions} from "src/configFragments"
 
@@ -20,7 +20,7 @@ export const webpackConfig = ({pkg}) => {
     },
   }
   if (pkg?.name) {
-    config.output.library = camelCase(pkg.name)
+    config.output.library = camelcase(pkg.name)
   }
   return config
 }
