@@ -1,4 +1,4 @@
-import {configureNode, commonTerserOptions} from "src/configFragments"
+import {commonTerserOptions, configureNode} from "src/configFragments"
 
 export const defaultOptions = () => ({
   terserOptions: {

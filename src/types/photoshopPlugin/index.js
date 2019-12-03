@@ -1,5 +1,6 @@
 import {j2xParser as XmlWriter} from "fast-xml-parser"
 import webpack from "webpack"
+
 import {commonTerserOptions} from "src/configFragments"
 
 export const defaultOptions = () => ({

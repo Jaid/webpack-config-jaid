@@ -1,5 +1,5 @@
-import webpackMerge from "webpack-merge"
 import {DefinePlugin} from "webpack"
+import webpackMerge from "webpack-merge"
 
 export const commonTerserOptions = {
   compress: {

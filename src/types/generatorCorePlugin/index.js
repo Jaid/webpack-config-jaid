@@ -1,5 +1,6 @@
-import {camelCase, isObject, isArray, isUndefined} from "lodash"
-import {configureNode, commonTerserOptions} from "src/configFragments"
+import {camelCase, isArray, isObject, isUndefined} from "lodash"
+
+import {commonTerserOptions, configureNode} from "src/configFragments"
 
 const generatorCorePackageField = "generator-core-version"
 const generatorCoreLatestVersion = "3.12"
