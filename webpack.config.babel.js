@@ -1,6 +1,6 @@
-import {configureNodeLib} from "./src"
+import configure from "./src"
 
-export default configureNodeLib({
+export default configure({
   documentation: {babel: true},
   publishimo: true,
 })

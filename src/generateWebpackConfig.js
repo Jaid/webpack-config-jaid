@@ -5,6 +5,7 @@ import readPkg from "read-pkg"
 import webpackMerge from "webpack-merge"
 import appRootPath from "app-root-path"
 import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
+import FilterWarningsPlugin from "webpack-filter-warnings-plugin"
 import {CleanWebpackPlugin} from "clean-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
@@ -159,6 +160,9 @@ export default (options={}) => {
     debug("Could not find entry %s, using %s instead", specificEntry, defaultEntry)
   }
 
+  /**
+   * @type {import("webpack").Configuration}
+   */
   const config = {
     entry,
     context: path.resolve(options.packageRoot),
@@ -230,6 +234,12 @@ export default (options={}) => {
         debug: options.development,
         minimize: !options.development,
       }),
+      new FilterWarningsPlugin({
+        exclude: [
+          /^Critical dependency: the request of a dependency is an expression/,
+          /^Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/
+        ]
+      })
     ],
     output: {
       path: options.outDir,
