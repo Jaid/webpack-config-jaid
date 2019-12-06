@@ -28,15 +28,7 @@ export const defaultOptions = () => ({
 
 export const webpackConfig = ({options, pkg, entryFolder}) => {
   const srcDirectory = entryFolder
-  const publicPath = do {
-    if (options.publicPath) {
-      options.publicPath
-    } else if (options.development) {
-      srcDirectory
-    } else {
-      ""
-    }
-  }
+  const publicPath = options.publicPath || ""
   debug("Public path: \"%s\"", publicPath)
 
   let identifier = ""
