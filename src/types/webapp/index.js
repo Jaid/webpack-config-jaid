@@ -36,19 +36,19 @@ export const defaultOptions = () => ({
 export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, entryFolder}) => {
   const port = process.env.webpackPort
   const srcDirectory = entryFolder
-  const publicPath = do {
+  const getPublicPath = () => {
     if (options.publicPath) {
-      options.publicPath
+      return options.publicPath
     } else if (port) {
-      `http://localhost:${port}/`
+      return `http://localhost:${port}/`
     } else if (!options.development && options.domain && process.env.CI) {
-      `//${options.domain}/`
-    } else if (options.development) {
-      srcDirectory
+      return `//${options.domain}/`
     } else {
-      ""
+      return ""
     }
   }
+
+  const publicPath = getPublicPath()
   debug("Public path: \"%s\"", publicPath)
 
   const title = options.title || pkg.title || pkg.config?.title || pkg.name || "App"
