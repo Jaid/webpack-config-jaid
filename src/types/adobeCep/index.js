@@ -237,6 +237,7 @@ export const webpackConfig = ({options, pkg, entryFolder}) => {
         title,
         identifier,
         version: pkg.version,
+        ...options.cepOptions || {},
       }),
     ],
   }

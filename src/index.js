@@ -42,6 +42,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @property {string} [googleAnalyticsTrackingId] For type `webapp`: If typeof `string`, will be used as the Google Analytics tracking id and resolves any occurence of `GOOGLE_ANALYTICS_TRACKING_ID` to given id
  * @property {boolean} [googleAnalyticsOnlyInProduction=true] For type `webapp`: If `true`, option `googleAnalyticsTrackingId` will be ignored in any environment but `production`
  * @property {boolean} [friendlyErrors=true] If `true`, includes `friendly-errors-webpack-plugin`
+ * @property {Object} [cepOptions={}] For type `adobeCep`: Additional option values that will be forwarded to `cep-webpack-plugin` constructor
  */
 
 /**
