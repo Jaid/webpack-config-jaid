@@ -3,7 +3,7 @@
   "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
   "dependencies": {
     "@absolunet/fss": "^1.6.2",
-    "@babel/runtime": "^7.7.4",
+    "@babel/runtime": "^7.7.5",
     "aot-loader": "^1.0.1",
     "app-root-path": "^3.0.0",
     "babel-loader": "^8.0.6",
@@ -38,7 +38,7 @@
     "multi-loader": "^0.1.0",
     "node-sass": "^4.13.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "pascal-case": "^3.0.1",
+    "pascal-case": "^3.1.0",
     "postcss-center": "^1.1.0",
     "postcss-easings": "^2.0.0",
     "postcss-import": "^12.0.1",
@@ -72,7 +72,7 @@
   "devDependencies": {
     "@hot-loader/react-dom": "^16.11.0",
     "babel-jest": "^24.9.0",
-    "babel-preset-jaid": "^6.11.2",
+    "babel-preset-jaid": "^6.11.3",
     "browserslist-config-jaid-node": "^2.2.2",
     "chalk": "^3.0.0",
     "coffee": "^5.2.2",
@@ -95,7 +95,7 @@
     "rimraf": "^3.0.0",
     "sort-keys": "^4.0.0",
     "terser": "^4.4.2",
-    "terser-webpack-plugin": "^2.2.1",
+    "terser-webpack-plugin": "^2.2.2",
     "winston": "^3.2.1"
   },
   "scripts": {
