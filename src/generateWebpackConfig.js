@@ -121,6 +121,7 @@ export default (options={}) => {
     locale: "en-US",
     sitemap: false,
     googleAnalyticsOnlyInProduction: true,
+    friendlyErrors: true,
     ...typeDefaultOptions || {},
     ...options,
   }
@@ -268,7 +269,7 @@ export default (options={}) => {
     config.plugins.push(new DeepScopePlugin)
   }
 
-  if (env !== "test") {
+  if (options.friendlyErrors && env !== "test") {
     config.plugins.push(new FriendlyErrorsWebpackPlugin)
   }
 
