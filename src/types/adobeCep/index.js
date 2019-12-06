@@ -1,3 +1,4 @@
+import CepPlugin from "cep-webpack-plugin"
 import {isEmpty} from "has-content"
 import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
 import HtmlPlugin from "html-webpack-plugin"
@@ -231,6 +232,11 @@ export const webpackConfig = ({options, pkg, entryFolder}) => {
         },
       }),
       new HtmlInlineSourcePlugin,
+      new CepPlugin({
+        title,
+        version: pkg.version,
+
+      }),
     ],
   }
 
