@@ -1,3 +1,4 @@
+import camelcase from "camelcase"
 import CepPlugin from "cep-webpack-plugin"
 import {isEmpty} from "has-content"
 import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
@@ -37,6 +38,14 @@ export const webpackConfig = ({options, pkg, entryFolder}) => {
     }
   }
   debug("Public path: \"%s\"", publicPath)
+
+  let identifier = ""
+  if (pkg.author?.name) {
+    identifier += camelcase(pkg.author.name)
+    identifier += "."
+  }
+
+  identifier += camelcase(pkg.name)
 
   const title = options.title || pkg.title || pkg.config?.title || pkg.name || "App"
   debug("Title: %s", title)
@@ -234,8 +243,8 @@ export const webpackConfig = ({options, pkg, entryFolder}) => {
       new HtmlInlineSourcePlugin,
       new CepPlugin({
         title,
+        identifier,
         version: pkg.version,
-
       }),
     ],
   }
