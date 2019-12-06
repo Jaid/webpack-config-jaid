@@ -14,9 +14,9 @@ import WebappPlugin from "webapp-webpack-plugin"
 import webpack from "webpack"
 import webpackMerge from "webpack-merge"
 
-import {commonTerserOptions} from "src/configFragments"
+import getPostcssConfig from "lib/getPostcssConfig"
 
-import getPostcssConfig from "./getPostcssConfig"
+import {commonTerserOptions} from "src/configFragments"
 
 const base64UrlLimit = 1000
 
