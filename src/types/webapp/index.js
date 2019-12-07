@@ -1,6 +1,5 @@
 import CnamePlugin from "cname-webpack-plugin"
 import ensureStart from "ensure-start"
-import FaviconsPlugin from "favicons-webpack-plugin"
 import {isEmpty} from "has-content"
 import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
 import HtmlPlugin from "html-webpack-plugin"
@@ -360,15 +359,15 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       if (pkg.author?.url) {
         faviconsConfig.developerURL = pkg.author.url
       }
-      additionalWebpackConfig.plugins.push(new FaviconsPlugin({
-        publicPath,
-        logo: options.icon,
-        prefix: "/",
-        cache: fromRoot("dist", "cache", "favicons-webpack-plugin"),
-        inject: true,
-        emitStats: false,
-        favicons: faviconsConfig,
-      }))
+      // additionalWebpackConfig.plugins.push(new FaviconsPlugin({
+      //   publicPath,
+      //   logo: options.icon,
+      //   prefix: "/",
+      //   cache: fromRoot("dist", "cache", "favicons-webpack-plugin"),
+      //   inject: true,
+      //   emitStats: false,
+      //   favicons: faviconsConfig,
+      // }))
     }
 
     if (options.domain) {
