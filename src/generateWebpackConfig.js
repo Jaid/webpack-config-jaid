@@ -74,7 +74,7 @@ export default (options={}) => {
   if (options.type) {
     typeProvider = types[options.type]
     if (typeof typeProvider !== "function") {
-      throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeProvider} (Available types: ${Object.keys(types).join(", ")})`, error)
+      throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeProvider} (Available types: ${Object.keys(types).join(", ")})`)
     }
     if (typeof typeProvider.defaultOptions === "function") {
       typeDefaultOptions = typeProvider.defaultOptions({
