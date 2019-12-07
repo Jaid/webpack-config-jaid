@@ -25,6 +25,20 @@ const debug = require("debug")(_PKG_NAME)
 
 const env = process.env.NODE_ENV.toLowerCase?.() || "development"
 
+const types = {
+  adobeCep: require("./types/adobeCep"),
+  cli: require("./types/cli"),
+  executable: require("./types/executable"),
+  generatorCorePlugin: require("./types/generatorCorePlugin"),
+  nodeClass: require("./types/nodeClass"),
+  nodeLib: require("./types/nodeLib"),
+  nodeScript: require("./types/nodeScript"),
+  photoshopPlugin: require("./types/photoshopPlugin"),
+  universalClass: require("./types/universalClass"),
+  universalLib: require("./types/universalLib"),
+  webapp: require("./types/webapp"),
+}
+
 export default (options={}) => {
   debug(`NODE_ENV: ${env}`)
   debug(`Options: ${options |> json5.stringify}`)
@@ -58,12 +72,9 @@ export default (options={}) => {
   let typeProvider
   let typeDefaultOptions
   if (options.type) {
-    try {
-      typeProvider = require(`./types/${options.type}`)
-    } catch (error) {
-      if (typeof typeProvider !== "function") {
-        throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeProvider}`, error)
-      }
+    typeProvider = types[options.type]
+    if (typeof typeProvider !== "function") {
+      throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeProvider} (Available types: ${Object.keys(types).join(", ")})`, error)
     }
     if (typeof typeProvider.defaultOptions === "function") {
       typeDefaultOptions = typeProvider.defaultOptions({
