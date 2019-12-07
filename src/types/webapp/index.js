@@ -1,5 +1,6 @@
 import CnamePlugin from "cname-webpack-plugin"
 import ensureStart from "ensure-start"
+import FaviconsPlugin from "favicons-webpack-plugin"
 import {isEmpty} from "has-content"
 import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
 import HtmlPlugin from "html-webpack-plugin"
@@ -10,7 +11,6 @@ import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
-import WebappPlugin from "webapp-webpack-plugin"
 import webpack from "webpack"
 import webpackMerge from "webpack-merge"
 
@@ -360,11 +360,11 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       if (pkg.author?.url) {
         faviconsConfig.developerURL = pkg.author.url
       }
-      additionalWebpackConfig.plugins.push(new WebappPlugin({
+      additionalWebpackConfig.plugins.push(new FaviconsPlugin({
         publicPath,
         logo: options.icon,
         prefix: "/",
-        cache: fromRoot("dist", "cache", "webapp-webpack-plugin"),
+        cache: fromRoot("dist", "cache", "favicons-webpack-plugin"),
         inject: true,
         emitStats: false,
         favicons: faviconsConfig,
