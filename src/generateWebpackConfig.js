@@ -121,7 +121,7 @@ export default (options={}) => {
     locale: "en-US",
     sitemap: false,
     googleAnalyticsOnlyInProduction: true,
-    friendlyErrors: true,
+    friendlyErrors: false,
     ...typeDefaultOptions || {},
     ...options,
   }
