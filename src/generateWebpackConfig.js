@@ -19,25 +19,12 @@ import terser from "terser"
 import TerserPlugin from "terser-webpack-plugin"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import immer from "immer"
+import types from "./types"
 
 const DeepScopePlugin = require("webpack-deep-scope-plugin").default
 const debug = require("debug")(_PKG_NAME)
 
 const env = process.env.NODE_ENV.toLowerCase?.() || "development"
-
-const types = {
-  adobeCep: require("./types/adobeCep"),
-  cli: require("./types/cli"),
-  executable: require("./types/executable"),
-  generatorCorePlugin: require("./types/generatorCorePlugin"),
-  nodeClass: require("./types/nodeClass"),
-  nodeLib: require("./types/nodeLib"),
-  nodeScript: require("./types/nodeScript"),
-  photoshopPlugin: require("./types/photoshopPlugin"),
-  universalClass: require("./types/universalClass"),
-  universalLib: require("./types/universalLib"),
-  webapp: require("./types/webapp"),
-}
 
 export default (options={}) => {
   debug(`NODE_ENV: ${env}`)
@@ -73,7 +60,7 @@ export default (options={}) => {
   let typeDefaultOptions
   if (options.type) {
     typeProvider = types[options.type]
-    if (typeof typeProvider !== "function") {
+    if (!typeProvider) {
       throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeProvider} (Available types: ${Object.keys(types).join(", ")})`)
     }
     if (typeof typeProvider.defaultOptions === "function") {
