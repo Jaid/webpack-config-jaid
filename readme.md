@@ -6,11 +6,11 @@ Takes tiny input and returns a Webpack config in the way I personally like.
 ## Installation
 <a href='https://npmjs.com/package/webpack-config-jaid'><img alt='npm logo' src='https://github.com/Jaid/action-readme/raw/master/images/base-assets/npm.png'/></a>
 ```bash
-npm install --save-dev webpack-config-jaid@^7.0.1
+npm install --save-dev webpack-config-jaid@^7.0.2
 ```
 <a href='https://yarnpkg.com/package/webpack-config-jaid'><img alt='Yarn logo' src='https://github.com/Jaid/action-readme/raw/master/images/base-assets/yarn.png'/></a>
 ```bash
-yarn add --dev webpack-config-jaid@^7.0.1
+yarn add --dev webpack-config-jaid@^7.0.2
 ```
 
 
