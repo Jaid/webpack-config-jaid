@@ -18,12 +18,18 @@ const imageAssetTest = /\.(png|jpg|jpeg|webp|gif)$/
 
 const debug = require("debug")(_PKG_NAME)
 
+/**
+ * @type {import("terser").MinifyOptions}
+ */
+const terserOptions = {
+  ...commonTerserOptions,
+  ecma: 6,
+  toplevel: true,
+}
+
 export const defaultOptions = () => ({
   nodeExternals: false,
-  terserOptions: {
-    ...commonTerserOptions,
-    toplevel: true,
-  },
+  terserOptions,
 })
 
 export const webpackConfig = ({options, pkg, entryFolder}) => {
@@ -111,9 +117,6 @@ export const webpackConfig = ({options, pkg, entryFolder}) => {
 
   const additionalWebpackConfig = {
     target: "web",
-    node: {
-      fs: "empty",
-    },
     output: {
       publicPath,
       filename: options.development ? "index.js" : "[chunkhash:6].js",
@@ -273,6 +276,6 @@ export const webpackConfig = ({options, pkg, entryFolder}) => {
   return additionalWebpackConfig
 }
 
-export const defines = {
-  "process.browser": "true",
-}
+// export const defines = {
+//   "process.browser": "true",
+// }
