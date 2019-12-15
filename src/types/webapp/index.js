@@ -314,13 +314,11 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       ],
       devServer: {
         port,
-        publicPath,
-        inline: true,
         lazy: false,
         hot: true,
         noInfo: true,
         overlay: true,
-        stats: "errors-only",
+        stats: "verbose",
         headers: {"Access-Control-Allow-Origin": "*"},
         contentBase: fromRoot("dist", "package", "development"),
         historyApiFallback: {
@@ -328,7 +326,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
           disableDotRule: false,
         },
       },
-      plugins: [new webpack.HotModuleReplacementPlugin],
+      // plugins: [new webpack.HotModuleReplacementPlugin],
       resolve: {
         alias: {
           "react-dom": "@hot-loader/react-dom",
