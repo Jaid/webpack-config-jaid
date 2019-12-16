@@ -65,7 +65,7 @@ export default (options={}) => {
     if (isString(options.type)) {
       typeProvider = types[options.type]
     } else {
-      typeProver = options.type
+      typeProvider = options.type
     }
     if (!typeProvider) {
       throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeProvider} (Available types: ${Object.keys(types).join(", ")})`)
