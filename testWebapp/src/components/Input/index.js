@@ -2,12 +2,11 @@ import classnames from "classnames"
 import PropTypes from "prop-types"
 import React from "react"
 import {connect} from "react-redux"
-import Form from "components/Form"
 
 import css from "./style.scss"
 
-@connect(({form}) => ({
-  count: form?.controls?.values?.input?.length || "?",
+@connect(({main}) => ({
+  count: main.text?.length||0,
 }))
 export default class extends React.Component {
 
@@ -18,12 +17,17 @@ export default class extends React.Component {
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.arrayOf(PropTypes.object),
     ]),
+    input: PropTypes.object.isRequired,
+  }
+
+  handleChange(event) {
+    console.log("Change: ", event)
+    this.props.input.onChange(event)
   }
 
   render() {
     return <div className={classnames(css.container, this.props.className)}>
-      <Form/>
-      <div className={css.counter}>Chars: {this.props.count}</div>
+      <input type="text" onChange={this.handleChange.bind(this)}/>
     </div>
   }
 

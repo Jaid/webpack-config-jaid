@@ -2,13 +2,14 @@ import classnames from "classnames"
 import PropTypes from "prop-types"
 import React from "react"
 import {connect} from "react-redux"
-import Form from "components/Form"
+import {Field, reduxForm} from "redux-form"
+import Input from "components/Input"
 
 import css from "./style.scss"
 
-@connect(({form}) => ({
-  count: form?.controls?.values?.input?.length || "?",
-}))
+@reduxForm({
+  form: "controls",
+})
 export default class extends React.Component {
 
   static propTypes = {
@@ -21,10 +22,9 @@ export default class extends React.Component {
   }
 
   render() {
-    return <div className={classnames(css.container, this.props.className)}>
-      <Form/>
-      <div className={css.counter}>Chars: {this.props.count}</div>
-    </div>
+    return <form>
+      <Field component={Input} name="input"/>
+    </form>
   }
 
 }
