@@ -20,6 +20,8 @@ import TerserPlugin from "terser-webpack-plugin"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import immer from "immer"
 import types from "./types"
+import deepMap from "deep-map"
+import hasContent from "has-content"
 
 const DeepScopePlugin = require("webpack-deep-scope-plugin").default
 const debug = require("debug")(_PKG_NAME)
@@ -440,6 +442,26 @@ export default (options={}) => {
   if (options.configOutput) {
     const outputFile = options.configOutput === true ? fromRoot("dist", "webpack-config-jaid", "webpackConfig.json5") : path.resolve(options.configOutput)
     fss.outputJson5(outputFile, mergedConfig, {space: 2})
+    const pluginsOutputFile = path.resolve(outputFile, "..", "plugins.yml")
+    const plugins = []
+    for (const plugin of mergedConfig.plugins) {
+      const pluginName = plugin.constructor?.name || "Untitled plugin"
+      if (hasContent(plugin.options)) {
+        plugins.push([pluginName, plugin.options])
+      } else {
+        plugins.push(pluginName)
+      }
+    }
+    const pluginsCleaned = deepMap(plugins, value => {
+      if (value === undefined) {
+        return "(undefined)"
+      }
+      if (isFunction(value)) {
+        return "(function)"
+      }
+      return value
+    })
+    fss.outputYaml(pluginsOutputFile, pluginsCleaned)
   }
 
   debug(`Final Webpack config: ${mergedConfig |> json5.stringify}`)
