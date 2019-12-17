@@ -1,3 +1,10 @@
-module.exports = require("../dist/package/production/index.js").default({
-  configOutput: true
+import path from "path"
+
+const webpackConfigJaidPath = path.resolve(__dirname, "..", "dist", "package", "production", "index.js")
+console.log("webpack-config-jaid path: " + webpackConfigJaidPath)
+const configure = require(webpackConfigJaidPath).default
+
+module.exports = configure({
+  configOutput: true,
+  packageRoot: __dirname
 })
