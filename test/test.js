@@ -1,9 +1,8 @@
-import path from "path"
-
 import fss from "@absolunet/fss"
+import ms from "ms.macro"
+import path from "path"
 import pify from "pify"
 import sortKeys from "sort-keys"
-import ms from "ms.macro"
 
 const webpack = pify(require("webpack"))
 const getFolderSize = pify(require("get-folder-size"))
