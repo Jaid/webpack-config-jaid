@@ -438,8 +438,8 @@ export default (options={}) => {
   const mergedConfig = extra.length ? webpackMerge.smart(config, ...extra) : config
 
   if (options.configOutput) {
-    const outputFile = options.configOutput === true ? fromRoot("dist", "webpack-config-jaid", "webpackConfig.yml") : path.resolve(options.configOutput)
-    fss.outputYaml(outputFile, mergedConfig)
+    const outputFile = options.configOutput === true ? fromRoot("dist", "webpack-config-jaid", "webpackConfig.json5") : path.resolve(options.configOutput)
+    fss.outputJson5(outputFile, mergedConfig, {space: 2})
   }
 
   debug(`Final Webpack config: ${mergedConfig |> json5.stringify}`)

@@ -22,10 +22,15 @@
   "devDependencies": {
     "@absolunet/fss": "^1.6.2",
     "@hot-loader/react-dom": "^16.11.0",
+    "babel-preset-jaid": "^7.3.0",
+    "browserslist-config-jaid-web": "^2.3.0",
     "react-hot-loader": "^4.12.18",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
-    "babel-preset-jaid": "^7.3.0",
-    "browserslist-config-jaid-web": "^2.3.0"
+    "webpack": "^4.41.3",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "scripts": {
+    "build:prod": "NODE_ENV=production webpack"
   }
 }

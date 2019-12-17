@@ -109,7 +109,7 @@
     "test:coverage": "npm run test:dev -- --coverage --json --outputFile=dist/jest/stats.json",
     "test:dev": "npm run build:dev && NODE_ENV=test MAIN=$(npx find-by-extension-cli js --fullPath --cwd dist/package/development) jest --runInBand",
     "test:debug": "DEBUG=\"$(basename $PWD),$(basename $PWD):*\" NODE_ENV=test node --inspect=9229 node_modules/jest/bin/jest.js --runInBand",
-    "buildWebapp:prod": "cd testWebapp && npm install && NODE_ENV=development babel --config-file ../.babelrc.js --out-file dist/webpack/config.js webpack.config.js && NODE_ENV=production webpack --config dist/webpack/config.js"
+    "buildWebapp:prod": "npm run build:prod && cd testWebapp && npm install && npm run build:prod"
   },
   "name": "webpack-config-jaid",
   "description": "Takes tiny input and returns a Webpack config in the way I personally like.",
