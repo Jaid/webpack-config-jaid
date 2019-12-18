@@ -11,7 +11,7 @@ import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
-import webpack from "webpack"
+import webpack, {WatchIgnorePlugin} from "webpack"
 import webpackMerge from "webpack-merge"
 
 import getPostcssConfig from "lib/getPostcssConfig"
@@ -307,6 +307,14 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
 
   if (port) {
     additionalWebpackConfig = webpackMerge.smart(additionalWebpackConfig, {
+      watch: true,
+      watchOptions: {
+        ignored: [
+          // fromRoot(".git", "**"),
+          fromRoot("dist"),
+          fromRoot("dist").replace(/\\/g, "/"),
+        ],
+      },
       entry: [
         "react-hot-loader/patch",
         `webpack-dev-server/client?http://localhost:${port}/`,
@@ -315,19 +323,18 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       ],
       devServer: {
         port,
-        lazy: false,
+        // lazy: false,
         hot: true,
-        noInfo: true,
+        // noInfo: true,
         overlay: true,
-        stats: "verbose",
+        // stats: "verbose",
         headers: {"Access-Control-Allow-Origin": "*"},
-        contentBase: fromRoot("dist", "package", "development"),
+        // contentBase: fromRoot("dist", "package", "development"),
         historyApiFallback: {
           verbose: true,
           disableDotRule: false,
         },
       },
-      // plugins: [new webpack.HotModuleReplacementPlugin],
       resolve: {
         alias: {
           "react-dom": "@hot-loader/react-dom",
@@ -335,6 +342,10 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       },
     })
     additionalWebpackConfig.plugins.push(new LogWatcherPlugin)
+    // additionalWebpackConfig.plugins.push(new WatchIgnorePlugin([
+    //   fromRoot(".git", "**"),
+    //   fromRoot("dist", "**"),
+    // ]))
   }
 
   if (!options.development) {
