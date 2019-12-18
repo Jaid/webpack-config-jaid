@@ -3,7 +3,7 @@ import ensureStart from "ensure-start"
 import {isEmpty} from "has-content"
 import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
 import HtmlPlugin from "html-webpack-plugin"
-import {isObject} from "lodash"
+import {isObject, uniq} from "lodash"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import MonacoEditorPlugin from "monaco-editor-webpack-plugin"
@@ -11,7 +11,7 @@ import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
-import webpack, {WatchIgnorePlugin} from "webpack"
+import webpack from "webpack"
 import webpackMerge from "webpack-merge"
 
 import getPostcssConfig from "lib/getPostcssConfig"
@@ -306,14 +306,17 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   }
 
   if (port) {
+    // Need to ignore both front slash versions and back slash versions of paths for Windows support
+    const ignoredPaths = [
+      fromRoot("dist"),
+      fromRoot("dist").replace(/\\/g, "/"),
+      fromRoot(".git"),
+      fromRoot(".git").replace(/\\/g, "/"),
+    ]
     additionalWebpackConfig = webpackMerge.smart(additionalWebpackConfig, {
       watch: true,
       watchOptions: {
-        ignored: [
-          // fromRoot(".git", "**"),
-          fromRoot("dist"),
-          fromRoot("dist").replace(/\\/g, "/"),
-        ],
+        ignored: uniq(ignoredPaths),
       },
       entry: [
         "react-hot-loader/patch",
@@ -323,17 +326,17 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       ],
       devServer: {
         port,
-        // lazy: false,
         hot: true,
-        // noInfo: true,
         overlay: true,
-        // stats: "verbose",
         headers: {"Access-Control-Allow-Origin": "*"},
-        // contentBase: fromRoot("dist", "package", "development"),
         historyApiFallback: {
           verbose: true,
           disableDotRule: false,
         },
+        // contentBase: fromRoot("dist", "package", "development"),
+        // stats: "verbose",
+        // noInfo: true,
+        // lazy: false,
       },
       resolve: {
         alias: {
@@ -342,10 +345,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       },
     })
     additionalWebpackConfig.plugins.push(new LogWatcherPlugin)
-    // additionalWebpackConfig.plugins.push(new WatchIgnorePlugin([
-    //   fromRoot(".git", "**"),
-    //   fromRoot("dist", "**"),
-    // ]))
   }
 
   if (!options.development) {
