@@ -1,9 +1,11 @@
 import {DefinePlugin} from "webpack"
 import webpackMerge from "webpack-merge"
 
+const isCi = Boolean(process.env.TRAVIS_TAG || process.env.GITHUB_WORKFLOW)
+
 export const commonTerserOptions = {
   compress: {
-    passes: process.env.TRAVIS_TAG ? 10 : 1,
+    passes: isCi ? 10 : 1,
     unsafe_comps: true,
     unsafe_math: true,
     unsafe_regexp: true,
