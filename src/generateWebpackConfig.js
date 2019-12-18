@@ -437,8 +437,10 @@ export default (options={}) => {
   const mergedConfig = extra.length ? webpackMerge.smart(config, ...extra) : config
 
   if (options.configOutput) {
-    const outputFile = options.configOutput === true ? fromRoot("dist", "webpack-config-jaid", "config.yml") : path.resolve(options.configOutput)
+    const outputFile = options.configOutput === true ? fromRoot("dist", "webpack-config-jaid", "webpackConfig.yml") : path.resolve(options.configOutput)
     fss.outputYaml(outputFile, cleanForYaml(mergedConfig))
+    const optionsOutputFile = path.resolve(outputFile, "..", "options.yml")
+    fss.outputYaml(optionsOutputFile, cleanForYaml(options))
     const pluginsOutputFile = path.resolve(outputFile, "..", "plugins.yml")
     const plugins = []
     for (const plugin of mergedConfig.plugins) {
