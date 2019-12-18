@@ -4,6 +4,7 @@ import {isEmpty} from "has-content"
 import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
 import HtmlPlugin from "html-webpack-plugin"
 import {isObject} from "lodash"
+import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import MonacoEditorPlugin from "monaco-editor-webpack-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
@@ -333,6 +334,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
         },
       },
     })
+    additionalWebpackConfig.plugins.push(new LogWatcherPlugin)
   }
 
   if (!options.development) {
