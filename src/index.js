@@ -18,7 +18,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {object} [extraProduction={}] Additional Webpack configuration that only gets applied in development mode
  * @prop {object} [extraDevelopment={}] Additional Webpack configuration that only gets applied in production mode
  * @prop {"cli"|"nodeLib"|"nodeClass"|"universalLib"|"universalClass"|"webapp"|"nodeScript"|"photoshopPlugin"|"coreGeneratorPlugin"|TypeProvider} [type=null] The project type which will automatically add some configuration
- * @prop {array} [include=["readme.*","README.*","license.*","LICENSE.*"]] Files (relative to project directory) that get copied to dist directory
+ * @prop {array} [include=["readme.md","license.txt"]] Files (relative to project directory) that get copied to dist directory
  * @prop {boolean|object} [publishimo=false] Set to true to include publishimo-webpack-plugin, or set as object to add options for the plugin instance
  * @prop {boolean|object} [documentation=false] Set to true to include jsdoc-tsd-webpack-plugin, or set as object to add options for the plugin instance
  * @prop {boolean} [nodeExternals=true] If true, package dependencies will be loaded at runtime with require(), if false, they will be bundled
