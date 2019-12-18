@@ -90,8 +90,8 @@ export default (options={}) => {
     extraDevelopment: null,
     type: null,
     include: [
-      "readme.md",
-      "license.txt",
+      "readme.*",
+      "license.*",
     ],
     licenseFileName: "thirdPartyLicenses.txt",
     terserOptions: {
