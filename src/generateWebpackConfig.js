@@ -11,6 +11,7 @@ import json5 from "json5"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import {isFunction, isObject, isString} from "lodash"
 import path from "path"
+import PkgBannerPlugin from "pkg-banner-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import readPkg from "read-pkg"
 import terser from "terser"
@@ -142,8 +143,12 @@ export default (options = {}) => {
     options.outDir = fromRoot(options.outDir)
   }
 
+  /**
+   * @type {import("./index.js").webpackConfigJaidOptions}
+   */
   options = {
     clean: !options.development,
+    banner: !options.development,
     outDir: fromRoot("dist", "package", env),
     ...options,
   }
@@ -349,6 +354,16 @@ export default (options = {}) => {
       Object.assign(publishimoConfig, options.publishimo)
     }
     config.plugins.push(new PublishimoWebpackPlugin(publishimoConfig))
+  }
+
+  if (options.banner) {
+    let pluginOptions
+    if (options.banner === true) {
+      pluginOptions = {}
+    } else {
+      pluginOptions = options.banner
+    }
+    config.plugins.push(new PkgBannerPlugin(pluginOptions))
   }
 
   if (options.include) {

@@ -11,7 +11,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  */
 
 /**
- * @typedef {object} webpackConfigJaidOptions
+ * @typedef {Object} webpackConfigJaidOptions
  * @prop {string} [packageRoot=require("app-root-path")()] Directory of your Node project
  * @prop {boolean} [development=process.env.NODE_ENV !== "production"] Webpack mode ("development" or "production")
  * @prop {object} [extra={}] Additional Webpack configuration
@@ -51,6 +51,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {boolean} [googleAnalyticsOnlyInProduction=true] For type `webapp`: If `true`, option `googleAnalyticsTrackingId` will be ignored in any environment but `production`
  * @prop {boolean} [friendlyErrors=false] If `true`, includes `friendly-errors-webpack-plugin`
  * @prop {Object} [cepOptions={}] For type `adobeCep`: Additional option values that will be forwarded to `cep-webpack-plugin` constructor
+ * @prop {Object|boolean} [banner = true] If `true`, includes `pkg-banner-webpack-plugin`. If Object, this will be used as plugin options.
  */
 
 /**
