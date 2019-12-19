@@ -42,6 +42,7 @@
     "node-sass": "^4.13.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "pascal-case": "^3.1.0",
+    "pkg-banner-webpack-plugin": "^1.0.0",
     "postcss-center": "^1.1.0",
     "postcss-easings": "^2.0.0",
     "postcss-import": "^12.0.1",

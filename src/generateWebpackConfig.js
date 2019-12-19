@@ -1,33 +1,36 @@
-import path from "path"
-import fs from "fs"
-
-import readPkg from "read-pkg"
-import webpackMerge from "webpack-merge"
-import appRootPath from "app-root-path"
-import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
-import FilterWarningsPlugin from "webpack-filter-warnings-plugin"
-import {CleanWebpackPlugin} from "clean-webpack-plugin"
-import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
-import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
-import CopyWebpackPlugin from "copy-webpack-plugin"
-import {isObject, isArray, isString, isFunction, sortBy} from "lodash"
 import fss from "@absolunet/fss"
-import json5 from "json5"
-import webpack from "webpack"
+import appRootPath from "app-root-path"
+import {CleanWebpackPlugin} from "clean-webpack-plugin"
+import CopyWebpackPlugin from "copy-webpack-plugin"
 import ensureStart from "ensure-start"
+import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
+import fs from "fs"
+import hasContent from "has-content"
+import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
+import json5 from "json5"
+import {LicenseWebpackPlugin} from "license-webpack-plugin"
+import {isFunction, isObject, isString} from "lodash"
+import path from "path"
+import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
+import readPkg from "read-pkg"
 import terser from "terser"
 import TerserPlugin from "terser-webpack-plugin"
-import {LicenseWebpackPlugin} from "license-webpack-plugin"
-import immer from "immer"
-import types from "./types"
-import hasContent from "has-content"
+import webpack from "webpack"
+import FilterWarningsPlugin from "webpack-filter-warnings-plugin"
+import webpackMerge from "webpack-merge"
+
 import cleanForYaml from "lib/cleanForYaml"
+import renderLicenses from "lib/renderLicenses"
+
+import types from "./types"
+
 const DeepScopePlugin = require("webpack-deep-scope-plugin").default
+
 const debug = require("debug")(_PKG_NAME)
 
 const env = process.env.NODE_ENV.toLowerCase?.() || "development"
 
-export default (options={}) => {
+export default (options = {}) => {
   debug(`NODE_ENV: ${env}`)
   debug(`Options: ${options |> json5.stringify}`)
 
@@ -242,9 +245,9 @@ export default (options={}) => {
       new FilterWarningsPlugin({
         exclude: [
           /^Critical dependency: the request of a dependency is an expression/,
-          /^Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/
-        ]
-      })
+          /^Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/,
+        ],
+      }),
     ],
     output: {
       path: options.outDir,
@@ -280,7 +283,7 @@ export default (options={}) => {
   if (options.clean) {
     if (isObject(options.clean)) {
       config.plugins.push(new CleanWebpackPlugin(options.clean))
-    } else if (isArray(options.clean)) {
+    } else if (Array.isArray(options.clean)) {
       config.plugins.push(new CleanWebpackPlugin({
         verbose: false,
         cleanOnceBeforeBuildPatterns: options.clean,
@@ -327,9 +330,13 @@ export default (options={}) => {
   }
 
   if (options.publishimo) {
+    /**
+     * @type {import("publishimo-webpack-plugin").pluginOptions}
+     */
     const publishimoConfig = {
       autoMain: options.type === "cli" ? "bin" : true,
       autoTypes: Boolean(options.documentation),
+      banner: false,
     }
     if (options.nodeExternals === false) {
       publishimoConfig.excludeFields = [
@@ -375,22 +382,12 @@ export default (options={}) => {
 
   if (!options.development && options.licenseFileName) {
     config.plugins.push(new LicenseWebpackPlugin({
+      renderLicenses,
       stats: {
         warnings: false,
         errors: true,
       },
       outputFilename: options.licenseFileName,
-      renderLicenses: licenses => licenses
-      |> #.map(license => license.name ? license : immer(draft => {
-        draft.name = _PKG_NAME || "Unknown package"
-      }))
-      |> sortBy(#, ({name}) => name)
-      |> #.map(license => {
-        const text = license.licenseText?.trim() || "No license defined."
-        const versionString = license.packageJson?.version ? ` ${license.packageJson.version}` : ""
-        return `=== ${license.name}${versionString} ===\n\n${text}`
-      })
-      |> #.join("\n\n"),
     }))
   }
 
