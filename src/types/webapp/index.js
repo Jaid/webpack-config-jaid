@@ -34,6 +34,9 @@ export const defaultOptions = () => ({
   },
 })
 
+/**
+ * @param {import("..").GenerateWebpackConfigContext}
+ */
 export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, entryFolder}) => {
   const port = process.env.webpackPort
   const srcDirectory = entryFolder
@@ -494,10 +497,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
         AppCache: {
           events: true,
         },
-        excludes: [
-          "**/*.txt",
-          "**/*.LICENSE",
-        ],
+        excludes: ["**/*.txt"],
       }
     } else {
       pluginOptions = options.offline

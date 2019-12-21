@@ -145,7 +145,7 @@ export default (options = {}) => {
   }
 
   /**
-   * @type {import("./index.js").webpackConfigJaidOptions}
+   * @type {import("./index.js").WebpackConfigJaidOptions}
    */
   options = {
     clean: !options.development,

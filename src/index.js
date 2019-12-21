@@ -11,7 +11,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  */
 
 /**
- * @typedef {Object} webpackConfigJaidOptions
+ * @typedef {Object} WebpackConfigJaidOptions
  * @prop {string} [packageRoot=require("app-root-path")()] Directory of your Node project
  * @prop {boolean} [development=process.env.NODE_ENV !== "production"] Webpack mode ("development" or "production")
  * @prop {object} [extra={}] Additional Webpack configuration
@@ -58,7 +58,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
 /**
  * Creates Webpack config based on given options
  * @function default
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export default generateWebpackConfig
@@ -66,7 +66,7 @@ export default generateWebpackConfig
 /**
  * Creates Webpack config based on given options, uses type "cli"
  * @function configureCli
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export const configureCli = options => generateWebpackConfig({
@@ -77,7 +77,7 @@ export const configureCli = options => generateWebpackConfig({
 /**
  * Creates Webpack config based on given options, uses type "nodeLib"
  * @function configureNodeLib
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export const configureNodeLib = options => generateWebpackConfig({
@@ -88,7 +88,7 @@ export const configureNodeLib = options => generateWebpackConfig({
 /**
  * Creates Webpack config based on given options, uses type "nodeClass"
  * @function configureNodeClass
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export const configureNodeClass = options => generateWebpackConfig({
@@ -99,7 +99,7 @@ export const configureNodeClass = options => generateWebpackConfig({
 /**
  * Creates Webpack config based on given options, uses type "universalLib"
  * @function configureUniversalLib
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export const configureUniversalLib = options => generateWebpackConfig({
@@ -110,7 +110,7 @@ export const configureUniversalLib = options => generateWebpackConfig({
 /**
  * Creates Webpack config based on given options, uses type "universalClass"
  * @function configureUniversalClass
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export const configureUniversalClass = options => generateWebpackConfig({
@@ -121,7 +121,7 @@ export const configureUniversalClass = options => generateWebpackConfig({
 /**
  * Creates Webpack config based on given options, uses type "webapp"
  * @function configureWebapp
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export const configureWebapp = options => generateWebpackConfig({
@@ -132,7 +132,7 @@ export const configureWebapp = options => generateWebpackConfig({
 /**
  * Creates Webpack config based on given options, uses type "nodeScript"
  * @function configureNodeScript
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export const configureNodeScript = options => generateWebpackConfig({
@@ -143,7 +143,7 @@ export const configureNodeScript = options => generateWebpackConfig({
 /**
  * Creates Webpack config based on given options, uses type "photoshopPlugin"
  * @function configurePhotoshopPlugin
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export const configurePhotoshopPlugin = options => generateWebpackConfig({
@@ -154,7 +154,7 @@ export const configurePhotoshopPlugin = options => generateWebpackConfig({
 /**
  * Creates Webpack config based on given options, uses type "generatorCorePlugin"
  * @function configureGeneratorCorePlugin
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export const configureGeneratorCorePlugin = options => generateWebpackConfig({
@@ -165,7 +165,7 @@ export const configureGeneratorCorePlugin = options => generateWebpackConfig({
 /**
  * Creates Webpack config based on given options, uses type "executable"
  * @function configureExecutable
- * @param {webpackConfigJaidOptions} [options] Given options
+ * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
 export const configureExecutable = options => generateWebpackConfig({

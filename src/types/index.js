@@ -1,3 +1,12 @@
+/**
+ * @typedef {Object} GenerateWebpackConfigContext
+ * @prop {string} entryFolder
+ * @prop {Object} pkg
+ * @prop {import("webpack").Configuration} initialWebpackConfig
+ * @prop {(...directive: string) => string} fromRoot
+ * @prop {import("../index").WebpackConfigJaidOptions} options
+ */
+
 const types = {
   adobeCep: require("./adobeCep"),
   cli: require("./cli"),
