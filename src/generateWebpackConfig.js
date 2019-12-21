@@ -130,6 +130,7 @@ export default (options = {}) => {
     sitemap: false,
     googleAnalyticsOnlyInProduction: true,
     friendlyErrors: false,
+    offline: true,
     ...typeDefaultOptions || {},
     ...options,
   }

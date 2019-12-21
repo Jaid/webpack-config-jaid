@@ -52,6 +52,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {boolean} [friendlyErrors=false] If `true`, includes `friendly-errors-webpack-plugin`
  * @prop {Object} [cepOptions={}] For type `adobeCep`: Additional option values that will be forwarded to `cep-webpack-plugin` constructor
  * @prop {Object|boolean} [banner = true] If `true`, includes `pkg-banner-webpack-plugin`. If Object, this will be used as plugin options.
+ * @prop {Object|boolean} [offline = true] For type `webapp`: If `true`, includes `offline-plugin`. If Object, this will be used as plugin options.
  */
 
 /**

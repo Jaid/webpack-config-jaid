@@ -7,6 +7,7 @@ import {isObject, uniq} from "lodash"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import MonacoEditorPlugin from "monaco-editor-webpack-plugin"
+import OfflinePlugin from "offline-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
@@ -464,6 +465,46 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   additionalWebpackConfig.plugins.push(new webpack.DefinePlugin({
     GOOGLE_ANALYTICS_TRACKING_ID: getGoogleAnalyticsTrackingId() |> JSON.stringify,
   }))
+
+  if (options.offline) {
+    let pluginOptions
+    if (options.offline === true) {
+      pluginOptions = {
+        safeToUseOptionalCaches: true,
+        appShell: "index.html",
+        caches: {
+          main: [
+            "*.js",
+            "*.css",
+            "*.html",
+          ],
+          additional: [
+            "*.woff",
+            "*.woff2",
+            "*.jpg",
+            "*.jpeg",
+            "*.png",
+            "*.webp",
+          ],
+          optional: [":rest:"],
+        },
+        ServiceWorker: {
+          events: true,
+        },
+        AppCache: {
+          events: true,
+        },
+        excludes: [
+          "**/*.txt",
+          "**/*.LICENSE",
+        ],
+      }
+    } else {
+      pluginOptions = options.offline
+    }
+    additionalWebpackConfig.plugins.push(new OfflinePlugin(pluginOptions))
+
+  }
 
   return additionalWebpackConfig
 }
