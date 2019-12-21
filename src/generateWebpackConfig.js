@@ -31,6 +31,9 @@ const debug = require("debug")(_PKG_NAME)
 
 const env = process.env.NODE_ENV.toLowerCase?.() || "development"
 
+/**
+   * @param {import("./index.js").WebpackConfigJaidOptions} options
+   */
 export default (options = {}) => {
   debug(`NODE_ENV: ${env}`)
   debug(`Options: ${options |> json5.stringify}`)
@@ -174,6 +177,15 @@ export default (options = {}) => {
     debug("Could not find entry %s, using %s instead", specificEntry, defaultEntry)
   }
 
+  const excludedWarnings = [
+    /^Critical dependency: the request of a dependency is an expression/,
+    /^Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/,
+  ]
+
+  if (options.offline) {
+    excludedWarnings.push(/OfflinePlugin: Cache pattern/)
+  }
+
   /**
    * @type {import("webpack").Configuration}
    */
@@ -249,10 +261,7 @@ export default (options = {}) => {
         minimize: !options.development,
       }),
       new FilterWarningsPlugin({
-        exclude: [
-          /^Critical dependency: the request of a dependency is an expression/,
-          /^Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/,
-        ],
+        exclude: excludedWarnings,
       }),
     ],
     output: {
