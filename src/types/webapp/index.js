@@ -1,3 +1,4 @@
+import fss from "@absolunet/fss"
 import CnamePlugin from "cname-webpack-plugin"
 import ensureStart from "ensure-start"
 import {isEmpty} from "has-content"
@@ -14,6 +15,7 @@ import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import webpack from "webpack"
 import webpackMerge from "webpack-merge"
+import PwaManifestPlugin from "webpack-pwa-manifest"
 
 import getPostcssConfig from "lib/getPostcssConfig"
 
@@ -469,6 +471,63 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     GOOGLE_ANALYTICS_TRACKING_ID: getGoogleAnalyticsTrackingId() |> JSON.stringify,
   }))
 
+  let pwaIncluded = false
+
+  if (options.pwa) {
+    const iconFile = fromRoot("icon.png")
+    const iconFileExists = fss.pathExists(iconFile)
+    if (iconFileExists) {
+    /**
+     * @type {import("webpack-pwa-manifest").ManifestOptions}
+     */
+      let pluginOptions
+      if (options.pwa === true) {
+        pluginOptions = {
+          publicPath,
+          description,
+          orientation: "portrait",
+          display: "standalone",
+          name: title,
+          background_color: "#000000",
+          inject: true,
+          fingerprints: false,
+          ios: {
+            "apple-mobile-web-app-title": title,
+            "apple-mobile-web-app-status-bar-style": "black-translucent",
+          },
+          icons: [
+            {
+              src: iconFile,
+              sizes: [
+                16,
+                24,
+                32,
+                64,
+                92,
+                128,
+                192,
+                256,
+                384,
+                512,
+              ],
+            },
+          ],
+        }
+        if (options.domain) {
+          pluginOptions.start_url = `https://${options.domain}`
+        } else {
+          pluginOptions.start_url = "."
+        }
+      } else {
+        pluginOptions = options.pwa
+      }
+      additionalWebpackConfig.plugins.push(new PwaManifestPlugin(pluginOptions))
+      pwaIncluded = true
+    } else {
+      debug(`Skipping PwaManifestPlugin, because ${iconFile} does not exist`)
+    }
+  }
+
   if (options.offline) {
     let pluginOptions
     if (options.offline === true) {
@@ -498,12 +557,15 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
           events: true,
         },
         excludes: ["**/*.txt"],
+        version: pkg.version || String(Date.now()),
+      }
+      if (pwaIncluded) {
+        pluginOptions.caches.main.push("manifest.json")
       }
     } else {
       pluginOptions = options.offline
     }
     additionalWebpackConfig.plugins.push(new OfflinePlugin(pluginOptions))
-
   }
 
   return additionalWebpackConfig

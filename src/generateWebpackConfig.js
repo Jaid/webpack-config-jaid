@@ -134,6 +134,7 @@ export default (options = {}) => {
     googleAnalyticsOnlyInProduction: true,
     friendlyErrors: false,
     offline: true,
+    pwa: true,
     ...typeDefaultOptions || {},
     ...options,
   }
