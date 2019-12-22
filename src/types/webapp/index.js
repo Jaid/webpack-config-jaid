@@ -219,12 +219,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
         internalCssLoader,
         postcssLoader,
         "resolve-url-loader",
-        {
-          loader: "sass-loader",
-          options: {
-            sourceMap: true,
-          },
-        },
+        "sass-loader",
       ],
     },
   ]
