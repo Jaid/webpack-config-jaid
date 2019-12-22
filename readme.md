@@ -4,17 +4,17 @@
 Takes tiny input and returns a Webpack config in the way I personally like.
 
 <a href="https://raw.githubusercontent.com/Jaid/webpack-config-jaid/master/license.txt"><img src="https://img.shields.io/github/license/Jaid/webpack-config-jaid?style=flat-square&color=success" alt="License"/></a>  
-<a href="https://github.com/Jaid/webpack-config-jaid/commits"><img src="https://img.shields.io/github/commits-since/Jaid/webpack-config-jaid/v7.12.1?style=flat-square&logo=github&color=success" alt="Commits since v7.12.1"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/commits"><img src="https://img.shields.io/github/last-commit/Jaid/webpack-config-jaid?style=flat-square&logo=github&color=red" alt="Last commit"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/issues"><img src="https://img.shields.io/github/issues/Jaid/webpack-config-jaid?style=flat-square&logo=github&color=red" alt="Issues"/></a>  
+<a href="https://github.com/Jaid/webpack-config-jaid/commits"><img src="https://img.shields.io/github/commits-since/Jaid/webpack-config-jaid/v7.12.2?style=flat-square&logo=github&color=success" alt="Commits since v7.12.2"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/commits"><img src="https://img.shields.io/github/last-commit/Jaid/webpack-config-jaid?style=flat-square&logo=github&color=red" alt="Last commit"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/issues"><img src="https://img.shields.io/github/issues/Jaid/webpack-config-jaid?style=flat-square&logo=github&color=red" alt="Issues"/></a>  
 <a href="https://npmjs.com/package/webpack-config-jaid"><img src="https://img.shields.io/npm/v/webpack-config-jaid?style=flat-square&logo=npm&label=latest%20version&color=success" alt="Latest version on npm"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/network/dependents"><img src="https://img.shields.io/librariesio/dependents/npm/webpack-config-jaid?style=flat-square&logo=npm&color=red" alt="Dependents"/></a> <a href="https://npmjs.com/package/webpack-config-jaid"><img src="https://img.shields.io/npm/dm/webpack-config-jaid?style=flat-square&logo=npm&color=red" alt="Downloads"/></a>
 
 ## Installation
 <a href="https://npmjs.com/package/webpack-config-jaid"><img src="https://img.shields.io/badge/npm-webpack--config--jaid-C23039?style=flat-square&logo=npm" alt="webpack-config-jaid on npm"/></a>
 ```bash
-npm install --save-dev webpack-config-jaid@^7.12.1
+npm install --save-dev webpack-config-jaid@^7.12.2
 ```
 <a href="https://yarnpkg.com/package/webpack-config-jaid"><img src="https://img.shields.io/badge/Yarn-webpack--config--jaid-2F8CB7?style=flat-square&logo=yarn&logoColor=white" alt="webpack-config-jaid on Yarn"/></a>
 ```bash
-yarn add --dev webpack-config-jaid@^7.12.1
+yarn add --dev webpack-config-jaid@^7.12.2
 ```
 
 
