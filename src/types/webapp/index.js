@@ -507,6 +507,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
                 24,
                 32,
                 64,
+                80,
                 92,
                 128,
                 192,
