@@ -1,5 +1,6 @@
 {
   "name": "webpack-config-jaid-webapp",
+  "domain": "test-webapp.jaid.codes",
   "version": "1.2.3",
   "webpackConfigJaid": "webapp",
   "dependencies": {

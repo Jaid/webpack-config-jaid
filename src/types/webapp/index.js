@@ -51,8 +51,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       return options.publicPath
     } else if (port) {
       return `http://localhost:${port}/`
-    } else if (!options.development && options.domain && isCi) {
-      return `//${options.domain}/`
     } else {
       return ""
     }
@@ -115,6 +113,35 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       meta["og:image"] = imageUrl
       meta["twitter:image"] = imageUrl
     }
+  }
+
+  /**
+   * @type {import("html-webpack-plugin").Options}
+   */
+  const htmlPluginOptions = {
+    title,
+    meta,
+    debug: options.development,
+    // alwaysWriteToDisk: true,
+    inlineSource: ".(js|css)$",
+    minify: options.development ? false : {
+      removeAttributeQuotes: true,
+      collapseWhitespace: true,
+      collapseBooleanAttributes: true,
+      decodeEntities: true,
+      minifyCSS: true,
+      minifyJS: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+      sortAttributes: true,
+      sortClassName: true,
+      useShortDoctype: true,
+    },
+  }
+
+  if (!options.development && options.domain && isCi) {
+    // TODO: This is for html-webpack-plugin v4
+    // htmlPluginOptions.base = `https://${options.domain}`
   }
 
   const cssIdentName = options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]"
@@ -287,28 +314,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
         ...styleLoaders,
       ],
     },
-    plugins: [
-      new HtmlPlugin({
-        title,
-        meta,
-        debug: options.development,
-        alwaysWriteToDisk: true,
-        inlineSource: ".(js|css)$",
-        minify: options.development ? false : {
-          removeAttributeQuotes: true,
-          collapseWhitespace: true,
-          collapseBooleanAttributes: true,
-          decodeEntities: true,
-          minifyCSS: true,
-          minifyJS: true,
-          removeComments: true,
-          removeRedundantAttributes: true,
-          sortAttributes: true,
-          sortClassName: true,
-          useShortDoctype: true,
-        },
-      }),
-    ],
+    plugins: [new HtmlPlugin(htmlPluginOptions)],
   }
 
   if (options.inlineSource) {
@@ -489,7 +495,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       let pluginOptions
       if (options.pwa === true) {
         pluginOptions = {
-          publicPath,
+          // publicPath,
           description,
           orientation: "portrait",
           display: "standalone",
@@ -522,6 +528,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
         }
         if (options.domain) {
           pluginOptions.start_url = `https://${options.domain}`
+          pluginOptions.publicPath = `https://${options.domain}`
         } else {
           pluginOptions.start_url = "."
         }
@@ -578,9 +585,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   if (iconFileExists) {
     const htmlFaviconPluginOptions = {}
     if (options.pwa) {
-      htmlFaviconPluginOptions.href = "icon_128x128.png"
+      htmlFaviconPluginOptions.href = urlJoin(publicPath, "icon_128x128.png")
     } else {
-      htmlFaviconPluginOptions.href = "icon.png"
+      htmlFaviconPluginOptions.href = urlJoin(publicPath, "icon.png")
       additionalWebpackConfig.plugins.push(new CopyWebpackPlugin(iconFile))
     }
     additionalWebpackConfig.plugins.push(new HtmlFaviconPlugin(htmlFaviconPluginOptions))
