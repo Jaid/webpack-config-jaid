@@ -45,11 +45,12 @@ export const defaultOptions = () => ({
  */
 export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, entryFolder}) => {
   const port = process.env.webpackPort
+  const isHot = Boolean(port)
   const srcDirectory = entryFolder
   const getPublicPath = () => {
     if (options.publicPath) {
       return options.publicPath
-    } else if (port) {
+    } else if (isHot) {
       return `http://localhost:${port}/`
     } else {
       return ""
@@ -146,13 +147,12 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
 
   let useMiniCssExtractPlugin = false
   let styleLoader = {}
-  if (!options.development && port) {
+  if (isHot) {
     useMiniCssExtractPlugin = true
     styleLoader = {
       loader: MiniCssExtractPlugin.loader,
       options: {
         hmr: true,
-        reloadAll: true,
       },
     }
   } else if (options.createCssFile) {
@@ -343,7 +343,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     }))
   }
 
-  if (port) {
+  if (isHot) {
     // Need to ignore both front slash versions and back slash versions of paths for Windows support
     const ignoredPaths = [
       fromRoot("dist"),
