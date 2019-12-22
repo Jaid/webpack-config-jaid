@@ -144,17 +144,19 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     // htmlPluginOptions.base = `https://${options.domain}`
   }
 
-  const cssIdentName = options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]"
-
+  let useMiniCssExtractPlugin = false
   let styleLoader = {}
   if (!options.development && port) {
+    useMiniCssExtractPlugin = true
     styleLoader = {
       loader: MiniCssExtractPlugin.loader,
       options: {
         hmr: true,
+        reloadAll: true,
       },
     }
   } else if (options.createCssFile) {
+    useMiniCssExtractPlugin = true
     styleLoader = {
       loader: MiniCssExtractPlugin.loader,
     }
@@ -172,7 +174,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     options: {
       sourceMap: options.development,
       modules: {
-        localIdentName: cssIdentName,
+        localIdentName: options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]",
       },
     },
   }
@@ -479,10 +481,18 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     additionalWebpackConfig.plugins.push(new MonacoEditorPlugin(pluginOptions))
   }
 
-  if (options.createCssFile) {
-    const pluginOptions = isObject(options.createCssFile) ? options.createCssFile : {
-      filename: options.development ? "[name].css" : "[contenthash:6].css",
-      chunkFilename: options.development ? "[id].css" : "[contenthash:6].css",
+  if (useMiniCssExtractPlugin) {
+    /**
+     * @type {import("mini-css-extract-plugin").PluginOptions}
+     */
+    let pluginOptions
+    if (isObject(options.createCssFile)) {
+      pluginOptions = options.createCssFile
+    } else {
+      pluginOptions = {
+        filename: options.development ? "[name].css" : "[contenthash:6].css",
+        chunkFilename: options.development ? "[id].css" : "[contenthash:6].css",
+      }
     }
     additionalWebpackConfig.plugins.push(new MiniCssExtractPlugin(pluginOptions))
   }
