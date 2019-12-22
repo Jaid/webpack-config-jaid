@@ -146,6 +146,27 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
 
   const cssIdentName = options.development ? "[folder]_[local]_[hash:base62:4]" : "[hash:base64:6]"
 
+  let styleLoader = {}
+  if (!options.development && port) {
+    styleLoader = {
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        hmr: true,
+      },
+    }
+  } else if (options.createCssFile) {
+    styleLoader = {
+      loader: MiniCssExtractPlugin.loader,
+    }
+  } else {
+    styleLoader = {
+      loader: "style-loader",
+      options: {
+        injectType: options.development ? "styleTag" : "singletonStyleTag",
+      },
+    }
+  }
+
   const internalCssLoader = {
     loader: "css-loader",
     options: {
@@ -172,12 +193,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   const styleLoaders = [
     {
       test: /\.(css|scss)$/,
-      use: {
-        loader: options.createCssFile && !port ? MiniCssExtractPlugin.loader : "style-loader",
-        options: {
-          injectType: options.development ? "styleTag" : "singletonStyleTag",
-        },
-      },
+      use: styleLoader,
     },
     {
       test: /\.css$/,
@@ -368,37 +384,38 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   }
 
   if (!options.development) {
-    if (options.icon) {
-      const faviconsConfig = {
-        appName: title,
-        appDescription: description,
-        version: pkg.version,
-        background: ensureStart(options.backgroundColor, "#"),
-        theme_color: ensureStart(options.themeColor, "#"),
-        orientation: "portrait",
-        icons: {
-          appleIcon: {offset: 10},
-          appleStartup: true,
-          coast: {offset: 10},
-          firefox: {offset: 15},
-        },
-      }
-      if (meta.author) {
-        faviconsConfig.developerName = meta.author
-      }
-      if (pkg.author?.url) {
-        faviconsConfig.developerURL = pkg.author.url
-      }
-      // additionalWebpackConfig.plugins.push(new FaviconsPlugin({
-      //   publicPath,
-      //   logo: options.icon,
-      //   prefix: "/",
-      //   cache: fromRoot("dist", "cache", "favicons-webpack-plugin"),
-      //   inject: true,
-      //   emitStats: false,
-      //   favicons: faviconsConfig,
-      // }))
-    }
+
+    // if (options.icon) {
+    //   const faviconsConfig = {
+    //     appName: title,
+    //     appDescription: description,
+    //     version: pkg.version,
+    //     background: ensureStart(options.backgroundColor, "#"),
+    //     theme_color: ensureStart(options.themeColor, "#"),
+    //     orientation: "portrait",
+    //     icons: {
+    //       appleIcon: {offset: 10},
+    //       appleStartup: true,
+    //       coast: {offset: 10},
+    //       firefox: {offset: 15},
+    //     },
+    //   }
+    //   if (meta.author) {
+    //     faviconsConfig.developerName = meta.author
+    //   }
+    //   if (pkg.author?.url) {
+    //     faviconsConfig.developerURL = pkg.author.url
+    //   }
+    // additionalWebpackConfig.plugins.push(new FaviconsPlugin({
+    //   publicPath,
+    //   logo: options.icon,
+    //   prefix: "/",
+    //   cache: fromRoot("dist", "cache", "favicons-webpack-plugin"),
+    //   inject: true,
+    //   emitStats: false,
+    //   favicons: faviconsConfig,
+    // }))
+    // }
 
     if (options.domain) {
       additionalWebpackConfig.plugins.push(new CnamePlugin({domain: options.domain}))
@@ -442,7 +459,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
           ],
         },
       }
-
       additionalWebpackConfig.plugins.push(new OptimizeCssAssetsPlugin(pluginOptions))
     }
   }
