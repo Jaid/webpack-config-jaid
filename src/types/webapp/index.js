@@ -576,9 +576,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   if (iconFileExists) {
     const htmlFaviconPluginOptions = {}
     if (options.pwa) {
-      htmlFaviconPluginOptions.href = "/icon_128x128.png"
+      htmlFaviconPluginOptions.href = "icon_128x128.png"
     } else {
-      htmlFaviconPluginOptions.href = "/icon.png"
+      htmlFaviconPluginOptions.href = "icon.png"
       additionalWebpackConfig.plugins.push(new CopyWebpackPlugin(iconFile))
     }
     additionalWebpackConfig.plugins.push(new HtmlFaviconPlugin(htmlFaviconPluginOptions))
