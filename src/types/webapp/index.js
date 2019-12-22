@@ -15,6 +15,7 @@ import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
+import urlJoin from "url-join"
 import webpack from "webpack"
 import webpackMerge from "webpack-merge"
 import PwaManifestPlugin from "webpack-pwa-manifest"
@@ -103,12 +104,13 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       meta["twitter:title"] = title
     }
 
-    if (options.domain) {
-      const baseUrl = `https://${options.domain}/`
-      const imageUrl = `${baseUrl}coast-228x228.png`
+    if (options.domain && options.pwa) {
+      const baseUrl = `https://${options.domain}`
+      const metaIconSize = 384
+      const imageUrl = urlJoin(baseUrl, `icon_${metaIconSize}x${metaIconSize}.png`)
       meta["og:url"] = baseUrl
-      meta["og:image:width"] = 228
-      meta["og:image:height"] = 228
+      meta["og:image:width"] = metaIconSize
+      meta["og:image:height"] = metaIconSize
       meta["og:image:type"] = "image/png"
       meta["og:image"] = imageUrl
       meta["twitter:image"] = imageUrl
