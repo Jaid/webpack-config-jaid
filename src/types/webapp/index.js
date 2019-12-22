@@ -1,7 +1,9 @@
 import fss from "@absolunet/fss"
 import CnamePlugin from "cname-webpack-plugin"
+import CopyWebpackPlugin from "copy-webpack-plugin"
 import ensureStart from "ensure-start"
 import {isEmpty} from "has-content"
+import HtmlFaviconPlugin from "html-favicon-webpack-plugin"
 import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
 import HtmlPlugin from "html-webpack-plugin"
 import {isObject, uniq} from "lodash"
@@ -18,6 +20,7 @@ import webpackMerge from "webpack-merge"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 
 import getPostcssConfig from "lib/getPostcssConfig"
+import isCi from "lib/isCi"
 
 import {commonTerserOptions} from "src/configFragments"
 
@@ -47,7 +50,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       return options.publicPath
     } else if (port) {
       return `http://localhost:${port}/`
-    } else if (!options.development && options.domain && process.env.CI) {
+    } else if (!options.development && options.domain && isCi) {
       return `//${options.domain}/`
     } else {
       return ""
@@ -60,6 +63,9 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   const title = options.title || pkg.title || pkg.config?.title || pkg.name || "App"
   const description = options.appDescription || pkg.description || title
   debug("Title: %s", title)
+
+  const iconFile = fromRoot("icon.png")
+  const iconFileExists = fss.pathExists(iconFile)
 
   const meta = {
     viewport: "width=device-width,initial-scale=1,user-scalable=no",
@@ -474,8 +480,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
   let pwaIncluded = false
 
   if (options.pwa) {
-    const iconFile = fromRoot("icon.png")
-    const iconFileExists = fss.pathExists(iconFile)
     if (iconFileExists) {
     /**
      * @type {import("webpack-pwa-manifest").ManifestOptions}
@@ -528,7 +532,7 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
     }
   }
 
-  if (options.offline) {
+  if (!options.development && options.offline) {
     let pluginOptions
     if (options.offline === true) {
       pluginOptions = {
@@ -566,6 +570,17 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       pluginOptions = options.offline
     }
     additionalWebpackConfig.plugins.push(new OfflinePlugin(pluginOptions))
+  }
+
+  if (iconFileExists) {
+    const htmlFaviconPluginOptions = {}
+    if (options.pwa) {
+      htmlFaviconPluginOptions.href = "/icon_128x128.png"
+    } else {
+      htmlFaviconPluginOptions.href = "/icon.png"
+      additionalWebpackConfig.plugins.push(CopyWebpackPlugin(iconFile))
+    }
+    additionalWebpackConfig.plugins.push(new HtmlFaviconPlugin(htmlFaviconPluginOptions))
   }
 
   return additionalWebpackConfig

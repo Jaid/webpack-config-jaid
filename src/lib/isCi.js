@@ -1,0 +1,1 @@
+export default Boolean(process.env.TRAVIS_TAG || process.env.GITHUB_WORKFLOW)

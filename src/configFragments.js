@@ -1,7 +1,7 @@
 import {DefinePlugin} from "webpack"
 import webpackMerge from "webpack-merge"
 
-const isCi = Boolean(process.env.TRAVIS_TAG || process.env.GITHUB_WORKFLOW)
+import isCi from "lib/isCi"
 
 export const commonTerserOptions = {
   compress: {
