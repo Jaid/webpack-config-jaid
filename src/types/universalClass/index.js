@@ -1,30 +1,16 @@
 import {pascalCase} from "pascal-case"
 
-import {commonTerserOptions} from "src/configFragments"
+import UniversalLib from "src/types/universalLib"
 
-export const defaultOptions = () => ({
-  nodeExternals: false,
-  terserOptions: {
-    ...commonTerserOptions,
-    toplevel: true,
-    module: true,
-  },
-  publishimo: true,
-})
+export default class extends UniversalLib {
 
-export const webpackConfig = ({pkg}) => {
-  const config = {
-    output: {
-      libraryTarget: "umd2",
-      globalObject: "this",
-    },
+  /**
+   * @function
+   * @param {Object} pkg
+   * @return {string}
+   */
+  getLibraryNameFromPkg(pkg) {
+    return pascalCase(pkg.name)
   }
-  if (pkg?.name) {
-    config.output.library = {
-      root: pascalCase(pkg.name),
-      amd: pkg.name,
-      commonjs: pkg.name,
-    }
-  }
-  return config
+
 }

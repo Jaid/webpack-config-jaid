@@ -1,28 +1,44 @@
-import camelcase from "camelcase"
+import webpackMerge from "webpack-merge"
 
-import {commonTerserOptions, configureNode} from "src/configFragments"
+import Node from "src/types/node"
 
-export const defaultOptions = () => ({
-  terserOptions: {
-    ...commonTerserOptions,
-    toplevel: true,
-    module: true,
-  },
-  publishimo: true,
-})
+export default class extends Node {
 
-export const webpackConfig = ({pkg}) => {
-  const config = {
-    output: {
-      libraryTarget: "umd2",
-    },
-  }
-  if (pkg?.name) {
-    config.output.library = {
-      root: camelcase(pkg.name),
-      amd: pkg.name,
-      commonjs: pkg.name,
+  /**
+   * @function
+   * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
+   */
+  getDefaultOptions() {
+    const terserOptions = this.createTerserOptions({
+      toplevel: true,
+      module: true,
+    })
+
+    return {
+      terserOptions,
+      publishimo: true,
     }
   }
-  return configureNode(config)
+
+  /**
+   * @function
+   * @param {import("../WebpackConfigType").GetWebpackConfigContext} context
+   */
+  getWebpackConfig({pkg}) {
+    const nodeConfig = super.getWebpackConfig()
+    const config = {
+      output: {
+        libraryTarget: "umd2",
+      },
+    }
+    if (pkg?.name) {
+      config.output.library = {
+        root: this.getLibraryNameFromPkg(pkg),
+        amd: pkg.name,
+        commonjs: pkg.name,
+      }
+    }
+    return webpackMerge.smart(nodeConfig, config)
+  }
+
 }

@@ -17,7 +17,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {object} [extra={}] Additional Webpack configuration
  * @prop {object} [extraProduction={}] Additional Webpack configuration that only gets applied in development mode
  * @prop {object} [extraDevelopment={}] Additional Webpack configuration that only gets applied in production mode
- * @prop {"cli"|"nodeLib"|"nodeClass"|"universalLib"|"universalClass"|"webapp"|"nodeScript"|"photoshopPlugin"|"coreGeneratorPlugin"|TypeProvider} [type=null] The project type which will automatically add some configuration
+ * @prop {"cli"|"nodeLib"|"nodeClass"|"universalLib"|"universalClass"|"webapp"|"nodeScript"|"coreGeneratorPlugin"|TypeProvider} [type=null] The project type which will automatically add some configuration
  * @prop {array} [include=["readme.*","license.*"]] Files (relative to project directory) that get copied to dist directory
  * @prop {boolean|object} [publishimo=false] Set to true to include publishimo-webpack-plugin, or set as object to add options for the plugin instance
  * @prop {boolean|object} [documentation=false] Set to true to include jsdoc-tsd-webpack-plugin, or set as object to add options for the plugin instance
@@ -33,7 +33,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {boolean} [optimizeCss=false] For type `webapp`: If `true`, `optimize-css-assets-webpack-plugin` will be used to minify output CSS. If typeof `object`, this will be used as configuration for OptimizeCssAssetsPlugin constructor.
  * @prop {boolean} [inlineSource=false] For type `webapp`: If `true`, CSS and JavaScript content will be directly included into the HTML file
  * @prop {string} [hashbang=null] If typeof `string`, writes a hashbang to the top of the entry script. If it does not start with `!#`, it will be added automatically.
- * @prop {false|string} [licenseFileName=null] If typeof `string`, this will be the file where the third party license comments get extracted to.
+ * @prop {false|string} [licenseFileName="thirdPartyLicenses.txt"] If typeof `string`, this will be the file where the third party license comments get extracted to.
  * @prop {object} [terserOptions] Additional options for `terser`
  * @prop {object} [terserPluginOptions] Additional options for `terser-webpack-plugin`
  * @prop {string} [sourceFolder=path.join(packageRoot, "src")] Folder where an `index.js` is placed in
@@ -52,8 +52,8 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {boolean} [friendlyErrors=false] If `true`, includes `friendly-errors-webpack-plugin`
  * @prop {Object} [cepOptions={}] For type `adobeCep`: Additional option values that will be forwarded to `cep-webpack-plugin` constructor
  * @prop {Object|boolean} [banner = true] If `true`, includes `pkg-banner-webpack-plugin`. If Object, this will be used as plugin options.
- * @prop {Object|boolean} [offline = true] For type `webapp`: If `true`, includes `offline-plugin`. If Object, this will be used as plugin options.
- * @prop {Object|boolean} [pwa = true] For type `webapp`: If `true`, includes `@expo/webpack-pwa-manifest-plugin`. If Object, this will be used as plugin options.
+ * @prop {Object|boolean} [offline = false] For type `webapp`: If `true`, includes `offline-plugin`. If Object, this will be used as plugin options.
+ * @prop {Object|boolean} [pwa = false] For type `webapp`: If `true`, includes `@expo/webpack-pwa-manifest-plugin`. If Object, this will be used as plugin options.
  */
 
 /**
@@ -139,17 +139,6 @@ export const configureWebapp = options => generateWebpackConfig({
 export const configureNodeScript = options => generateWebpackConfig({
   ...options,
   type: "nodeScript",
-})
-
-/**
- * Creates Webpack config based on given options, uses type "photoshopPlugin"
- * @function configurePhotoshopPlugin
- * @param {WebpackConfigJaidOptions} [options] Given options
- * @returns {object} Webpack configuration object
- */
-export const configurePhotoshopPlugin = options => generateWebpackConfig({
-  ...options,
-  type: "photoshopPlugin",
 })
 
 /**

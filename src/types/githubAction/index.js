@@ -1,18 +1,39 @@
-import {commonTerserOptions, configureNode} from "src/configFragments"
+import webpackMerge from "webpack-merge"
 
-export const defaultOptions = () => ({
-  terserOptions: {
-    ...commonTerserOptions,
-    toplevel: true,
-  },
-  include: false,
-  nodeExternals: false,
-  outDir: "build",
-  licenseFileName: false,
-})
+import Node from "src/types/node"
 
-export const webpackConfig = () => configureNode({
-  resolve: {
-    mainFields: ["main", "module"],
-  },
-})
+export default class extends Node {
+
+  /**
+   * @function
+   * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
+   */
+  getDefaultOptions() {
+    const terserOptions = this.createTerserOptions({
+      toplevel: true,
+    })
+
+    return {
+      terserOptions,
+      include: false,
+      nodeExternals: false,
+      outDir: "build",
+      licenseFileName: false,
+    }
+  }
+
+  /**
+   * @function
+   * @param {import("../WebpackConfigType").GetWebpackConfigContext} context
+   */
+  getWebpackConfig() {
+    const nodeConfig = super.getWebpackConfig()
+    const config = {
+      resolve: {
+        mainFields: ["main", "module"],
+      },
+    }
+    return webpackMerge.smart(nodeConfig, config)
+  }
+
+}

@@ -1,10 +1,3 @@
-import {commonTerserOptions, configureNode} from "src/configFragments"
+import Node from "src/types/node"
 
-export const defaultOptions = () => ({
-  terserOptions: {
-    ...commonTerserOptions,
-    toplevel: true,
-  },
-})
-
-export const webpackConfig = () => configureNode({})
+export default class extends Node {}

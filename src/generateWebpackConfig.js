@@ -9,7 +9,7 @@ import hasContent from "has-content"
 import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import json5 from "json5"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
-import {isFunction, isObject, isString} from "lodash"
+import {isObject, isString} from "lodash"
 import path from "path"
 import PkgBannerPlugin from "pkg-banner-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
@@ -32,8 +32,8 @@ const debug = require("debug")(_PKG_NAME)
 const env = process.env.NODE_ENV.toLowerCase?.() || "development"
 
 /**
-   * @param {import("./index.js").WebpackConfigJaidOptions} options
-   */
+ * @param {import("./index.js").WebpackConfigJaidOptions} options
+ */
 export default (options = {}) => {
   debug(`NODE_ENV: ${env}`)
   debug(`Options: ${options |> json5.stringify}`)
@@ -65,25 +65,27 @@ export default (options = {}) => {
   }
 
   /**
-   * @type {import("./index").TypeProvider}
+   * @type {import("./types/WebpackConfigType").default}
    */
   let typeProvider
   let typeDefaultOptions
   if (options.type) {
     if (isString(options.type)) {
-      typeProvider = types[options.type]
+      const typeClass = types[options.type]
+      if (!typeClass) {
+        throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeClass} (Available types: ${Object.keys(types).join(", ")})`)
+      }
+      typeProvider = new typeClass
     } else {
       typeProvider = options.type
     }
-    if (!typeProvider) {
-      throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeProvider} (Available types: ${Object.keys(types).join(", ")})`)
-    }
-    if (typeof typeProvider.defaultOptions === "function") {
-      typeDefaultOptions = typeProvider.defaultOptions({
-        env,
-        options,
-        webpack,
-      })
+    typeProvider.pkg = pkg
+    typeDefaultOptions = typeProvider.getDefaultOptions({
+      env,
+      options,
+      webpack,
+    })
+    if (hasContent(typeDefaultOptions)) {
       debug(`Including default options from ${options.type}: ${typeDefaultOptions |> json5.stringify}`)
     }
   }
@@ -133,8 +135,8 @@ export default (options = {}) => {
     sitemap: false,
     googleAnalyticsOnlyInProduction: true,
     friendlyErrors: false,
-    offline: true,
-    pwa: true,
+    offline: false,
+    pwa: false,
     ...typeDefaultOptions || {},
     ...options,
   }
@@ -158,12 +160,12 @@ export default (options = {}) => {
     ...options,
   }
 
-  if (typeProvider?.processOptions |> isFunction) {
-    typeProvider.processOptions(options, {
-      env,
-      fromRoot,
-    })
-  }
+  typeProvider.processOptions(options, {
+    env,
+    fromRoot,
+  })
+
+  typeProvider.options = options
 
   const entryFolder = options.sourceFolder ? fromRoot(options.sourceFolder) : options.packageRoot
 
@@ -425,20 +427,22 @@ export default (options = {}) => {
 
   const extra = []
 
-  if (typeProvider?.webpackConfig |> isFunction) {
-    const typeWebpackConfig = typeProvider.webpackConfig({
-      pkg,
-      env,
-      options,
-      fromRoot,
-      entryFolder,
-      initialWebpackConfig: config,
-    })
-    extra.push(typeWebpackConfig)
+  const typeProviderWebpackConfig = typeProvider.getWebpackConfig({
+    pkg,
+    env,
+    options,
+    fromRoot,
+    entryFolder,
+    initialWebpackConfig: config,
+  })
+
+  if (hasContent(typeProviderWebpackConfig)) {
+    extra.push(typeProviderWebpackConfig)
   }
 
-  if (typeProvider?.defines |> isObject) {
-    config.plugins.push(new webpack.DefinePlugin(typeProvider.defines))
+  const typeProviderDefines = typeProvider.getDefines()
+  if (hasContent(typeProviderDefines)) {
+    config.plugins.push(new webpack.DefinePlugin(typeProviderDefines))
   }
 
   if (options.extra) {

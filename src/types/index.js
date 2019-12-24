@@ -1,24 +1,15 @@
-/**
- * @typedef {Object} GenerateWebpackConfigContext
- * @prop {string} entryFolder
- * @prop {Object} pkg
- * @prop {import("webpack").Configuration} initialWebpackConfig
- * @prop {(...directive: string) => string} fromRoot
- * @prop {import("../index").WebpackConfigJaidOptions} options
- */
-
 const types = {
-  adobeCep: require("./adobeCep"),
-  cli: require("./cli"),
-  executable: require("./executable"),
-  generatorCorePlugin: require("./generatorCorePlugin"),
-  nodeClass: require("./nodeClass"),
-  nodeLib: require("./nodeLib"),
-  nodeScript: require("./nodeScript"),
-  photoshopPlugin: require("./photoshopPlugin"),
-  universalClass: require("./universalClass"),
-  universalLib: require("./universalLib"),
-  webapp: require("./webapp"),
+  // adobeCep: require("./adobeCep").default,
+  cli: require("./cli").default,
+  executable: require("./executable").default,
+  generatorCorePlugin: require("./generatorCorePlugin").default,
+  nodeClass: require("./nodeClass").default,
+  nodeLib: require("./nodeLib").default,
+  nodeScript: require("./nodeScript").default,
+  universalClass: require("./universalClass").default,
+  universalLib: require("./universalLib").default,
+  webapp: require("./webapp").default,
+  html: require("./html").default,
 }
 
 export default types

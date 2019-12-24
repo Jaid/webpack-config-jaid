@@ -1,26 +1,51 @@
 import camelcase from "camelcase"
 
-import {commonTerserOptions} from "src/configFragments"
+import WebpackConfigType from "../WebpackConfigType"
 
-export const defaultOptions = () => ({
-  nodeExternals: false,
-  terserOptions: {
-    ...commonTerserOptions,
-    toplevel: true,
-    module: true,
-  },
-  publishimo: true,
-})
+export default class extends WebpackConfigType {
 
-export const webpackConfig = ({pkg}) => {
-  const config = {
-    output: {
-      libraryTarget: "umd2",
-      globalObject: "this",
-    },
+  /**
+   * @function
+   * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
+   * @return {import("../index").WebpackConfigJaidOptions}
+   */
+  getDefaultOptions() {
+    const terserOptions = this.createTerserOptions({
+      toplevel: true,
+      module: true,
+    })
+
+    return {
+      terserOptions,
+      nodeExternals: false,
+      publishimo: true,
+    }
   }
-  if (pkg?.name) {
-    config.output.library = camelcase(pkg.name)
+
+  /**
+   * @param {string} pkgName
+   * @return {string}
+   */
+  getLibraryName(pkgName) {
+    return camelcase(pkgName)
   }
-  return config
+
+  /**
+   * @function
+   * @param {GetDefaultOptionsContext} context
+   * @return {import("webpack").Configuration}
+   */
+  getWebpackConfig({pkg}) {
+    const config = {
+      output: {
+        libraryTarget: "umd2",
+        globalObject: "this",
+      },
+    }
+    if (pkg?.name) {
+      config.output.library = this.getLibraryNameFromPkg(pkg)
+    }
+    return config
+  }
+
 }

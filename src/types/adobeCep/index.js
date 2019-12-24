@@ -9,8 +9,6 @@ import webpack from "webpack"
 
 import getPostcssConfig from "lib/getPostcssConfig"
 
-import {commonTerserOptions} from "src/configFragments"
-
 const base64UrlLimit = 1000
 
 const binaryAssetTest = /\.(svg|woff|woff2|ttf|eot|otf|mp4|flv|webm|mp3|flac|ogg|m4a|aac)$/
