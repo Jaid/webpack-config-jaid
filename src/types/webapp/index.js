@@ -19,6 +19,16 @@ const debug = require("debug")(_PKG_NAME)
 export default class extends Html {
 
   /**
+   * @type {string}
+   */
+  themeColor = null
+
+  /**
+   * @type {string}
+   */
+  backgroundColor = null
+
+  /**
    * @function
    * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
    * @return {import("src/index").WebpackConfigJaidOptions}
@@ -160,6 +170,26 @@ export default class extends Html {
   }
 
   /**
+   * @return {string}
+   */
+  getThemeColor() {
+    if (this.options.themeColor) {
+      return ensureStart(this.options.themeColor, "#")
+    }
+    return "#00CC00"
+  }
+
+  /**
+   * @return {string}
+   */
+  getBackgroundColor() {
+    if (this.options.backgroundColor) {
+      return ensureStart(this.options.backgroundColor, "#")
+    }
+    return "#000000"
+  }
+
+  /**
    * @return {import("webpack-pwa-manifest").ManifestOptions}
    */
   getPwaManifestPluginOptions() {
@@ -176,15 +206,14 @@ export default class extends Html {
       name: this.title,
       inject: true,
       fingerprints: false,
-      theme_color: this.options.themeColor,
-      background_color: this.options.backgroundColor,
+      theme_color: this.themeColor,
+      background_color: this.backgroundColor,
       ios: {
         "apple-mobile-web-app-title": this.title,
         "apple-mobile-web-app-status-bar-style": "black-translucent",
       },
       start_url: `https://${this.options.domain}`,
       publicPath: `https://${this.options.domain}`,
-
       icons: [
         {
           src: this.iconFile,
@@ -261,8 +290,10 @@ export default class extends Html {
   getWebpackConfig(context) {
     const {fromRoot, initialWebpackConfig} = context
     this.iconFile = fromRoot("icon.png")
-    this.description = this.getDescription()
     debug(`Using icon ${this.iconFile}`)
+    this.description = this.getDescription()
+    this.themeColor = this.getThemeColor()
+    this.backgroundColor = this.getBackgroundColor()
     const iconFileExists = fss.pathExists(this.iconFile)
     if (!iconFileExists) {
       throw new Error(`File ${this.iconFile} not found`)
