@@ -167,6 +167,12 @@ export default class extends Html {
    * @return {import("webpack").Configuration}
    */
   getWebpackConfig(context) {
+    const {fromRoot, initialWebpackConfig} = context
+    this.iconFile = fromRoot("icon.png")
+    const iconFileExists = fss.pathExists(this.iconFile)
+    if (!iconFileExists) {
+      throw new Error(`File ${this.iconFile} not found`)
+    }
     const parentConfig = super.getWebpackConfig(context)
     this.domain = this.options.domain
     /**
@@ -175,7 +181,6 @@ export default class extends Html {
     let webpackConfig = {
       plugins: [],
     }
-    const {fromRoot, initialWebpackConfig} = context
     if (this.hot) {
     // Need to ignore both front slash versions and back slash versions of paths for Windows support
       const ignoredPaths = [
