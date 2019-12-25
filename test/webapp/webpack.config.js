@@ -1,9 +1,6 @@
-const path = require("path")
-
-exports.default = (webpackConfigJaid, packageRoot, outDir, development) => webpackConfigJaid.configureWebapp({
+exports.default = (webpackConfigJaid, packageRoot, outDir, development) => webpackConfigJaid.default({
   packageRoot,
   outDir,
   development,
   backgroundColor: "13061b",
-  icon: path.join(__dirname, "src", "perk.png")
 })

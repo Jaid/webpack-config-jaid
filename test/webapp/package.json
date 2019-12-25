@@ -1,5 +1,6 @@
 {
   "name": "webapp",
+  "webpackConfigJaid": "webapp",
   "domain": "example.com",
   "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
   "dependencies": {

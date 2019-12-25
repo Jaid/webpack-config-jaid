@@ -1,5 +1,5 @@
 const types = {
-  // adobeCep: require("./adobeCep").default,
+  adobeCep: require("./adobeCep").default,
   cli: require("./cli").default,
   executable: require("./executable").default,
   generatorCorePlugin: require("./generatorCorePlugin").default,
