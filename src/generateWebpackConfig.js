@@ -121,7 +121,6 @@ export default (options = {}) => {
     robots: false,
     icon: null,
     domain: pkg.domain || null,
-    includeMonacoEditor: false,
     createCssFile: true,
     optimizeCss: true,
     hashbang: null,

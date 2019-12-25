@@ -1,5 +1,4 @@
 import fss from "@absolunet/fss"
-import CnamePlugin from "cname-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import ensureStart from "ensure-start"
 import {isEmpty} from "has-content"
@@ -9,7 +8,6 @@ import HtmlPlugin from "html-webpack-plugin"
 import {isObject, uniq} from "lodash"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import MonacoEditorPlugin from "monaco-editor-webpack-plugin"
 import OfflinePlugin from "offline-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
@@ -438,22 +436,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
       }
       additionalWebpackConfig.plugins.push(new OptimizeCssAssetsPlugin(pluginOptions))
     }
-  }
-
-  if (options.includeMonacoEditor) {
-    let pluginOptions
-    if (Array.isArray(options.includeMonacoEditor)) {
-      pluginOptions = {
-        languages: options.includeMonacoEditor,
-      }
-    } else if (isObject(options.includeMonacoEditor)) {
-      pluginOptions = options.includeMonacoEditor
-    } else {
-      pluginOptions = {
-        languages: ["javascript", "plaintext"],
-      }
-    }
-    additionalWebpackConfig.plugins.push(new MonacoEditorPlugin(pluginOptions))
   }
 
   if (useMiniCssExtractPlugin) {
