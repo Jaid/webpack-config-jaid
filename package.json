@@ -76,7 +76,9 @@
     "webpack-filter-warnings-plugin": "^1.2.1",
     "webpack-merge": "^4.2.2",
     "webpack-pwa-manifest": "^4.1.1",
-    "yml-loader": "^2.1.0"
+    "yml-loader": "^2.1.0",
+    "terser": "^4.4.3",
+    "terser-webpack-plugin": "2.2.3"
   },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.11.0",
@@ -102,8 +104,6 @@
     "react-hot-loader": "^4.12.18",
     "rimraf": "^3.0.0",
     "sort-keys": "^4.0.0",
-    "terser": "^4.4.3",
-    "terser-webpack-plugin": "2.3.1",
     "winston": "^3.2.1"
   },
   "scripts": {
