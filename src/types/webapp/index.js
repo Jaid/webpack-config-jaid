@@ -256,6 +256,7 @@ export default class extends Html {
   getWebpackConfig(context) {
     const {fromRoot, initialWebpackConfig} = context
     this.iconFile = fromRoot("icon.png")
+    this.description = this.getDescription()
     debug(`Using icon ${this.iconFile}`)
     const iconFileExists = fss.pathExists(this.iconFile)
     if (!iconFileExists) {
