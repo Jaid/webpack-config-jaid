@@ -73,6 +73,7 @@ export default class extends WebpackConfigType {
       createCssFile: true,
       optimizeCss: true,
       banner: false,
+      include: false,
     }
   }
 
