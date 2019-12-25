@@ -1,17 +1,14 @@
 import fss from "@absolunet/fss"
 import CnamePlugin from "cname-webpack-plugin"
-import CopyWebpackPlugin from "copy-webpack-plugin"
 import ensureStart from "ensure-start"
 import HtmlFaviconPlugin from "html-favicon-webpack-plugin"
 import {isObject, uniq} from "lodash"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
-import MonacoEditorPlugin from "monaco-editor-webpack-plugin"
 import OfflinePlugin from "offline-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import urlJoin from "url-join"
-import webpack from "webpack"
 import webpackMerge from "webpack-merge"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 
@@ -163,12 +160,103 @@ export default class extends Html {
   }
 
   /**
+   * @return {import("webpack-pwa-manifest").ManifestOptions}
+   */
+  getPwaManifestPluginOptions() {
+    if (isObject(this.options.pwa)) {
+      return this.options.pwa
+    }
+    const pluginOptions = {
+      description: this.description,
+      orientation: "portrait",
+      display: "standalone",
+      name: this.title,
+      background_color: "#000000",
+      inject: true,
+      fingerprints: false,
+      ios: {
+        "apple-mobile-web-app-title": this.title,
+        "apple-mobile-web-app-status-bar-style": "black-translucent",
+      },
+      start_url: `https://${this.options.domain}`,
+      publicPath: `https://${this.options.domain}`,
+      icons: [
+        {
+          src: this.iconFile,
+          sizes: [
+            16,
+            24,
+            32,
+            64,
+            80,
+            92,
+            128,
+            192,
+            256,
+            384,
+            512,
+          ],
+        },
+      ],
+    }
+    if (this.options.development) {
+      pluginOptions.start_url = "."
+    } else {
+      pluginOptions.start_url = `https://${this.options.domain}`
+      pluginOptions.publicPath = `https://${this.options.domain}`
+    }
+    return pluginOptions
+  }
+
+  /**
+   * @return {import("html-favicon-webpack-plugin").Options}
+   */
+  getHtmlFaviconPluginOptions() {
+    return {
+      href: urlJoin(this.publicPath, "icon_128x128.png"), // TODO: Replace with shorter name, see https://github.com/arthurbergmz/webpack-pwa-manifest/issues/36#issuecomment-568140796
+    }
+  }
+
+  getOfflinePluginOptions() {
+    return {
+      safeToUseOptionalCaches: true,
+      appShell: "index.html",
+      caches: {
+        main: [
+          "*.js",
+          "*.css",
+          "*.html",
+          "manifest.json",
+        ],
+        additional: [
+          "*.woff",
+          "*.woff2",
+          "*.jpg",
+          "*.jpeg",
+          "*.png",
+          "*.webp",
+        ],
+        optional: [":rest:"],
+      },
+      ServiceWorker: {
+        events: true,
+      },
+      AppCache: {
+        events: true,
+      },
+      excludes: ["**/*.txt"],
+      version: this.pkg.version || String(Date.now()),
+    }
+  }
+
+  /**
    * @param {import("src/types/WebpackConfigType").GetWebpackConfigContext} context
    * @return {import("webpack").Configuration}
    */
   getWebpackConfig(context) {
     const {fromRoot, initialWebpackConfig} = context
     this.iconFile = fromRoot("icon.png")
+    debug(`Using icon ${this.iconFile}`)
     const iconFileExists = fss.pathExists(this.iconFile)
     if (!iconFileExists) {
       throw new Error(`File ${this.iconFile} not found`)
@@ -218,6 +306,8 @@ export default class extends Html {
       })
       webpackConfig.plugins.push(new LogWatcherPlugin)
     }
+    webpackConfig.plugins.push(new HtmlFaviconPlugin(this.getHtmlFaviconPluginOptions()))
+    webpackConfig.plugins.push(new PwaManifestPlugin(this.getPwaManifestPluginOptions()))
     if (!this.options.development) {
       webpackConfig.plugins.push(new CnamePlugin(this.getCnamePluginOptions()))
       webpackConfig.plugins.push(new RobotsTxtPlugin(this.getRobotsTxtPluginOptions()))
@@ -226,6 +316,7 @@ export default class extends Html {
       if (optimizeCssAssetsPluginOptions !== null) {
         webpackConfig.plugins.push(new OptimizeCssAssetsPlugin(optimizeCssAssetsPluginOptions))
       }
+      webpackConfig.plugins.push(new OfflinePlugin(this.getOfflinePluginOptions()))
     }
     return webpackMerge.smart(parentConfig, webpackConfig)
   }

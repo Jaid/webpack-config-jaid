@@ -527,12 +527,6 @@ export const webpackConfig = ({options, pkg, fromRoot, initialWebpackConfig, ent
             },
           ],
         }
-        if (options.domain) {
-          pluginOptions.start_url = `https://${options.domain}`
-          pluginOptions.publicPath = `https://${options.domain}`
-        } else {
-          pluginOptions.start_url = "."
-        }
       } else {
         pluginOptions = options.pwa
       }
