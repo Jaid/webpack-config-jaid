@@ -166,20 +166,25 @@ export default class extends Html {
     if (isObject(this.options.pwa)) {
       return this.options.pwa
     }
+    /**
+     * @type {import("webpack-pwa-manifest").ManifestOptions}
+     */
     const pluginOptions = {
       description: this.description,
       orientation: "portrait",
       display: "standalone",
       name: this.title,
-      background_color: "#000000",
       inject: true,
       fingerprints: false,
+      theme_color: this.options.themeColor,
+      background_color: this.options.backgroundColor,
       ios: {
         "apple-mobile-web-app-title": this.title,
         "apple-mobile-web-app-status-bar-style": "black-translucent",
       },
       start_url: `https://${this.options.domain}`,
       publicPath: `https://${this.options.domain}`,
+
       icons: [
         {
           src: this.iconFile,
