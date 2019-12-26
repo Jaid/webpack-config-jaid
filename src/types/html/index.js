@@ -280,7 +280,7 @@ export default class extends WebpackConfigType {
    * @return {import("webpack").Configuration}
    */
   getWebpackConfig({options, entryFolder}) {
-    this.port = process.env.webpackPort
+    this.port = process.env.webpackPort ? Number(process.env.webpackPort) : null
     this.hot = Boolean(this.port)
     this.srcDirectory = entryFolder
     this.publicPath = this.getPublicPath()

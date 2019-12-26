@@ -52,7 +52,7 @@ export default class extends Html {
     if (this.options.publicPath) {
       return this.options.publicPath
     } else if (this.isHot()) {
-      return `http://localhost:${this.options.port}/`
+      return `http://localhost:${this.port}/`
     } else {
       return ""
     }
