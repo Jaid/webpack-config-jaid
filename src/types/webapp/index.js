@@ -326,6 +326,7 @@ export default class extends Html {
           initialWebpackConfig.entry,
         ],
         devServer: {
+          publicPath: this.publicPath,
           port: this.port,
           hot: true,
           overlay: true,
