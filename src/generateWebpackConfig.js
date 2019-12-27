@@ -116,7 +116,7 @@ export default (options = {}) => {
     publishimo: false,
     documentation: false,
     nodeExternals: true,
-    configOutput: false,
+    configOutput: Boolean(process.env.debugWebpack),
     title: pkg.title || null,
     robots: false,
     icon: null,
