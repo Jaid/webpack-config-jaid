@@ -37,8 +37,8 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {object} [terserPluginOptions] Additional options for `terser-webpack-plugin`
  * @prop {string} [sourceFolder=path.join(packageRoot, "src")] Folder where an `index.js` is placed in
  * @prop {string} [outDir=path.join(packageRoot, "dist", "package", env)] Output destination
- * @prop {string} [backgroundColor=13061b] For type `webapp` if `options.icon` is defined: The webapp background color
- * @prop {string} [themeColor=a12fdc] For type `webapp` if `options.icon` is defined: The webapp theme color
+ * @prop {string} [backgroundColor=000000] For type `webapp` if `options.icon` is defined: The webapp background color
+ * @prop {string} [themeColor=04AAE3] For type `webapp` if `options.icon` is defined: The webapp theme color
  * @prop {string} [publicPath] Like `webpackConfig.publicPath`, but also applies to any plugin
  * @prop {boolean} [excludeLocale=true] Exclude i18n data for `moment`
  * @prop {string} [appDescription]

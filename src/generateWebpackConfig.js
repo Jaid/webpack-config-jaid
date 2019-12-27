@@ -125,7 +125,7 @@ export default (options = {}) => {
     optimizeCss: true,
     hashbang: null,
     backgroundColor: "000000",
-    themeColor: "a12fdc",
+    themeColor: "04AAE3",
     excludeLocale: true,
     appDescription: null,
     twitterSiteHandle: null,
