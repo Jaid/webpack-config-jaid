@@ -54,7 +54,7 @@ export default class extends Html {
     } else if (this.isHot()) {
       return `http://localhost:${this.port}/`
     } else {
-      return ""
+      return "/"
     }
   }
 
