@@ -5,6 +5,5 @@ console.log("webpack-config-jaid path: " + webpackConfigJaidPath)
 const configure = require(webpackConfigJaidPath).default
 
 module.exports = configure({
-  configOutput: true,
   packageRoot: __dirname
 })

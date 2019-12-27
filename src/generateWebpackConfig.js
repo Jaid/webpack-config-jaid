@@ -124,7 +124,7 @@ export default (options = {}) => {
     createCssFile: true,
     optimizeCss: true,
     hashbang: null,
-    backgroundColor: "13061b",
+    backgroundColor: "000000",
     themeColor: "a12fdc",
     excludeLocale: true,
     appDescription: null,
