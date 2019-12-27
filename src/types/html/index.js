@@ -58,6 +58,11 @@ export default class extends WebpackConfigType {
   useMiniCssExtractPlugin = null
 
   /**
+   * @type {number}
+   */
+  base64UrlLimit = null
+
+  /**
    * @function
    * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
    * @return {import("src/index").WebpackConfigJaidOptions}
@@ -276,6 +281,83 @@ export default class extends WebpackConfigType {
   }
 
   /**
+   * @return {import("webpack").Loader}
+   */
+  getImageLoader() {
+    const testRegex = this.getImageFileRegex()
+    if (this.options.development) {
+      return {
+        test: testRegex,
+        loader: "file-loader",
+        options: {
+          publicPath: this.publicPath,
+          name: "[path][name]-untouched.[ext]",
+        },
+      }
+    }
+    return {
+      test: testRegex,
+      oneOf: [
+        {
+          resourceQuery: /\?untouched(&|$)/,
+          use: {
+            loader: "url-loader",
+            options: {
+              limit: this.base64UrlLimit,
+              fallback: {
+                loader: "file-loader",
+                options: {
+                  publicPath: this.publicPath,
+                  name: "[hash:base62:6].[ext]",
+                },
+              },
+            },
+          },
+        },
+        {
+          resourceQuery: /\?set(&|$)/,
+          loader: "responsive-loader",
+          options: {
+            name: "[hash:base62:6].[ext]",
+            placeholder: true,
+            placeholderSize: 32,
+            quality: 95,
+            sizes: [
+              16,
+              32,
+              64,
+              128,
+              256,
+              512,
+              1024,
+            ],
+          },
+        },
+        {
+          use: [
+            {
+              loader: "url-loader",
+              options: {
+                limit: this.base64UrlLimit,
+                fallback: {
+                  loader: "file-loader",
+                  options: {
+                    publicPath: this.publicPath,
+                    name: "[hash:base62:6].webp",
+                  },
+                },
+              },
+            },
+            {
+              loader: "webp-loader?{quality: 95, nearLossless: 50, sharpness: 5}",
+            },
+          ],
+        },
+      ],
+    }
+  }
+
+  /**
    * @param {import("src/types/WebpackConfigType").GetWebpackConfigContext} context
    * @return {import("webpack").Configuration}
    */
@@ -325,8 +407,7 @@ export default class extends WebpackConfigType {
       },
     ]
     const binaryFileRegex = this.getBinaryFileRegex()
-    const imageFileRegex = this.getImageFileRegex()
-    const base64UrlLimit = this.getBase64UrlLimit()
+    this.base64UrlLimit = this.getBase64UrlLimit()
     /**
      * @type {import("webpack").Configuration}
      */
@@ -346,7 +427,7 @@ export default class extends WebpackConfigType {
             use: {
               loader: "url-loader",
               options: {
-                limit: base64UrlLimit,
+                limit: this.base64UrlLimit,
                 fallback: {
                   loader: "file-loader",
                   options: {
@@ -357,75 +438,7 @@ export default class extends WebpackConfigType {
               },
             },
           },
-          options.development
-            ? {
-              test: imageFileRegex,
-              loader: "file-loader",
-              options: {
-                publicPath: this.publicPath,
-                name: "[path][name]-untouched.[ext]",
-              },
-            }
-            : {
-              test: imageFileRegex,
-              oneOf: [
-                {
-                  resourceQuery: /\?untouched(&|$)/,
-                  use: {
-                    loader: "url-loader",
-                    options: {
-                      limit: base64UrlLimit,
-                      fallback: {
-                        loader: "file-loader",
-                        options: {
-                          publicPath: this.publicPath,
-                          name: "[hash:base62:6].[ext]",
-                        },
-                      },
-                    },
-                  },
-                },
-                {
-                  resourceQuery: /\?set(&|$)/,
-                  loader: "responsive-loader",
-                  options: {
-                    name: "[hash:base62:6].[ext]",
-                    placeholder: true,
-                    placeholderSize: 32,
-                    quality: 95,
-                    sizes: [
-                      16,
-                      32,
-                      64,
-                      128,
-                      256,
-                      512,
-                      1024,
-                    ],
-                  },
-                },
-                {
-                  use: [
-                    {
-                      loader: "url-loader",
-                      options: {
-                        limit: base64UrlLimit,
-                        fallback: {
-                          loader: "file-loader",
-                          options: {
-                            publicPath: this.publicPath,
-                            name: "[hash:base62:6].webp",
-                          },
-                        },
-                      },
-                    },
-                    {
-                      loader: "webp-loader?{quality: 95, nearLossless: 50, sharpness: 5}",
-                    },
-                  ],
-                },
-              ],
-            },
+          this.getImageLoader(),
           {
             test: /\.md$/,
             use: ["html-loader", "markdown-loader"],
