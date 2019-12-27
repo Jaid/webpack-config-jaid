@@ -345,8 +345,8 @@ export default class extends Html {
       webpackConfig.plugins.push(new LogWatcherPlugin)
     }
     webpackConfig.plugins.push(new HtmlFaviconPlugin(this.getHtmlFaviconPluginOptions()))
-    webpackConfig.plugins.push(new PwaManifestPlugin(this.getPwaManifestPluginOptions()))
     if (!this.options.development) {
+      webpackConfig.plugins.push(new PwaManifestPlugin(this.getPwaManifestPluginOptions()))
       webpackConfig.plugins.push(new CnamePlugin(this.getCnamePluginOptions()))
       webpackConfig.plugins.push(new RobotsTxtPlugin(this.getRobotsTxtPluginOptions()))
       webpackConfig.plugins.push(new SitemapXmlPlugin(this.getSitemapXmlPluginOptions()))
