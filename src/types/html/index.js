@@ -1,8 +1,10 @@
+import BrowserSyncPlugin from "browser-sync-webpack-plugin"
 import camelcase from "camelcase"
 import {isEmpty} from "has-content"
 import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
 import HtmlPlugin from "html-webpack-plugin"
 import IgnoreEmitPlugin from "ignore-emit-webpack-plugin"
+import InjectBrowserSyncPlugin from "inject-browser-sync-webpack-plugin"
 import {isObject} from "lodash"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
@@ -147,6 +149,9 @@ export default class extends WebpackConfigType {
    * @return {import("html-webpack-plugin").Options}
    */
   getHtmlPluginOptions() {
+    /**
+     * @type {import("html-webpack-plugin").Options}
+     */
     const htmlPluginOptions = {
       title: this.title,
       meta: this.meta,
@@ -465,6 +470,13 @@ export default class extends WebpackConfigType {
     if (this.useMiniCssExtractPlugin) {
       const pluginOptions = this.getMiniCssExtractPluginOptions()
       webpackConfig.plugins.push(new MiniCssExtractPlugin(pluginOptions))
+    }
+
+    if (this.options.development && this.options.browserSync) {
+      webpackConfig.plugins.push(new BrowserSyncPlugin({
+        codeSync: false,
+      }))
+      webpackConfig.plugins.push(new InjectBrowserSyncPlugin)
     }
 
     const googleAnalyticsTrackingId = this.getGoogleAnalyticsTrackingId()

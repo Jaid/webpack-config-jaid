@@ -138,6 +138,7 @@ export default (options = {}) => {
     friendlyErrors: false,
     offline: false,
     pwa: false,
+    browserSync: Boolean(process.env.browserSync),
     ...typeDefaultOptions || {},
     ...options,
   }

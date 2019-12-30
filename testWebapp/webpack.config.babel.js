@@ -5,5 +5,6 @@ console.log("webpack-config-jaid path: " + webpackConfigJaidPath)
 const configure = require(webpackConfigJaidPath).default
 
 module.exports = configure({
-  packageRoot: __dirname
+  packageRoot: __dirname,
+  browserSync: true
 })
