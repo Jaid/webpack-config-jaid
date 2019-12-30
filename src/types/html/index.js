@@ -266,6 +266,31 @@ export default class extends WebpackConfigType {
   }
 
   /**
+   * @return {import("browser-sync").Options}
+   */
+  getBrowserSyncOptions() {
+    /**
+     * @type {import("browser-sync").Options}
+     */
+    const pluginOptions = {
+      codeSync: false,
+    }
+    if (Number(this.options.browserSync) > 1) {
+      pluginOptions.port = Number(this.options.browserSync)
+    } else {
+      pluginOptions.port = 3000
+    }
+    return pluginOptions
+  }
+
+  /**
+   * @return {import("browser-sync-webpack-plugin").Options}
+   */
+  getBrowserSyncPluginOptions() {
+    return {}
+  }
+
+  /**
    * @return {string}
    */
   getGoogleAnalyticsTrackingId() {
@@ -473,10 +498,12 @@ export default class extends WebpackConfigType {
     }
 
     if (this.options.development && this.options.browserSync) {
-      webpackConfig.plugins.push(new BrowserSyncPlugin({
-        codeSync: false,
+      const browserSyncOptions = this.getBrowserSyncOptions()
+      const pluginOptions = this.getBrowserSyncPluginOptions()
+      webpackConfig.plugins.push(new BrowserSyncPlugin(browserSyncOptions, pluginOptions))
+      webpackConfig.plugins.push(new InjectBrowserSyncPlugin({
+        port: browserSyncOptions.port,
       }))
-      webpackConfig.plugins.push(new InjectBrowserSyncPlugin)
     }
 
     const googleAnalyticsTrackingId = this.getGoogleAnalyticsTrackingId()
