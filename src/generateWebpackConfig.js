@@ -3,6 +3,7 @@ import appRootPath from "app-root-path"
 import {CleanWebpackPlugin} from "clean-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import ensureStart from "ensure-start"
+import flatted from "flatted"
 import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
 import fs from "fs"
 import hasContent from "has-content"
@@ -37,7 +38,7 @@ const env = process.env.NODE_ENV.toLowerCase?.() || "development"
 export default (options = {}) => {
   debug(`NODE_ENV: ${env}`)
 
-  debug(`Passed option keys: ${Object.keys(options).join(", ")}`)
+  debug(`Passed options: ${flatted.stringify(options)}`)
 
   let pkg
   try {
@@ -87,7 +88,7 @@ export default (options = {}) => {
       webpack,
     })
     if (hasContent(typeDefaultOptions)) {
-      debug(`Including default options from ${options.type}: ${typeDefaultOptions |> json5.stringify}`)
+      debug(`Including default options from ${options.type}: ${typeDefaultOptions |> flatted.stringify}`)
     }
   }
 
@@ -423,7 +424,7 @@ export default (options = {}) => {
     config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/))
   }
 
-  debug(`Base config: ${config |> json5.stringify}`)
+  debug(`Base config: ${config |> flatted.stringify}`)
 
   const extra = []
 
@@ -458,7 +459,7 @@ export default (options = {}) => {
   }
 
   extra.forEach((extraEntry, index) => {
-    debug(`Extra config #${index + 1}: ${extraEntry |> json5.stringify}`)
+    debug(`Extra config #${index + 1}: ${extraEntry |> flatted.stringify}`)
   })
 
   const mergedConfig = extra.length ? webpackMerge.smart(config, ...extra) : config
@@ -481,7 +482,7 @@ export default (options = {}) => {
     fss.outputYaml(pluginsOutputFile, cleanForYaml(plugins))
   }
 
-  debug(`Final Webpack config: ${mergedConfig |> json5.stringify}`)
+  debug(`Final Webpack config: ${mergedConfig |> flatted.stringify}`)
 
   return mergedConfig
 }
