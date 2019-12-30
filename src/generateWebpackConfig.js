@@ -220,7 +220,7 @@ export default (options = {}) => {
           ],
         },
         {
-          test: /\.ya?ml$/,
+          test: /\.(yaml|yml)$/,
           loader: "yml-loader",
         },
         {
