@@ -6,5 +6,4 @@ const configure = require(webpackConfigJaidPath).default
 
 module.exports = configure({
   packageRoot: __dirname,
-  browserSync: true
 })
