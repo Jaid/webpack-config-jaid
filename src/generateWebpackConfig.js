@@ -36,7 +36,8 @@ const env = process.env.NODE_ENV.toLowerCase?.() || "development"
  */
 export default (options = {}) => {
   debug(`NODE_ENV: ${env}`)
-  debug(`Options: ${options |> json5.stringify}`)
+
+  debug(`Passed option keys: ${Object.keys(options).join(", ")}`)
 
   let pkg
   try {
