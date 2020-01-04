@@ -201,7 +201,7 @@ export default (options = {}) => {
       extensions: [".js", ".jsx", ".ts", ".tsx", ".json", ".yml"],
     },
     mode: options.development ? "development" : "production",
-    devtool: options.development ? "inline-source-map" : "source-map",
+    devtool: options.development ? "eval-source-map" : "source-map",
     module: {
       rules: [
         {
