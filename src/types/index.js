@@ -4,6 +4,7 @@ const types = {
   executable: require("./executable").default,
   generatorCorePlugin: require("./generatorCorePlugin").default,
   nodeClass: require("./nodeClass").default,
+  githubAction: require("./githubAction").default,
   nodeLib: require("./nodeLib").default,
   nodeScript: require("./nodeScript").default,
   universalClass: require("./universalClass").default,
