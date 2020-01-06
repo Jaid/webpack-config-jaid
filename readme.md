@@ -1,11 +1,14 @@
 # webpack-config-jaid
 
 
-Takes tiny input and returns a Webpack config in the way I personally like.
+<a href="https://actions-badge.atrox.dev/Jaid/webpack-config-jaid/goto"><img src="https://img.shields.io/endpoint.svg?style=flat-square&url=https%3A%2F%2Factions-badge.atrox.dev%2FJaid%2Fwebpack-config-jaid%2Fbadge" alt="Build status"/></a> <a href="https://raw.githubusercontent.com/Jaid/webpack-config-jaid/master/license.txt"><img src="https://img.shields.io/github/license/Jaid/webpack-config-jaid?style=flat-square" alt="License"/></a>  
+<a href="https://github.com/Jaid/webpack-config-jaid/commits"><img src="https://img.shields.io/github/commits-since/Jaid/webpack-config-jaid/v9.3.1?style=flat-square&logo=github" alt="Commits since v9.3.1"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/commits"><img src="https://img.shields.io/github/last-commit/Jaid/webpack-config-jaid?style=flat-square&logo=github" alt="Last commit"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/issues"><img src="https://img.shields.io/github/issues/Jaid/webpack-config-jaid?style=flat-square&logo=github" alt="Issues"/></a>  
+<a href="https://npmjs.com/package/webpack-config-jaid"><img src="https://img.shields.io/npm/v/webpack-config-jaid?style=flat-square&logo=npm&label=latest%20version" alt="Latest version on npm"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/network/dependents"><img src="https://img.shields.io/librariesio/dependents/npm/webpack-config-jaid?style=flat-square&logo=npm" alt="Dependents"/></a> <a href="https://npmjs.com/package/webpack-config-jaid"><img src="https://img.shields.io/npm/dm/webpack-config-jaid?style=flat-square&logo=npm" alt="Downloads"/></a>
 
-<a href="https://raw.githubusercontent.com/Jaid/webpack-config-jaid/master/license.txt"><img src="https://img.shields.io/github/license/Jaid/webpack-config-jaid?style=flat-square&color=success" alt="License"/></a>  
-<a href="https://github.com/Jaid/webpack-config-jaid/commits"><img src="https://img.shields.io/github/commits-since/Jaid/webpack-config-jaid/v9.3.1?style=flat-square&logo=github&color=success" alt="Commits since v9.3.1"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/commits"><img src="https://img.shields.io/github/last-commit/Jaid/webpack-config-jaid?style=flat-square&logo=github&color=red" alt="Last commit"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/issues"><img src="https://img.shields.io/github/issues/Jaid/webpack-config-jaid?style=flat-square&logo=github&color=red" alt="Issues"/></a>  
-<a href="https://npmjs.com/package/webpack-config-jaid"><img src="https://img.shields.io/npm/v/webpack-config-jaid?style=flat-square&logo=npm&label=latest%20version&color=success" alt="Latest version on npm"/></a> <a href="https://github.com/Jaid/webpack-config-jaid/network/dependents"><img src="https://img.shields.io/librariesio/dependents/npm/webpack-config-jaid?style=flat-square&logo=npm&color=red" alt="Dependents"/></a> <a href="https://npmjs.com/package/webpack-config-jaid"><img src="https://img.shields.io/npm/dm/webpack-config-jaid?style=flat-square&logo=npm&color=red" alt="Downloads"/></a>
+**Takes tiny input and returns a Webpack config in the way I personally like.**
+
+
+
 
 
 
@@ -31,13 +34,31 @@ yarn add --dev webpack-config-jaid@^9.3.1
 
 
 
+## Development
+
+
+
+Setting up:
+```bash
+git clone git@github.com:Jaid/webpack-config-jaid.git
+cd webpack-config-jaid
+npm install
+```
+Testing:
+```bash
+npm run test:dev
+```
+Testing in production environment:
+```bash
+npm run test
+```
 
 
 ## License
 ```text
 MIT License
 
-Copyright © 2019, Jaid <jaid.jsx@gmail.com> (github.com/jaid)
+Copyright © 2020, Jaid <jaid.jsx@gmail.com> (github.com/jaid)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
