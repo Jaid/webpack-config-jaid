@@ -465,6 +465,11 @@ export default (options = {}) => {
 
   const mergedConfig = extra.length ? webpackMerge.smart(config, ...extra) : config
 
+  if (process.env.webpackDevtool) {
+    debug(`Forced devtool from env: ${process.env.webpackDevtool}`)
+    mergedConfig.devtool = process.env.webpackDevtool
+  }
+
   if (options.configOutput) {
     const outputFile = options.configOutput === true ? fromRoot("dist", "webpack-config-jaid", "webpackConfig.yml") : path.resolve(options.configOutput)
     fss.outputYaml(outputFile, cleanForYaml(mergedConfig))

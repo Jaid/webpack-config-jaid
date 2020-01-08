@@ -6,3 +6,4 @@ environmentVariables:
   TRAVIS_TAG: If defined, CI mode will be active which increases script compression rate.
   GITHUB_WORKFLOW: If defined, CI mode will be active which increases script compression rate.
   webpackPort: Port that `webpack-dev-server` hosts the HMR app on.
+  webpackDevtool: Overwrites `webpackConfig.devtool` with given value.
