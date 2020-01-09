@@ -32,6 +32,17 @@ yarn add --dev webpack-config-jaid@^9.3.1
 
 
 
+Following environment variables are read by webpack-config-jaid:
+Name|Description
+---|---
+NODE_ENV|Used to determine if `webpackConfig.mode` should be `"development"` or not.
+debugWebpack|If defined, debugging files will be written to `dist` folder.
+browserSync|Can be a number that will be used as port for Browser Sync.
+TRAVIS_TAG|If defined, CI mode will be active which increases script compression rate.
+GITHUB_WORKFLOW|If defined, CI mode will be active which increases script compression rate.
+webpackPort|Port that `webpack-dev-server` hosts the HMR app on.
+webpackDevtool|Overwrites `webpackConfig.devtool` with given value.
+
 
 
 ## Development
