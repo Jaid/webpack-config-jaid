@@ -35,6 +35,7 @@ yarn add --dev webpack-config-jaid@^9.4.0
 
 
 Following environment variables are read by webpack-config-jaid:
+
 Name|Description
 ---|---
 NODE_ENV|Used to determine if `webpackConfig.mode` should be `"development"` or not.
