@@ -1,5 +1,5 @@
 {
-  "version": "9.4.0",
+  "version": "10.0.0",
   "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
   "dependencies": {
     "@absolunet/fss": "^1.6.2",
