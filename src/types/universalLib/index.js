@@ -17,7 +17,6 @@ export default class extends WebpackConfigType {
 
     return {
       terserOptions,
-      nodeExternals: false,
       publishimo: true,
     }
   }
