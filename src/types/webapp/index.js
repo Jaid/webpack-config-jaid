@@ -113,6 +113,23 @@ export default class extends Html {
   }
 
   /**
+   * @return {import("webpack").Loader}
+   */
+  getImageLoader() {
+    if (this.options.development) {
+      return super.getImageLoader()
+    }
+    return {
+      test: this.getImageFileRegex(),
+      use: {
+        loader: "modern-image-loader",
+        options: {
+        },
+      },
+    }
+  }
+
+  /**
    * @return {Object}
    */
   getCnamePluginOptions() {

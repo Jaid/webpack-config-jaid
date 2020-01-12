@@ -327,63 +327,19 @@ export default class extends WebpackConfigType {
     }
     return {
       test: testRegex,
-      oneOf: [
-        {
-          resourceQuery: /\?untouched(&|$)/,
-          use: {
-            loader: "url-loader",
+      use: {
+        loader: "url-loader",
+        options: {
+          limit: this.base64UrlLimit,
+          fallback: {
+            loader: "file-loader",
             options: {
-              limit: this.base64UrlLimit,
-              fallback: {
-                loader: "file-loader",
-                options: {
-                  publicPath: this.publicPath,
-                  name: "[hash:base62:6].[ext]",
-                },
-              },
+              publicPath: this.publicPath,
+              name: "[hash:base62:6].[ext]",
             },
           },
         },
-        {
-          resourceQuery: /\?set(&|$)/,
-          loader: "responsive-loader",
-          options: {
-            name: "[hash:base62:6].[ext]",
-            placeholder: true,
-            placeholderSize: 32,
-            quality: 95,
-            sizes: [
-              16,
-              32,
-              64,
-              128,
-              256,
-              512,
-              1024,
-            ],
-          },
-        },
-        {
-          use: [
-            {
-              loader: "url-loader",
-              options: {
-                limit: this.base64UrlLimit,
-                fallback: {
-                  loader: "file-loader",
-                  options: {
-                    publicPath: this.publicPath,
-                    name: "[hash:base62:6].webp",
-                  },
-                },
-              },
-            },
-            {
-              loader: "webp-loader?{quality: 95, nearLossless: 50, sharpness: 5}",
-            },
-          ],
-        },
-      ],
+      },
     }
   }
 
