@@ -2,7 +2,7 @@ import "./style.scss"
 
 import {trim} from "lodash"
 
-import icon from "./perk.png?responsive"
+import icon from "./perk.png"
 
 window.icon = icon
 

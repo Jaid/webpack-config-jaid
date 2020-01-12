@@ -4,7 +4,7 @@
 
 import {trim} from "lodash"
 
-import icon from "./perk.png?responsive"
+import icon from "./perk.png"
 import css from "./style.scss"
 
 require("offline-plugin/runtime").install()
