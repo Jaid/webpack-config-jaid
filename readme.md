@@ -20,6 +20,7 @@
 
 
 
+
 ## Installation
 <a href="https://npmjs.com/package/webpack-config-jaid"><img src="https://img.shields.io/badge/npm-webpack--config--jaid-C23039?style=flat-square&logo=npm" alt="webpack-config-jaid on npm"/></a>
 ```bash
@@ -33,6 +34,8 @@ yarn add --dev webpack-config-jaid@^11.0.0
 
 
 
+
+## Environment Variables
 
 Following environment variables are read by webpack-config-jaid:
 
