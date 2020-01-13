@@ -126,5 +126,6 @@
   },
   "name": "webpack-config-jaid",
   "description": "Takes tiny input and returns a Webpack config in the way I personally like.",
-  "webpackConfigJaid": "nodeLib"
+  "webpackConfigJaid": "nodeLib",
+  "funding": "https://github.com/sponsors/jaid"
 }
