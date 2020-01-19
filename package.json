@@ -25,6 +25,7 @@
     "file-loader": "^5.0.2",
     "flatted": "^2.0.1",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "handlebars": "^4.7.2",
     "handlebars-loader": "^1.7.1",
     "has-content": "^1.1.0",
     "html-favicon-webpack-plugin": "^1.0.0",
