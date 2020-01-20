@@ -91,6 +91,7 @@
     "babel-preset-jaid": "^7.3.2",
     "browserslist-config-jaid-node": "^2.2.2",
     "chalk": "^3.0.0",
+    "classnames": "^2.2.6",
     "coffee": "^5.2.2",
     "cross-env": "^6.0.3",
     "eslint": "^6.8.0",

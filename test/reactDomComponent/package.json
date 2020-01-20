@@ -1,0 +1,10 @@
+{
+  "name": "react-dom-component",
+  "devDependencies": {
+    "react": "*"
+  },
+  "eslintConfig": {
+    "extends": "jaid"
+  },
+  "webpackConfigJaid": "reactDomComponent"
+}

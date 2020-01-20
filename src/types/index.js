@@ -11,6 +11,7 @@ const types = {
   universalLib: require("./universalLib").default,
   webapp: require("./webapp").default,
   html: require("./html").default,
+  reactDomComponent: require("./reactDomComponent").default,
 }
 
 export default types
