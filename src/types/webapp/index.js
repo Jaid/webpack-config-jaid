@@ -2,7 +2,7 @@ import fss from "@absolunet/fss"
 import CnamePlugin from "cname-webpack-plugin"
 import ensureStart from "ensure-start"
 import HtmlFaviconPlugin from "html-favicon-webpack-plugin"
-import {isObject, uniq} from "lodash"
+import {isObject, omit, uniq} from "lodash"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import OfflinePlugin from "offline-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
@@ -121,11 +121,15 @@ export default class extends Html {
     }
     return {
       test: this.getImageFileRegex(),
-      use: {
-        loader: "modern-image-loader",
-        options: {
+      oneOf: [
+        {
+          resourceQuery: /\?raw/,
+          use: omit(super.getImageLoader(), "test"),
         },
-      },
+        {
+          loader: "modern-image-loader",
+        },
+      ],
     }
   }
 

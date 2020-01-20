@@ -327,16 +327,14 @@ export default class extends WebpackConfigType {
     }
     return {
       test: testRegex,
-      use: {
-        loader: "url-loader",
-        options: {
-          limit: this.base64UrlLimit,
-          fallback: {
-            loader: "file-loader",
-            options: {
-              publicPath: this.publicPath,
-              name: "[hash:base62:6].[ext]",
-            },
+      loader: "url-loader",
+      options: {
+        limit: this.base64UrlLimit,
+        fallback: {
+          loader: "file-loader",
+          options: {
+            publicPath: this.publicPath,
+            name: "[hash:base62:6].[ext]",
           },
         },
       },
