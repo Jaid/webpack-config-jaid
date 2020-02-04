@@ -212,7 +212,7 @@ export default class extends WebpackConfigType {
       loaderOptions = {
         sourceMap: true,
         modules: {
-          localIdentName: "[folder]_[local]_[hash:base62:4]",
+          localIdentName: "[folder]_[local]_[hash:base64:4]",
         },
       }
     } else {
@@ -402,7 +402,7 @@ export default class extends WebpackConfigType {
       },
       output: {
         publicPath: this.publicPath,
-        filename: options.development ? "index.js" : "[chunkhash:6].js",
+        filename: options.development ? "index.js" : `${2}.js`,
       },
       module: {
         rules: [
