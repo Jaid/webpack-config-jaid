@@ -252,8 +252,8 @@ export default class extends WebpackConfigType {
   }
 
   /**
-     * @return {import("mini-css-extract-plugin").PluginOptions}
-     */
+   * @return {import("mini-css-extract-plugin").PluginOptions}
+   */
   getMiniCssExtractPluginOptions() {
     if (isObject(this.options.createCssFile)) {
       return this.options.createCssFile
