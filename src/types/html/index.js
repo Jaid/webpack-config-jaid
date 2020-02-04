@@ -259,7 +259,7 @@ export default class extends WebpackConfigType {
       return this.options.createCssFile
     } else {
       return {
-        filename: this.options.development ? "[name].css" : "[contenthash:6].css",
+        filename: this.options.development ? "[name].css" : `${this.pkg.version || "[contenthash:6]"}.css`,
         chunkFilename: this.options.development ? "[id].css" : "[contenthash:6].css",
       }
     }
@@ -402,7 +402,7 @@ export default class extends WebpackConfigType {
       },
       output: {
         publicPath: this.publicPath,
-        filename: options.development ? "index.js" : `${2}.js`,
+        filename: options.development ? "index.js" : `${this.pkg.version || "[chunkhash:6]"}.js`,
       },
       module: {
         rules: [
