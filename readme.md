@@ -12,13 +12,24 @@
 
 
 ## Installation
+
 <a href="https://npmjs.com/package/webpack-config-jaid"><img src="https://img.shields.io/badge/npm-webpack--config--jaid-C23039?style=flat-square&logo=npm" alt="webpack-config-jaid on npm"/></a>
+
 ```bash
 npm install --save-dev webpack-config-jaid@^11.2.0
 ```
+
 <a href="https://yarnpkg.com/package/webpack-config-jaid"><img src="https://img.shields.io/badge/Yarn-webpack--config--jaid-2F8CB7?style=flat-square&logo=yarn&logoColor=white" alt="webpack-config-jaid on Yarn"/></a>
+
 ```bash
 yarn add --dev webpack-config-jaid@^11.2.0
+```
+
+<a href="https://github.com/jaid/webpack-config-jaid/packages"><img src="https://img.shields.io/badge/GitHub Packages-@jaid/webpack--config--jaid-24282e?style=flat-square&logo=github" alt="@jaid/webpack-config-jaid on GitHub Packages"/></a>  
+(if [configured properly](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-npm-for-use-with-github-packages))
+
+```bash
+npm install --save-dev @jaid/webpack-config-jaid@^11.2.0
 ```
 
 
