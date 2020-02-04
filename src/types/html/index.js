@@ -334,7 +334,7 @@ export default class extends WebpackConfigType {
           loader: "file-loader",
           options: {
             publicPath: this.publicPath,
-            name: "[hash:base62:6].[ext]",
+            name: "[hash:base64:6].[ext]",
           },
         },
       },
@@ -416,7 +416,7 @@ export default class extends WebpackConfigType {
                   loader: "file-loader",
                   options: {
                     publicPath: this.publicPath,
-                    name: options.development ? "[path][name].[ext]" : "[hash:base62:6].[ext]",
+                    name: options.development ? "[path][name].[ext]" : "[hash:base64:6].[ext]",
                   },
                 },
               },
