@@ -212,7 +212,7 @@ export default class extends WebpackConfigType {
       loaderOptions = {
         sourceMap: true,
         modules: {
-          localIdentName: "[folder]_[local]_[hash:base64:4]",
+          localIdentName: "[folder]_[local]_[hash:base62:4]",
         },
       }
     } else {
