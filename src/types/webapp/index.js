@@ -299,7 +299,10 @@ export default class extends Html {
       AppCache: {
         events: true,
       },
-      excludes: ["**/*.txt"],
+      excludes: [
+        "**/*.txt",
+        "CNAME",
+      ],
       version: this.pkg.version || String(Date.now()),
     }
   }
