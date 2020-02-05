@@ -331,9 +331,9 @@ export default class extends Html {
       // Need to ignore both front slash versions and back slash versions of paths for Windows support
       const ignoredPaths = [
         fromRoot("dist"),
-        fromRoot("dist").replaceAll("\\", "/"),
+        fromRoot("dist").replaceAll('\', "/"),
         fromRoot(".git"),
-        fromRoot(".git").replaceAll("\\", "/"),
+        fromRoot(".git").replaceAll('\', "/"),
       ]
       webpackConfig = webpackMerge.smart(webpackConfig, {
         watch: true,
