@@ -276,7 +276,6 @@ export default class extends Html {
     return {
       safeToUseOptionalCaches: true,
       appShell: "index.html",
-      responseStrategy: "network-first",
       caches: {
         main: [
           "*.js",
