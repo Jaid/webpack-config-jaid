@@ -2,7 +2,7 @@ import fss from "@absolunet/fss"
 import CnamePlugin from "cname-webpack-plugin"
 import ensureStart from "ensure-start"
 import HtmlFaviconPlugin from "html-favicon-webpack-plugin"
-import {isObject, omit, uniq} from "lodash"
+import {escape, isObject, omit, uniq} from "lodash"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import OfflinePlugin from "offline-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
@@ -139,7 +139,7 @@ export default class extends Html {
   getBodyContent() {
     const text = this.title || this.pkg?.name || this.domain || "Loading"
     const textColor = "#8888"
-    return `<div><main style="position:fixed;margin:0;padding:0;width:100vw;height:100vh;color:${textColor};display:flex;justify-content:center;align-items:center;font-size:200%;font-family:Ubuntu,sans-serif"><span>${text}</span></main></div>`
+    return `<div><main style="position:fixed;margin:0;padding:0;width:100vw;height:100vh;color:${textColor};display:flex;justify-content:center;align-items:center;font-size:200%;font-family:Ubuntu,sans-serif"><span>${escape(text)}</span></main></div>`
   }
 
   /**
