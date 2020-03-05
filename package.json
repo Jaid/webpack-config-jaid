@@ -36,6 +36,7 @@
     "ignore-assets-webpack-plugin": "^2.0.1",
     "ignore-emit-webpack-plugin": "^2.0.2",
     "immer": "^6.0.1",
+    "inject-body-webpack-plugin": "^1.0.0",
     "inject-browser-sync-webpack-plugin": "^1.1.0",
     "jsdoc-tsd-webpack-plugin": "^3.3.6",
     "json5": "^2.1.1",

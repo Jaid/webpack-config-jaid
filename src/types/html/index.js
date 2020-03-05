@@ -4,6 +4,7 @@ import {isEmpty} from "has-content"
 import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
 import HtmlPlugin from "html-webpack-plugin"
 import IgnoreEmitPlugin from "ignore-emit-webpack-plugin"
+import InjectBodyPlugin from "inject-body-webpack-plugin"
 import InjectBrowserSyncPlugin from "inject-browser-sync-webpack-plugin"
 import {isObject} from "lodash"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
@@ -311,6 +312,13 @@ export default class extends WebpackConfigType {
   }
 
   /**
+   * @return {string}
+   */
+  getBodyContent() {
+    return null
+  }
+
+  /**
    * @return {import("webpack").Loader}
    */
   getImageLoader() {
@@ -431,6 +439,13 @@ export default class extends WebpackConfigType {
         ],
       },
       plugins: [new HtmlPlugin(htmlPluginOptions)],
+    }
+
+    const bodyContent = this.getBodyContent()
+    if (bodyContent) {
+      webpackConfig.plugins.push(new InjectBodyPlugin({
+        content: bodyContent,
+      }))
     }
 
     if (this.shouldInlineJavascript()) {

@@ -134,6 +134,13 @@ export default class extends Html {
   }
 
   /**
+   * @return {string}
+   */
+  getBodyContent() {
+    return "<div>abc</div>"
+  }
+
+  /**
    * @return {Object}
    */
   getCnamePluginOptions() {
