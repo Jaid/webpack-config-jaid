@@ -139,8 +139,7 @@ export default class extends Html {
   getBodyContent() {
     const text = this.title || this.pkg?.name || this.domain || "Loading"
     const textColor = "#8888"
-    return `<div><main style="position:fixed;margin:0;padding:0;width:100vw;height:100vh;color:${textColor};display:flex;justify-content:center;align-items:center;font-size:200%;font-family:Ubuntu,sans-serif">
-      <span>${text}</span></main></div>`
+    return `<div><main style="position:fixed;margin:0;padding:0;width:100vw;height:100vh;color:${textColor};display:flex;justify-content:center;align-items:center;font-size:200%;font-family:Ubuntu,sans-serif"><span>${text}</span></main></div>`
   }
 
   /**
