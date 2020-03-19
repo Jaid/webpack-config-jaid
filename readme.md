@@ -44,7 +44,6 @@ npm install --save-dev @jaid/webpack-config-jaid@^11.7.1
 
 
 
-
 ## Environment Variables
 
 Following environment variables are read by webpack-config-jaid:
@@ -83,4 +82,4 @@ npm run test
 
 ## License
 [MIT License](https://raw.githubusercontent.com/jaid/webpack-config-jaid/master/license.txt)  
-Copyright © 2020, Jaid <jaid.jsx@gmail.com> (github.com/jaid)
+Copyright © 2020, Jaid \<jaid.jsx@gmail.com> (https://github.com/jaid)
