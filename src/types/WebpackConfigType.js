@@ -1,4 +1,4 @@
-import camelcase from "camel-case"
+import camelcase from "camelcase"
 
 import isCi from "lib/isCi"
 
