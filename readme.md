@@ -43,7 +43,7 @@ Main types:
 
 Type|Example Project
 ---|---
-adobeCep|[emote-workflow]([emote-workflow](https://github.com/Jaid/emote-workflow))
+adobeCep|[emote-workflow](https://github.com/Jaid/emote-workflow)
 cli|[package-field-cli](https://github.com/Jaid/package-field-cli)
 githubAction|[action-npm-install](https://github.com/Jaid/action-npm-install)
 nodeClass|[socket-enhance](https://github.com/Jaid/socket-enhance)
@@ -60,13 +60,8 @@ Type|Example Project
 ---|---
 generatorCorePlugin|
 executable|
-
-Parent types:
-Type|
----|---
 html|
 node|
-
 
 
 
