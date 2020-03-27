@@ -44,6 +44,7 @@ npm install --save-dev @jaid/webpack-config-jaid@^11.7.2
 
 
 
+
 ## Environment Variables
 
 Following environment variables are read by webpack-config-jaid:
@@ -57,6 +58,8 @@ TRAVIS_TAG|If defined, CI mode will be active which increases script compression
 GITHUB_WORKFLOW|If defined, CI mode will be active which increases script compression rate.
 webpackPort|Port that `webpack-dev-server` hosts the HMR app on.
 webpackDevtool|Overwrites `webpackConfig.devtool` with given value.
+
+
 
 
 
