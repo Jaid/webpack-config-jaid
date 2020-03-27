@@ -28,7 +28,7 @@
     "handlebars": "^4.7.3",
     "handlebars-loader": "^1.7.1",
     "has-content": "^1.1.1",
-    "html-favicon-webpack-plugin": "^1.0.0",
+    "html-favicon-webpack-plugin": "^1.1.0",
     "html-loader": "^1.0.0",
     "html-webpack-harddisk-plugin": "^1.0.1",
     "html-webpack-inline-source-plugin": "0.0.10",
