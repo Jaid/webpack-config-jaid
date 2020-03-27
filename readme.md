@@ -37,6 +37,35 @@ npm install --save-dev @jaid/webpack-config-jaid@^11.7.2
 
 
 
+## Usage
+
+Main types:
+
+Type|Example Project
+---|---
+adobeCep|[emote-workflow]([emote-workflow](https://github.com/Jaid/emote-workflow))
+cli|[package-field-cli](https://github.com/Jaid/package-field-cli)
+githubAction|[action-npm-install](https://github.com/Jaid/action-npm-install)
+nodeClass|[socket-enhance](https://github.com/Jaid/socket-enhance)
+nodeLib|[app-folder](https://github.com/Jaid/app-folder)
+nodeScript|[emote-workflow/client](https://github.com/Jaid/emote-workflow/tree/master/client)
+reactDomComponent|[react-modern-picture](https://github.com/jaid/react-modern-picture)
+universalClass|[key-counter](https://github.com/Jaid/key-counter)
+universalLib|[epoch-seconds](https://github.com/Jaid/epoch-seconds)
+webapp|[letter.bar](https://github.com/Jaid/letter.bar)
+
+Unused types:
+
+Type|Example Project
+---|---
+generatorCorePlugin|
+executable|
+
+Parent types:
+Type|
+---|---
+html|
+node|
 
 
 
@@ -59,9 +88,7 @@ TRAVIS_TAG|If defined, CI mode will be active which increases script compression
 webpackDevtool|Overwrites `webpackConfig.devtool` with given value.
 webpackPort|Port that `webpack-dev-server` hosts the HMR app on.
 
-## Related
 
-abc
 
 
 
