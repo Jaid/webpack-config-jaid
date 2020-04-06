@@ -50,7 +50,7 @@ adobeCep|[emote-workflow](https://github.com/Jaid/emote-workflow)
 cli|[package-field-cli](https://github.com/Jaid/package-field-cli)
 githubAction|[action-npm-install](https://github.com/Jaid/action-npm-install)
 nodeClass|[socket-enhance](https://github.com/Jaid/socket-enhance)
-nodeLib|[app-folder](https://github.com/Jaid/app-folder)
+nodeLib|[buffer-to-data-url](https://github.com/Jaid/buffer-to-data-url)
 nodeScript|[emote-workflow/client](https://github.com/Jaid/emote-workflow/tree/master/client)
 reactDomComponent|[react-modern-picture](https://github.com/jaid/react-modern-picture)
 universalClass|[key-counter](https://github.com/Jaid/key-counter)
@@ -85,6 +85,8 @@ NODE_ENV|Used to determine if `webpackConfig.mode` should be `"development"` or 
 TRAVIS_TAG|If defined, CI mode will be active which increases script compression rate.
 webpackDevtool|Overwrites `webpackConfig.devtool` with given value.
 webpackPort|Port that `webpack-dev-server` hosts the HMR app on.
+
+
 
 
 
