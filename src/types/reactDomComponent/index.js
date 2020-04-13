@@ -10,7 +10,6 @@ export default class extends UniversalClass {
    */
   getWebpackConfig(context) {
     const nodeConfig = super.getWebpackConfig(context)
-    debugger
     /**
      * @type {import("webpack").Configuration}
      */
