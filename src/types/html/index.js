@@ -446,12 +446,6 @@ export default class extends WebpackConfigType {
     }
 
     if (this.shouldInlineJavascript()) {
-      // webpackConfig.plugins.push(new HtmlInlineSourcePlugin)
-      // webpackConfig.plugins.push(new IgnoreEmitPlugin([
-      //   /\.js$/,
-      //   /\.css$/,
-      //   /\.css.map$/,
-      // ]))
       webpackConfig.plugins.push(new ScriptExtPlugin({
         inline: /\.js$/,
       }))
