@@ -155,7 +155,6 @@ export default class extends WebpackConfigType {
       title: this.title,
       meta: this.meta,
       debug: this.options.development,
-      inlineSource: ".(js|css)$",
       minify: this.options.development ? false : {
         removeAttributeQuotes: true,
         collapseWhitespace: true,
