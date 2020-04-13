@@ -31,7 +31,6 @@
     "html-favicon-webpack-plugin": "^1.1.0",
     "html-loader": "^1.1.0",
     "html-webpack-harddisk-plugin": "^1.0.1",
-    "html-webpack-inline-source-plugin": "0.0.10",
     "html-webpack-plugin": "^4.2.0",
     "ignore-assets-webpack-plugin": "^2.0.1",
     "ignore-emit-webpack-plugin": "^2.0.2",

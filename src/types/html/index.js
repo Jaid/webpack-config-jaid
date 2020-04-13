@@ -1,7 +1,6 @@
 import BrowserSyncPlugin from "browser-sync-webpack-plugin"
 import camelcase from "camelcase"
 import {isEmpty} from "has-content"
-import HtmlInlineSourcePlugin from "html-webpack-inline-source-plugin"
 import HtmlPlugin from "html-webpack-plugin"
 import IgnoreEmitPlugin from "ignore-emit-webpack-plugin"
 import InjectBodyPlugin from "inject-body-webpack-plugin"
@@ -449,12 +448,15 @@ export default class extends WebpackConfigType {
     }
 
     if (this.shouldInlineJavascript()) {
-      webpackConfig.plugins.push(new HtmlInlineSourcePlugin)
-      webpackConfig.plugins.push(new IgnoreEmitPlugin([
-        /\.js$/,
-        /\.css$/,
-        /\.css.map$/,
-      ]))
+      // webpackConfig.plugins.push(new HtmlInlineSourcePlugin)
+      // webpackConfig.plugins.push(new IgnoreEmitPlugin([
+      //   /\.js$/,
+      //   /\.css$/,
+      //   /\.css.map$/,
+      // ]))
+      webpackConfig.plugins.push(new ScriptExtPlugin({
+        inline: /\.js$/,
+      }))
     } else {
       webpackConfig.plugins.push(new ScriptExtPlugin({
         defaultAttribute: "defer",
