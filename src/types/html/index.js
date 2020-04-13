@@ -7,6 +7,7 @@ import InjectBrowserSyncPlugin from "inject-browser-sync-webpack-plugin"
 import {isObject} from "lodash"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import ScriptExtPlugin from "script-ext-html-webpack-plugin"
+import StyleExtPlugin from "style-ext-html-webpack-plugin"
 import webpack from "webpack"
 
 import getPostcssConfig from "lib/getPostcssConfig"
@@ -458,6 +459,7 @@ export default class extends WebpackConfigType {
     if (this.useMiniCssExtractPlugin) {
       const pluginOptions = this.getMiniCssExtractPluginOptions()
       webpackConfig.plugins.push(new MiniCssExtractPlugin(pluginOptions))
+      webpackConfig.plugins.push(new StyleExtPlugin)
     }
 
     if (this.options.development && this.options.browserSync) {
