@@ -42,6 +42,7 @@ export default class extends Html {
       offline: true,
       pwa: true,
       banner: true,
+      createCssFile: true,
     }
   }
 

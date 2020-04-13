@@ -77,7 +77,7 @@ export default class extends WebpackConfigType {
       terserOptions,
       nodeExternals: false,
       inlineSource: true,
-      createCssFile: true,
+      createCssFile: false,
       optimizeCss: true,
       banner: false,
       include: false,
