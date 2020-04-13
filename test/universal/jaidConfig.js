@@ -1,0 +1,3 @@
+exports.default = {
+  type: "universalLib",
+}

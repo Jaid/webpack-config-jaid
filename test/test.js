@@ -1,4 +1,5 @@
 import fss from "@absolunet/fss"
+import {isFunction} from "lodash"
 import ms from "ms.macro"
 import path from "path"
 import pify from "pify"
@@ -26,8 +27,18 @@ const setupTest = (name, packageRoot) => {
         let webpackConfig
         if (fss.pathExists(configPath)) {
           webpackConfig = require(configPath).default(webpackConfigJaid, packageRoot, packageOutDir, development)
-        } else if (fss.pathExists(jaidConfigPath)) {
-          const importedJaidConfig = require(jaidConfigPath).default(webpackConfigJaid, packageRoot, packageOutDir, development)
+        } else {
+          let importedJaidConfig = {}
+          if (fss.pathExists(jaidConfigPath)) {
+            importedJaidConfig = require(jaidConfigPath).default
+            if (isFunction(importedJaidConfig)) {
+              importedJaidConfig = importedJaidConfig({
+                packageRoot,
+                outDir: packageOutDir,
+                development,
+              })
+            }
+          }
           const jaidConfig = {
             packageRoot,
             development,
@@ -36,12 +47,6 @@ const setupTest = (name, packageRoot) => {
           }
           outputObject("jaidConfig", jaidConfig)
           webpackConfig = webpackConfigJaid.default(jaidConfig)
-        } else {
-          webpackConfig = webpackConfigJaid.configureNodeLib({
-            packageRoot,
-            development,
-            outDir: packageOutDir,
-          })
         }
         outputObject("webpack.config", webpackConfig)
         const stats = await webpack(webpackConfig)
