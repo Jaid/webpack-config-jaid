@@ -16,6 +16,7 @@ const setupTest = (name, packageRoot) => {
     for (const env of ["development", "production"]) {
       it(env, async () => {
         const configPath = path.join(packageRoot, "webpack.config.js")
+        const jaidConfigPath = path.join(packageRoot, "jaidConfig.js")
         const expectScriptPath = path.join(packageRoot, "expect.js")
         const outDir = path.join(__dirname, "..", "dist", "test", name, env)
         const packageOutDir = path.join(outDir, "package")
@@ -25,6 +26,16 @@ const setupTest = (name, packageRoot) => {
         let webpackConfig
         if (fss.pathExists(configPath)) {
           webpackConfig = require(configPath).default(webpackConfigJaid, packageRoot, packageOutDir, development)
+        } else if (fss.pathExists(jaidConfigPath)) {
+          const importedJaidConfig = require(jaidConfigPath).default(webpackConfigJaid, packageRoot, packageOutDir, development)
+          const jaidConfig = {
+            packageRoot,
+            development,
+            outDir: packageOutDir,
+            ...importedJaidConfig,
+          }
+          outputObject("jaidConfig", jaidConfig)
+          webpackConfig = webpackConfigJaid.default(jaidConfig)
         } else {
           webpackConfig = webpackConfigJaid.configureNodeLib({
             packageRoot,
