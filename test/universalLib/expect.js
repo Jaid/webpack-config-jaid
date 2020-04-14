@@ -1,7 +1,8 @@
 const path = require("path")
 
 exports.default = ({packageOutDir}) => {
-  const self = require(path.join(packageOutDir, "index.js")).default
+  const selfFile = path.join(packageOutDir, "index.js")
+  const self = require(selfFile).default
   const result = self()
   expect(result).toBe(123)
 }
