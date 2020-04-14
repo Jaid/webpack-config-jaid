@@ -21,7 +21,16 @@ const setupTest = (name, packageRoot) => {
         const expectScriptPath = path.join(packageRoot, "expect.js")
         const outDir = path.join(__dirname, "..", "dist", "test", name, env)
         const packageOutDir = path.join(outDir, "package")
-        const outputObject = (key, value) => fss.outputJson5(path.join(outDir, `${key}.json5`), sortKeys(value, {deep: true}), {space: 2})
+        const outputObject = (key, value) => {
+          const sortedObject = sortKeys(value, {deep: true})
+          try {
+            const file = path.join(outDir, `${key}.yml`)
+            fss.outputYaml(file, sortedObject)
+          } catch {
+            const file = path.join(outDir, `${key}.json5`)
+            fss.outputJson5(file, sortedObject, {space: 2})
+          }
+        }
         const development = env !== "production"
         const startTime = Date.now()
         let webpackConfig
@@ -63,8 +72,8 @@ const setupTest = (name, packageRoot) => {
         expect(statsJson.errors).toEqual([])
         outputObject("stats", statsJson)
         if (fss.pathExists(expectScriptPath)) {
-          const selfTest = require(expectScriptPath)
-          selfTest.default({
+          const selfTest = require(expectScriptPath).default
+          await selfTest({
             name,
             packageRoot,
             stats,
