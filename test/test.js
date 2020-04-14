@@ -81,6 +81,7 @@ const setupTest = (name, packageRoot) => {
             webpackConfig,
             outDir,
             packageOutDir,
+            env,
           })
         }
       }, timeout)

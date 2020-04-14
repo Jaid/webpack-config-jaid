@@ -106,6 +106,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.20",
+    "react-test-renderer": "^16.13.1",
+    "read-file-string": "^1.0.4",
     "rimraf": "^3.0.2",
     "sort-keys": "^4.0.0",
     "winston": "^3.2.1"

@@ -1,12 +1,14 @@
+/** @module react-dom-component */
+
 import classnames from "classnames"
 import PropTypes from "prop-types"
 import React from "react"
 
 /**
-  * @typedef {{
-  *   className: *,
-  *   count: number
-  * }} Props
+  * @typedef {Object} Props
+  * @prop {*} className
+  * @prop {Number} textLength
+  * @prop {string} text
   */
 
 /**
@@ -16,7 +18,7 @@ import React from "react"
 class MyReactComponent extends React.Component {
 
   render() {
-    const string = this.props.text
+    const string = this.props.text.slice(0, this.props.textLength)
     return React.createElement("span", {className: classnames("myclass", this.props.className)}, string)
   }
 
@@ -29,7 +31,12 @@ MyReactComponent.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.arrayOf(PropTypes.object),
   ]),
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
+  textLength: PropTypes.number,
+}
+
+MyReactComponent.defaultProps = {
+  textLength: 3,
 }
 
 export default MyReactComponent
