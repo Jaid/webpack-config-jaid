@@ -134,5 +134,18 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jaid/webpack-config-jaid"
-  }
+  },
+  "homepage": "https://github.com/Jaid/webpack-config-jaid",
+  "keywords": [
+    "bundler",
+    "compiler",
+    "config",
+    "options",
+    "preset",
+    "settings",
+    "template",
+    "webpack",
+    "webpack-config",
+    "webpack-preset"
+  ]
 }
