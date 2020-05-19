@@ -2,6 +2,7 @@ import fss from "@absolunet/fss"
 import appRootPath from "app-root-path"
 import {CleanWebpackPlugin} from "clean-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
+import ensureArray from "ensure-array"
 import ensureStart from "ensure-start"
 import flatted from "flatted"
 import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
@@ -382,10 +383,16 @@ export default (options = {}) => {
   }
 
   if (options.include) {
-    if (!Array.isArray(options.include)) {
-      options.include = [options.include]
-    }
-    config.plugins.push(new CopyWebpackPlugin(options.include))
+    const patterns = ensureArray(options.include).map(value => {
+      if (isString(value)) {
+        return {
+          from: value,
+          noErrorOnMissing: true,
+        }
+      }
+      return value
+    })
+    config.plugins.push(new CopyWebpackPlugin({patterns}))
   }
 
   if (isString(options.hashbang)) {
