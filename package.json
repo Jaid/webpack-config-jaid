@@ -63,6 +63,7 @@
     "read-pkg": "^5.2.0",
     "resolve-url-loader": "^3.1.1",
     "robotstxt-webpack-plugin": "^7.0.0",
+    "sass": "^1.26.10",
     "sass-loader": "^9.0.3",
     "script-ext-html-webpack-plugin": "^2.1.4",
     "sitemap-xml-webpack-plugin": "^1.1.0",
