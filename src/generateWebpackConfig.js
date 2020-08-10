@@ -20,10 +20,10 @@ import terser from "terser"
 import TerserPlugin from "terser-webpack-plugin"
 import webpack from "webpack"
 import FilterWarningsPlugin from "webpack-filter-warnings-plugin"
-import webpackMerge from "webpack-merge"
 
 import cleanForYaml from "lib/cleanForYaml"
 import renderLicenses from "lib/renderLicenses"
+import webpackMerge from "lib/webpackMerge"
 
 import types from "./types"
 
@@ -470,7 +470,7 @@ export default (options = {}) => {
     debug(`Extra config #${index + 1}: ${extraEntry |> flatted.stringify}`)
   })
 
-  const mergedConfig = extra.length ? webpackMerge.smart(config, ...extra) : config
+  const mergedConfig = extra.length ? webpackMerge(config, ...extra) : config
 
   if (process.env.webpackDevtool) {
     debug(`Forced devtool from env: ${process.env.webpackDevtool}`)

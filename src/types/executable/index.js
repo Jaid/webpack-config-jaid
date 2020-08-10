@@ -1,4 +1,4 @@
-import webpackMerge from "webpack-merge"
+import webpackMerge from "lib/webpackMerge"
 
 import Node from "src/types/node"
 
@@ -30,7 +30,7 @@ export default class extends Node {
         filename: "cli.js",
       },
     }
-    return webpackMerge.smart(nodeConfig, config)
+    return webpackMerge(nodeConfig, config)
   }
 
 }

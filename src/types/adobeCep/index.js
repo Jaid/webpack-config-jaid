@@ -1,6 +1,7 @@
 import camelcase from "camelcase"
 import CepPlugin from "cep-webpack-plugin"
-import webpackMerge from "webpack-merge"
+
+import webpackMerge from "lib/webpackMerge"
 
 import Html from "src/types/html"
 
@@ -36,7 +37,7 @@ export default class extends Html {
         }),
       ],
     }
-    return webpackMerge.smart(parentConfig, webpackConfig)
+    return webpackMerge(parentConfig, webpackConfig)
   }
 
 }

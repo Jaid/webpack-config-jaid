@@ -1,4 +1,4 @@
-import webpackMerge from "webpack-merge"
+import webpackMerge from "lib/webpackMerge"
 
 import UniversalClass from "src/types/universalClass"
 
@@ -16,7 +16,7 @@ export default class extends UniversalClass {
     const config = {
       target: "web",
     }
-    return webpackMerge.smart(nodeConfig, config)
+    return webpackMerge(nodeConfig, config)
   }
 
 }

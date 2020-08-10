@@ -1,5 +1,6 @@
 import {camelCase, isObject} from "lodash"
-import webpackMerge from "webpack-merge"
+
+import webpackMerge from "lib/webpackMerge"
 
 import Node from "src/types/node"
 
@@ -70,7 +71,7 @@ export default class extends Node {
         commonjs: pkg.name,
       }
     }
-    return webpackMerge.smart(nodeConfig, config)
+    return webpackMerge(nodeConfig, config)
   }
 
 }

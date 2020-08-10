@@ -1,5 +1,6 @@
 import {DefinePlugin} from "webpack"
-import webpackMerge from "webpack-merge"
+
+import webpackMerge from "lib/webpackMerge"
 
 import WebpackConfigType from "../WebpackConfigType"
 
@@ -53,7 +54,7 @@ export default class extends WebpackConfigType {
         }),
       ],
     }
-    return webpackMerge.smart(nodeConfig, additionalConfig)
+    return webpackMerge(nodeConfig, additionalConfig)
   }
 
 }

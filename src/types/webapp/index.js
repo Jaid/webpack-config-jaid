@@ -9,8 +9,9 @@ import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import urlJoin from "url-join"
-import webpackMerge from "webpack-merge"
 import PwaManifestPlugin from "webpack-pwa-manifest"
+
+import webpackMerge from "lib/webpackMerge"
 
 import Html from "src/types/html"
 
@@ -348,7 +349,7 @@ export default class extends Html {
         fromRoot(".git"),
         fromRoot(".git").replace(/\\/g, "/"),
       ]
-      webpackConfig = webpackMerge.smart(webpackConfig, {
+      webpackConfig = webpackMerge(webpackConfig, {
         watch: true,
         watchOptions: {
           ignored: uniq(ignoredPaths),
@@ -390,7 +391,7 @@ export default class extends Html {
       }
       webpackConfig.plugins.push(new OfflinePlugin(this.getOfflinePluginOptions()))
     }
-    return webpackMerge.smart(parentConfig, webpackConfig)
+    return webpackMerge(parentConfig, webpackConfig)
   }
 
 }
