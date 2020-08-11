@@ -25,9 +25,11 @@ export default class extends WebpackConfigType {
 
   /**
    * @function
-   * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
+   * @param {import("src/types/WebpackConfigType").GetWebpackConfigContext} context
+   * @return {import("webpack").Configuration}
    */
-  getWebpackConfig(additionalConfig) {
+  getWebpackConfig(context) {
+    const parentConfig = super.getWebpackConfig(context)
     const nodeConfig = {
       target: "node",
       optimization: {
@@ -54,7 +56,7 @@ export default class extends WebpackConfigType {
         }),
       ],
     }
-    return webpackMerge(nodeConfig, additionalConfig)
+    return webpackMerge(nodeConfig, parentConfig)
   }
 
 }
