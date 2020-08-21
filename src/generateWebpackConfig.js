@@ -209,7 +209,7 @@ export default (options = {}) => {
           test: /\.(js|jsx|ts|tsx)$/,
           oneOf: [
             {
-              resourceQuery: /\?aot/,
+              resourceQuery: /\?aot$/,
               use: [
                 "aot-loader",
                 "babel-loader",
