@@ -109,6 +109,7 @@
     "read-file-string": "^1.0.4",
     "rimraf": "^3.0.2",
     "sort-keys": "^4.0.0",
+    "tsconfig-jaid": "^2.0.1",
     "winston": "^3.3.3"
   },
   "scripts": {
