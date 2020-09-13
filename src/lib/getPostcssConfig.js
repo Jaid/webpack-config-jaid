@@ -45,7 +45,8 @@ export default options => {
   }
 
   return {
-    plugins,
-    ident: "postcss",
+    postcssOptions: {
+      plugins,
+    },
   }
 }
