@@ -14,7 +14,7 @@ const logger = createLogger({
   level: "info",
   collapsed: true,
 })
-const store = createStore(reducer, applyMiddleware(thunk, logger) |> composeWithDevTools)
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk, logger)))
 if (module.hot) {
   module.hot.accept("./redux/reducer", () => store.replaceReducer(require("./redux/reducer").default))
 }
