@@ -17,7 +17,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {object} [extra={}] Additional Webpack configuration
  * @prop {object} [extraProduction={}] Additional Webpack configuration that only gets applied in development mode
  * @prop {object} [extraDevelopment={}] Additional Webpack configuration that only gets applied in production mode
- * @prop {"cli"|"nodeLib"|"nodeClass"|"universalLib"|"universalClass"|"webapp"|"nodeScript"|"coreGeneratorPlugin"|TypeProvider} [type=null] The project type which will automatically add some configuration
+ * @prop {"cli"|"nodeLib"|"nodeClass"|"universalLib"|"universalClass"|"webapp"|"nodeScript"|"generatorCorePlugin"|"executable"|TypeProvider} [type=null] The project type which will automatically add some configuration
  * @prop {array} [include=["readme.*","license.*"]] Files (relative to project directory) that get copied to dist directory
  * @prop {boolean|object} [publishimo=false] Set to true to include publishimo-webpack-plugin, or set as object to add options for the plugin instance
  * @prop {boolean|object} [documentation=false] Set to true to include jsdoc-tsd-webpack-plugin, or set as object to add options for the plugin instance
@@ -37,8 +37,8 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {object} [terserPluginOptions] Additional options for `terser-webpack-plugin`
  * @prop {string} [sourceFolder=path.join(packageRoot, "src")] Folder where an `index.js` is placed in
  * @prop {string} [outDir=path.join(packageRoot, "dist", "package", env)] Output destination
- * @prop {string} [backgroundColor=000000] For type `webapp` if `options.icon` is defined: The webapp background color
- * @prop {string} [themeColor=04AAE3] For type `webapp` if `options.icon` is defined: The webapp theme color
+ * @prop {string} [backgroundColor="000000"] For type `webapp` if `options.icon` is defined: The webapp background color
+ * @prop {string} [themeColor="04AAE3"] For type `webapp` if `options.icon` is defined: The webapp theme color
  * @prop {string} [publicPath] Like `webpackConfig.publicPath`, but also applies to any plugin
  * @prop {boolean} [excludeLocale=true] Exclude i18n data for `moment`
  * @prop {string} [appDescription]

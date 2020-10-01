@@ -317,7 +317,7 @@ export default class extends WebpackConfigType {
   }
 
   /**
-   * @return {import("webpack").Loader}
+   * @return {import("webpack").RuleSetRule}
    */
   getImageLoader() {
     const testRegex = this.getImageFileRegex()

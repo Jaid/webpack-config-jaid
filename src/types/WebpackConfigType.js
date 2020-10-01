@@ -19,7 +19,7 @@ import isCi from "lib/isCi"
  * @prop {string} entryFolder
  * @prop {Object} pkg
  * @prop {import("webpack").Configuration} initialWebpackConfig
- * @prop {(...directive: string) => string} fromRoot
+ * @prop {(...directive: [string]) => string} fromRoot
  * @prop {import("src/index").WebpackConfigJaidOptions} options
  */
 

@@ -31,7 +31,6 @@ export default class extends Html {
 
   /**
    * @function
-   * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
    * @return {import("src/index").WebpackConfigJaidOptions}
    */
   getDefaultOptions() {
@@ -115,7 +114,7 @@ export default class extends Html {
   }
 
   /**
-   * @return {import("webpack").Loader}
+   * @return {import("webpack").RuleSetRule}
    */
   getImageLoader() {
     if (this.options.development) {
