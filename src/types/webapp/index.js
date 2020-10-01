@@ -390,7 +390,8 @@ export default class extends Html {
       }
       webpackConfig.plugins.push(new OfflinePlugin(this.getOfflinePluginOptions()))
     }
-    return webpackMerge(parentConfig, webpackConfig)
+    const finalConfig = webpackMerge(parentConfig, webpackConfig)
+    return finalConfig
   }
 
 }

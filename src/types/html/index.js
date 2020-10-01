@@ -365,35 +365,37 @@ export default class extends WebpackConfigType {
     const externalCssLoader = this.getExternalCssLoader()
     const postcssLoader = this.getPostcssLoader()
     this.useMiniCssExtractPlugin = styleLoader.loader === MiniCssExtractPlugin.loader
+    const internalCssChain = [
+      styleLoader,
+      internalCssLoader,
+      postcssLoader,
+    ]
+    const externalCssChain = [
+      styleLoader,
+      externalCssLoader,
+      postcssLoader,
+    ]
+    const sassChain = [
+      styleLoader,
+      internalCssLoader,
+      postcssLoader,
+      "resolve-url-loader",
+      "sass-loader",
+    ]
     const styleLoaders = [
-      {
-        test: /\.(css|scss)$/,
-        use: styleLoader,
-      },
       {
         test: /\.css$/,
         include: this.srcDirectory,
-        use: [
-          internalCssLoader,
-          postcssLoader,
-        ],
+        use: internalCssChain,
       },
       {
         test: /\.css$/,
         exclude: this.srcDirectory,
-        use: [
-          externalCssLoader,
-          postcssLoader,
-        ],
+        use: externalCssChain,
       },
       {
         test: /\.scss$/,
-        use: [
-          internalCssLoader,
-          postcssLoader,
-          "resolve-url-loader",
-          "sass-loader",
-        ],
+        use: sassChain,
       },
     ]
     const binaryFileRegex = this.getBinaryFileRegex()
