@@ -5,8 +5,6 @@ import {connect} from "react-redux"
 import {Field, reduxForm} from "redux-form"
 import Input from "components/Input"
 
-import css from "./style.scss"
-
 @reduxForm({
   form: "controls",
 })

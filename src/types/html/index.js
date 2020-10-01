@@ -182,12 +182,14 @@ export default class extends WebpackConfigType {
    */
   getStyleLoader() {
     if (this.isHot()) {
-      return {
-        loader: MiniCssExtractPlugin.loader,
-        options: {
-          hmr: true,
-        },
-      }
+      return "style-loader"
+      // TODO: Would prefer MiniCssExtractPlugin, but it just doesn't work with HMR
+      // return {
+      //   loader: MiniCssExtractPlugin.loader,
+      //   options: {
+      //     hmr: true,
+      //   },
+      // }
     }
     if (this.options.createCssFile) {
       return {
