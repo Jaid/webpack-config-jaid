@@ -47,7 +47,7 @@ Main types:
 Type|Example Project
 ---|---
 adobeCep|[emote-workflow](https://github.com/Jaid/emote-workflow)
-cli|[package-field-cli](https://github.com/Jaid/package-field-cli)
+cli|[current-year-cli](https://github.com/Jaid/current-year-cli)
 githubAction|[action-npm-install](https://github.com/Jaid/action-npm-install)
 nodeClass|[socket-enhance](https://github.com/Jaid/socket-enhance)
 nodeLib|[buffer-to-data-url](https://github.com/Jaid/buffer-to-data-url)
