@@ -76,12 +76,12 @@
     "url-join": "^4.0.1",
     "url-loader": "^4.1.0",
     "webpack": "^5.30.0",
-    "webpack-cli": "^3.3.12",
+    "webpack-cli": "^4.6.0",
     "webpack-deep-scope-plugin": "^1.6.2",
-    "webpack-dev-server": "^3.11.0",
+    "webpack-dev-server": "^3.11.2",
     "webpack-filter-warnings-plugin": "^1.2.1",
-    "webpack-merge": "5.2.0",
-    "webpack-pwa-manifest": "^4.2.0",
+    "webpack-merge": "5.7.3",
+    "webpack-pwa-manifest": "^4.3.0",
     "yml-loader": "^2.1.0"
   },
   "devDependencies": {
