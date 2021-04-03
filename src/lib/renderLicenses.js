@@ -3,7 +3,7 @@ import {sortBy} from "lodash"
 
 export default licenses => {
   const normalized = licenses.map(license => license.name ? license : immer(draft => {
-    draft.name = _PKG_NAME || "Unknown package"
+    draft.name = process.env.REPLACE_PKG_NAME || "Unknown package"
   }))
   const sorted = sortBy(normalized, ({name}) => name)
   const formatted = sorted.map(license => {

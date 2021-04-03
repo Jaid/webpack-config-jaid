@@ -29,7 +29,7 @@ import types from "./types"
 
 const DeepScopePlugin = require("webpack-deep-scope-plugin").default
 
-const debug = require("debug")(_PKG_NAME)
+const debug = require("debug")(process.env.REPLACE_PKG_NAME)
 
 const env = process.env.NODE_ENV.toLowerCase?.() || "development"
 

@@ -15,7 +15,7 @@ import webpackMerge from "lib/webpackMerge"
 
 import Html from "src/types/html"
 
-const debug = require("debug")(_PKG_NAME)
+const debug = require("debug")(process.env.REPLACE_PKG_NAME)
 
 export default class extends Html {
 

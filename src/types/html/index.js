@@ -15,7 +15,7 @@ import isCi from "lib/isCi"
 
 import WebpackConfigType from "../WebpackConfigType"
 
-const debug = require("debug")(_PKG_NAME)
+const debug = require("debug")(process.env.REPLACE_PKG_NAME)
 
 export default class extends WebpackConfigType {
 
