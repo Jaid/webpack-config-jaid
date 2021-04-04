@@ -38,9 +38,6 @@ export default class extends WebpackConfigType {
       node: {
         __dirname: false,
         __filename: false,
-        process: false,
-        Buffer: false,
-        setImmediate: false,
       },
       module: {
         rules: [

@@ -407,8 +407,10 @@ export default class extends WebpackConfigType {
      */
     const webpackConfig = {
       target: "web",
-      node: {
-        fs: "empty",
+      resolve: {
+        fallback: {
+          fs: false,
+        },
       },
       output: {
         publicPath: this.publicPath,

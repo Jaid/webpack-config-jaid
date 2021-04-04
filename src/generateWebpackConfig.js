@@ -429,7 +429,10 @@ export default (options = {}) => {
   }
 
   if (options.excludeLocale) {
-    config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/))
+    config.plugins.push(new webpack.IgnorePlugin({
+      resourceRegExp: /^\.\/locale$/,
+      contextRegExp: /moment$/,
+    }))
   }
 
   debug(`Base config: ${config |> flatted.stringify}`)

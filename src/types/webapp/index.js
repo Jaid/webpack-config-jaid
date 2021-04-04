@@ -349,7 +349,6 @@ export default class extends Html {
         fromRoot(".git").replace(/\\/g, "/"),
       ]
       webpackConfig = webpackMerge(webpackConfig, {
-        watch: true,
         watchOptions: {
           ignored: uniq(ignoredPaths),
         },
