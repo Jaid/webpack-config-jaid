@@ -27,8 +27,6 @@ import webpackMerge from "lib/webpackMerge"
 
 import types from "./types"
 
-const DeepScopePlugin = require("webpack-deep-scope-plugin").default
-
 const debug = require("debug")(process.env.REPLACE_PKG_NAME)
 
 const env = process.env.NODE_ENV.toLowerCase?.() || "development"
@@ -291,10 +289,6 @@ export default (options = {}) => {
       maxEntrypointSize: 4 * 1000 * 1000, // 4 MB
       maxAssetSize: 4 * 1000 * 1000, // 4 MB
     },
-  }
-
-  if (options.development) {
-    config.plugins.push(new DeepScopePlugin)
   }
 
   if (options.friendlyErrors && env !== "test") {
