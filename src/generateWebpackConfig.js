@@ -109,11 +109,7 @@ export default (options = {}) => {
         passes: 5,
       },
     },
-    terserPluginOptions: {
-      sourceMap: true,
-      cache: false,
-      parallel: false,
-    },
+    terserPluginOptions: {},
     publishimo: false,
     documentation: false,
     nodeExternals: true,
