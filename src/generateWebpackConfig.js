@@ -16,7 +16,6 @@ import path from "path"
 import PkgBannerPlugin from "pkg-banner-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import readPkg from "read-pkg"
-import terser from "terser"
 import TerserPlugin from "terser-webpack-plugin"
 import webpack from "webpack"
 import FilterWarningsPlugin from "webpack-filter-warnings-plugin"
@@ -392,6 +391,8 @@ export default (options = {}) => {
     }))
   }
 
+  console.dir(options.terserOptions)
+  console.dir(options.terserPluginOptions)
   if (!options.development) {
     if (options.terserOptions === false) {
       debug("terserOptions is false, skipping minification")
@@ -400,7 +401,7 @@ export default (options = {}) => {
       debug("terserOptions: %o", options.terserOptions)
       config.optimization.minimizer = [
         new TerserPlugin({
-          minify: file => terser.minify(file, options.terserOptions),
+          terserOptions: options.terserOptions,
           ...options.terserPluginOptions,
         }),
       ]
