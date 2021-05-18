@@ -108,7 +108,9 @@ export default (options = {}) => {
         passes: 5,
       },
     },
-    terserPluginOptions: {},
+    terserPluginOptions: {
+      extractComments: false,
+    },
     publishimo: false,
     documentation: false,
     nodeExternals: true,
