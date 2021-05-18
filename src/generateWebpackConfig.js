@@ -391,8 +391,6 @@ export default (options = {}) => {
     }))
   }
 
-  console.dir(options.terserOptions)
-  console.dir(options.terserPluginOptions)
   if (!options.development) {
     if (options.terserOptions === false) {
       debug("terserOptions is false, skipping minification")
