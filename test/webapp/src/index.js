@@ -7,7 +7,7 @@ import {trim} from "lodash"
 import icon from "./perk.png"
 import css from "./style.scss"
 
-require("offline-plugin/runtime").install()
+require("@lcdp/offline-plugin/runtime").install()
 
 window.icon = icon
 

@@ -6,7 +6,7 @@ import Form from "components/Form"
 
 import css from "./style.scss"
 
-require('offline-plugin/runtime').install()
+require('@lcdp/offline-plugin/runtime').install()
 
 @connect(({form}) => ({
   count: form?.controls?.values?.input?.length || "?",

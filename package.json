@@ -3,6 +3,7 @@
   "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
   "dependencies": {
     "@absolunet/fss": "^1.7.0",
+    "@lcdp/offline-plugin": "^5.1.0",
     "aot-loader": "^1.0.1",
     "app-root-path": "^3.0.0",
     "babel-loader": "^8.2.2",
@@ -47,7 +48,6 @@
     "mini-css-extract-plugin": "^1.6.0",
     "modern-image-loader": "^1.1.1",
     "multi-loader": "^0.1.0",
-    "offline-plugin": "^5.0.7",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "pascal-case": "^3.1.2",
     "pkg-banner-webpack-plugin": "^1.1.0",
