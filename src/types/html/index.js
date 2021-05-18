@@ -465,7 +465,7 @@ export default class extends WebpackConfigType {
     if (this.useMiniCssExtractPlugin) {
       const pluginOptions = this.getMiniCssExtractPluginOptions()
       webpackConfig.plugins.push(new MiniCssExtractPlugin(pluginOptions))
-      webpackConfig.plugins.push(new StyleExtPlugin)
+      // webpackConfig.plugins.push(new StyleExtPlugin)
     }
 
     if (this.options.development && this.options.browserSync) {
