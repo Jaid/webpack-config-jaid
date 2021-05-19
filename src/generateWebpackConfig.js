@@ -411,10 +411,6 @@ export default (options = {}) => {
   if (!options.development && options.licenseFileName) {
     config.plugins.push(new LicenseWebpackPlugin({
       renderLicenses,
-      stats: {
-        warnings: false,
-        errors: true,
-      },
       outputFilename: options.licenseFileName,
     }))
   }
