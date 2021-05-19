@@ -11,7 +11,7 @@ import isCi from "lib/isCi"
 /**
  * @typedef {Object} ProcessOptionsContext
  * @prop {string} env
- * @prop {(string) => string} fromRoot
+ * @prop {(...directive: [string]) => string} fromRoot
  */
 
 /**
