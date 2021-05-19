@@ -181,7 +181,7 @@ export default class extends Html {
   /**
    * @return {import("css-minimizer-webpack-plugin").Options}
    */
-  getOptimizeCssAssetsPluginOptions() {
+  getCssMinimizerPluginOptions() {
     if (isObject(this.options.optimizeCss)) {
       return this.options.optimizeCss
     }
@@ -383,9 +383,9 @@ export default class extends Html {
       webpackConfig.plugins.push(new CnamePlugin(this.getCnamePluginOptions()))
       webpackConfig.plugins.push(new RobotsTxtPlugin(this.getRobotsTxtPluginOptions()))
       webpackConfig.plugins.push(new SitemapXmlPlugin(this.getSitemapXmlPluginOptions()))
-      const optimizeCssAssetsPluginOptions = this.getOptimizeCssAssetsPluginOptions()
-      if (optimizeCssAssetsPluginOptions !== null) {
-        webpackConfig.plugins.push(new CssMinimizerPlugin(optimizeCssAssetsPluginOptions))
+      const cssMinimizerPluginOptions = this.getCssMinimizerPluginOptions()
+      if (cssMinimizerPluginOptions !== null) {
+        webpackConfig.plugins.push(new CssMinimizerPlugin(cssMinimizerPluginOptions))
       }
       webpackConfig.plugins.push(new OfflinePlugin(this.getOfflinePluginOptions()))
     }
