@@ -92,7 +92,7 @@ export default class WebpackConfigType {
         unsafe_undefined: true,
       },
       output: {
-        ecma: 8,
+        ecma: 2019,
         // License is line 2 if hashbang is given, line 1 if not.
         comments: (astTop, astToken) => {
           return astToken.line < 3
