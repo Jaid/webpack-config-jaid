@@ -29,7 +29,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {string} [icon=null] For type `webapp`: If typeof `string`, this will be used as path to png icon
  * @prop {string} [domain] For type `webapp`: If typeof `string`, this will be used as domain for CNAME
  * @prop {boolean} [createCssFile=false] For type `webapp`: If `true`, `extract-text-webpack-plugin` will be used to create a separate CSS file. If typeof `object`, this will be used as configuration for MiniCssExtractPlugin constructor.
- * @prop {boolean} [optimizeCss=false] For type `webapp`: If `true`, `optimize-css-assets-webpack-plugin` will be used to minify output CSS. If typeof `object`, this will be used as configuration for OptimizeCssAssetsPlugin constructor.
+ * @prop {boolean} [optimizeCss=false] For type `webapp`: If `true`, `css-minimizer-webpack-plugin` will be used to minify output CSS. If typeof `object`, this will be used as configuration for OptimizeCssAssetsPlugin constructor.
  * @prop {boolean} [inlineSource=false] For type `webapp`: If `true`, CSS and JavaScript content will be directly included into the HTML file
  * @prop {string} [hashbang=null] If typeof `string`, writes a hashbang to the top of the entry script. If it does not start with `!#`, it will be added automatically.
  * @prop {false|string} [licenseFileName="thirdPartyLicenses.txt"] If typeof `string`, this will be the file where the third party license comments get extracted to.

@@ -1,11 +1,11 @@
 import fss from "@absolunet/fss"
+import OfflinePlugin from "@lcdp/offline-plugin"
 import CnamePlugin from "cname-webpack-plugin"
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 import ensureStart from "ensure-start"
 import HtmlFaviconPlugin from "html-favicon-webpack-plugin"
 import {escape, isObject, omit, uniq} from "lodash"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
-import OfflinePlugin from "@lcdp/offline-plugin"
-import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import urlJoin from "url-join"
@@ -179,7 +179,7 @@ export default class extends Html {
   }
 
   /**
-   * @return {import("optimize-css-assets-webpack-plugin").Options}
+   * @return {import("css-minimizer-webpack-plugin").Options}
    */
   getOptimizeCssAssetsPluginOptions() {
     if (isObject(this.options.optimizeCss)) {
@@ -187,7 +187,7 @@ export default class extends Html {
     }
     if (this.options.optimizeCss === true) {
       return {
-        cssProcessorPluginOptions: {
+        minimizerOptions: {
           preset: [
             "advanced",
             {
@@ -385,7 +385,7 @@ export default class extends Html {
       webpackConfig.plugins.push(new SitemapXmlPlugin(this.getSitemapXmlPluginOptions()))
       const optimizeCssAssetsPluginOptions = this.getOptimizeCssAssetsPluginOptions()
       if (optimizeCssAssetsPluginOptions !== null) {
-        webpackConfig.plugins.push(new OptimizeCssAssetsPlugin(optimizeCssAssetsPluginOptions))
+        webpackConfig.plugins.push(new CssMinimizerPlugin(optimizeCssAssetsPluginOptions))
       }
       webpackConfig.plugins.push(new OfflinePlugin(this.getOfflinePluginOptions()))
     }
