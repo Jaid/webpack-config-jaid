@@ -28,7 +28,7 @@ import types from "./types"
 
 const debug = require("debug")(process.env.REPLACE_PKG_NAME)
 
-const env = process.env.NODE_ENV.toLowerCase?.() || "development"
+const env = process.env.NODE_ENV?.toLowerCase?.() || "development"
 
 /**
  * @param {import("./index.js").WebpackConfigJaidOptions} options
