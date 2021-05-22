@@ -269,9 +269,6 @@ export default (options = {}) => {
       path: options.outDir,
       filename: "index.js",
     },
-    optimization: {
-      noEmitOnErrors: true,
-    },
     stats: {
       all: false,
       assets: true,
