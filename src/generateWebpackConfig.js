@@ -198,6 +198,7 @@ export default (options = {}) => {
     },
     mode: options.development ? "development" : "production",
     devtool: options.development ? "eval-source-map" : "source-map",
+    optimization: {},
     module: {
       rules: [
         {
