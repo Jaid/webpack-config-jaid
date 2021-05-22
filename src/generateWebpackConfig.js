@@ -328,6 +328,7 @@ export default (options = {}) => {
     }
   }
 
+  // TODO: Enable again
   // if (options.documentation) {
   //   const plugin = options.documentation === true ? new JsdocTsdWebpackPlugin : new JsdocTsdWebpackPlugin(options.documentation)
   //   config.plugins.push(plugin)
