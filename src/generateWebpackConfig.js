@@ -328,18 +328,18 @@ export default (options = {}) => {
     }
   }
 
-  if (options.documentation) {
-    const plugin = options.documentation === true ? new JsdocTsdWebpackPlugin : new JsdocTsdWebpackPlugin(options.documentation)
-    config.plugins.push(plugin)
-    if (options.clean) {
-      const htmlJsdocPath = path.join(path.dirname(options.outDir), "homepage")
-      const tsdJsdocPath = path.join(path.dirname(options.outDir), "tsd")
-      config.plugins.push(new CleanWebpackPlugin({
-        verbose: false,
-        cleanOnceBeforeBuildPatterns: [htmlJsdocPath, tsdJsdocPath],
-      }))
-    }
-  }
+  // if (options.documentation) {
+  //   const plugin = options.documentation === true ? new JsdocTsdWebpackPlugin : new JsdocTsdWebpackPlugin(options.documentation)
+  //   config.plugins.push(plugin)
+  //   if (options.clean) {
+  //     const htmlJsdocPath = path.join(path.dirname(options.outDir), "homepage")
+  //     const tsdJsdocPath = path.join(path.dirname(options.outDir), "tsd")
+  //     config.plugins.push(new CleanWebpackPlugin({
+  //       verbose: false,
+  //       cleanOnceBeforeBuildPatterns: [htmlJsdocPath, tsdJsdocPath],
+  //     }))
+  //   }
+  // }
 
   if (options.publishimo) {
     /**
