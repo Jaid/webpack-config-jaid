@@ -9,7 +9,7 @@
 
 #### Opinionated
 
-This project is tailored to my personal needs and workflows and therefore highly opinionated. Feel free to use it or get inspired by it, but please do not get frustrated if you come across weird features or have difficulties integrating it in your own ecosystem.
+This project is tailored to my personal needs and workflows and therefore highly opinionated. Feel free to use it or get inspired by it, but please do not get frustrated if you come across weird features or difficulties integrating it in your own ecosystem.
 
 
 
@@ -47,7 +47,7 @@ Main types:
 Type|Example Project
 ---|---
 adobeCep|[emote-workflow](https://github.com/Jaid/emote-workflow)
-cli|[current-year-cli](https://github.com/Jaid/current-year-cli)
+cli|[package-field-cli](https://github.com/Jaid/package-field-cli)
 githubAction|[action-npm-install](https://github.com/Jaid/action-npm-install)
 nodeClass|[socket-enhance](https://github.com/Jaid/socket-enhance)
 nodeLib|[buffer-to-data-url](https://github.com/Jaid/buffer-to-data-url)
@@ -114,4 +114,4 @@ npm run test
 
 ## License
 [MIT License](https://raw.githubusercontent.com/jaid/webpack-config-jaid/master/license.txt)  
-Copyright © 2020, Jaid \<jaid.jsx@gmail.com> (https://github.com/jaid)
+Copyright © 2021, Jaid \<jaid.jsx@gmail.com> (https://github.com/jaid)
