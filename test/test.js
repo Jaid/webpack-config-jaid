@@ -3,13 +3,21 @@ import {isFunction} from "lodash"
 import ms from "ms.macro"
 import path from "path"
 import pify from "pify"
+import readFileYaml from "read-file-yaml"
+import readableMs from "readable-ms"
 import sortKeys from "sort-keys"
+
+import readableThousands from "../src/lib/readableThousands"
 
 const webpack = pify(require("webpack"))
 const getFolderSize = pify(require("get-folder-size"))
 
+const debug = require("debug")("test")
+
 const indexModule = process.env.MAIN ? path.resolve(__dirname, "..", process.env.MAIN) : path.join(__dirname, "..", "src")
 const webpackConfigJaid = require(indexModule)
+
+const sizeChanges = []
 
 const setupTest = (name, packageRoot) => {
   const timeout = ms`10 minutes`
@@ -20,6 +28,7 @@ const setupTest = (name, packageRoot) => {
         const jaidConfigPath = path.join(packageRoot, "jaidConfig.js")
         const expectScriptPath = path.join(packageRoot, "expect.js")
         const outDir = path.join(__dirname, "..", "dist", "test", name, env)
+        const oldStats = await readFileYaml(path.join(outDir, "benchmark.yml"))
         const packageOutDir = path.join(outDir, "package")
         const outputObject = (key, value) => {
           const sortedObject = sortKeys(value, {deep: true})
@@ -60,13 +69,22 @@ const setupTest = (name, packageRoot) => {
         outputObject("webpack.config", webpackConfig)
         const stats = await webpack(webpackConfig)
         const benchmark = {
-          seconds: (Date.now() - startTime) / 1000,
+          ms: Date.now() - startTime,
         }
         try {
           const packageSize = await getFolderSize(packageOutDir)
-          benchmark.packageKb = packageSize / 1000
-          benchmark.codeKb = fss.stat(path.join(packageOutDir, "index.js")).size / 1000
+          benchmark.packageBytes = packageSize
+          benchmark.codeBytes = fss.stat(path.join(packageOutDir, "index.js")).size
         } catch {}
+        if (oldStats?.packageBytes) {
+          if (benchmark.packageBytes !== oldStats.packageBytes) {
+            sizeChanges.push({
+              name: `${name}/${env}`,
+              before: oldStats,
+              after: benchmark,
+            })
+          }
+        }
         outputObject("benchmark", benchmark)
         const statsJson = stats.toJson()
         expect(statsJson.errors).toEqual([])
@@ -95,3 +113,22 @@ for (const entry of fss.readdir(__dirname)) {
     setupTest(entry, entryPath)
   }
 }
+
+afterAll(() => {
+  for (const {name, before, after} of sizeChanges) {
+    const difference = Math.abs(before.packageBytes - after.packageBytes)
+    let differenceSymbol
+    let changeWord
+    if (after.packageBytes > before.packageBytes) {
+      differenceSymbol = "+"
+      changeWord = "larger"
+    } else {
+      differenceSymbol = "-"
+      changeWord = "smaller"
+    }
+    debug(`${name} got ${changeWord}:`)
+    debug(`| ${differenceSymbol}${readableThousands(difference)} B`)
+    debug(`| Before: ${readableThousands(before.packageBytes)} B (${readableMs(before.ms)})`)
+    debug(`| After: ${readableThousands(after.packageBytes)} B (${readableMs(after.ms)})`)
+  }
+})
