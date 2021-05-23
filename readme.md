@@ -28,13 +28,6 @@ npm install --save-dev webpack-config-jaid@^12.2.0
 yarn add --dev webpack-config-jaid@^12.2.0
 ```
 
-<a href="https://github.com/jaid/webpack-config-jaid/packages"><img src="https://img.shields.io/badge/GitHub Packages-@jaid/webpack--config--jaid-24282e?style=flat-square&logo=github" alt="@jaid/webpack-config-jaid on GitHub Packages"/></a>  
-(if [configured properly](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-npm-for-use-with-github-packages))
-
-```bash
-npm install --save-dev @jaid/webpack-config-jaid@^12.2.0
-```
-
 
 
 
@@ -92,6 +85,8 @@ webpackPort|Port that `webpack-dev-server` hosts the HMR app on.
 
 
 
+
+
 ## Development
 
 
@@ -115,3 +110,8 @@ npm run test
 ## License
 [MIT License](https://raw.githubusercontent.com/jaid/webpack-config-jaid/master/license.txt)  
 Copyright © 2021, Jaid \<jaid.jsx@gmail.com> (https://github.com/jaid)
+
+<!---
+Readme generated with tldw v7.0.0
+https://github.com/Jaid/tldw
+-->
