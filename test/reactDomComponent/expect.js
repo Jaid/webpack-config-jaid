@@ -17,11 +17,10 @@ exports.default = async ({packageOutDir, env}) => {
     },
     children: ["con"],
   })
-  // TODO: Enable again
-  // if (env === "production") {
-  //   const typeDefinition = await readFileString(path.join(packageOutDir, "index.d.ts"))
-  //   expect(typeDefinition).toMatch(/export type Props/)
-  //   expect(typeDefinition).toMatch(/textLength: number/)
-  //   expect(typeDefinition).toMatch(/text: string/)
-  // }
+  if (env === "production") {
+    const typeDefinition = await readFileString(path.join(packageOutDir, "index.d.ts"))
+    expect(typeDefinition).toMatch(/export type Props/)
+    expect(typeDefinition).toMatch(/textLength: number/)
+    expect(typeDefinition).toMatch(/text: string/)
+  }
 }
