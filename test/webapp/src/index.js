@@ -2,8 +2,6 @@
 /* eslint-disable you-dont-need-lodash-underscore/trim */
 /* eslint-disable no-undef */
 
-import {trim} from "lodash"
-
 import icon from "./perk.png"
 import css from "./style.scss"
 
