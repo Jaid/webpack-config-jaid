@@ -21,7 +21,7 @@ exports.default = async ({packageOutDir}) => {
     })
     const text = await page.evaluate(() => {
       // eslint-disable-next-line
-      return document.querySelector("main>*").innerText
+      return document.querySelector("#info").innerText
     })
     expect(text.startsWith("This is a browser environment with user-agent Mozilla")).toBeTruthy()
     const boundingBox = await page.evaluate(() => {

@@ -9,15 +9,18 @@
 $bodyBackground: #36393F;
 
 body {
-  background : $bodyBackground;
-  color      : white;
-  font-family: FiraCode, monospace;
+  background: $bodyBackground;
 }
 
 div#popup {
   z-index: 50000;
 }
 
-.main {
+.text {
   color: yellow
+}
+
+.container {
+  color      : white;
+  font-family: FiraCode, monospace;
 }

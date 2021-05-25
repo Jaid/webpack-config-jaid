@@ -1,20 +1,27 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable you-dont-need-lodash-underscore/trim */
 /* eslint-disable no-undef */
 
-import icon from "./perk.png"
-import css from "./style.scss"
+import offlineRuntime from "@lcdp/offline-plugin/runtime"
+import React from "react"
+import ReactDom from "react-dom"
+import {Provider} from "react-redux"
+import {createStore} from "redux"
 
-import innerHtml from "!raw-loader!./innerHtml.html"
+import App from "./App"
+import reducer from "./reducer"
 
-require("@lcdp/offline-plugin/runtime").install()
+offlineRuntime.install()
 
-window.icon = icon
-document.body.innerHTML = innerHtml
-const img = document.createElement("img")
-img.src = window.icon.toString()
-document.querySelector("body > div").append(img)
-window.message = `This is a ${process.browser ? "browser" : "non-browser"} environment with user-agent ${navigator.userAgent}`
-const main = document.querySelector("main>*")
-main.classList.add(css.main)
-main.innerText = window.message
+const store = createStore(reducer)
+
+const rootNode = document.createElement("div")
+document.body.append(rootNode)
+
+// jsx not enabled here
+// const rootElement = <Provider store={store}>
+//   <App/>
+// </Provider>
+
+const appElement = React.createElement(App)
+const rootElement = React.createElement(Provider, {store}, appElement)
+
+ReactDom.render(rootElement, rootNode)

@@ -1,0 +1,34 @@
+import "modern-normalize"
+
+import React from "react"
+import Picture from "react-modern-picture"
+
+import icon from "./perk.png"
+import css from "./style.scss"
+
+// eslint-disable-next-line
+const info = `This is a ${process.browser ? "browser" : "non-browser"} environment with user-agent ${navigator.userAgent}`
+
+export default class App extends React.Component {
+
+  render() {
+    const titleElement = React.createElement("div", {className: css.text}, "App")
+    const infoElement = React.createElement("div", {
+      className: css.text,
+      id: "info",
+    }, info)
+    const pictureElement = React.createElement(Picture, {input: icon})
+    const pictureContainerElement = React.createElement("div", {className: css.text}, pictureElement)
+    const containerElement = React.createElement("div", {className: css.container}, [titleElement, infoElement, pictureContainerElement])
+    // jsx not enabled here
+    // return <div className={css.container}>
+    //   <div className={css.text}>App</div>
+    //   <div className={css.text} id="info">{info}</div>
+    //   <div>
+    //     <Picture input={icon}/>
+    //   </div>
+    // </div>
+    return containerElement
+  }
+
+}
