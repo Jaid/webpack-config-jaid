@@ -5,7 +5,6 @@ import CopyWebpackPlugin from "copy-webpack-plugin"
 import ensureArray from "ensure-array"
 import ensureStart from "ensure-start"
 import flatted from "flatted"
-import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin"
 import fs from "fs"
 import hasContent from "has-content"
 import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
@@ -131,7 +130,6 @@ export default (options = {}) => {
     locale: "en-US",
     sitemap: false,
     googleAnalyticsOnlyInProduction: true,
-    friendlyErrors: false,
     offline: false,
     pwa: false,
     browserSync: process.env.browserSync,
@@ -284,10 +282,6 @@ export default (options = {}) => {
       maxEntrypointSize: 4 * 1000 * 1000, // 4 MB
       maxAssetSize: 4 * 1000 * 1000, // 4 MB
     },
-  }
-
-  if (options.friendlyErrors && env !== "test") {
-    config.plugins.push(new FriendlyErrorsWebpackPlugin)
   }
 
   if (options.clean) {

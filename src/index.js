@@ -48,7 +48,6 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {boolean|object} [sitemap=false] For type `webapp`: If `true`, `sitemap-xml-webpack-plugin` will be used to output a `sitemap.xml`. If typeof `object`, this will be used as configuration for SitemapXmlWebpackPlugin constructor.
  * @prop {string} [googleAnalyticsTrackingId] For type `webapp`: If typeof `string`, will be used as the Google Analytics tracking id and resolves any occurence of `GOOGLE_ANALYTICS_TRACKING_ID` to given id
  * @prop {boolean} [googleAnalyticsOnlyInProduction=true] For type `webapp`: If `true`, option `googleAnalyticsTrackingId` will be ignored in any environment but `production`
- * @prop {boolean} [friendlyErrors=false] If `true`, includes `friendly-errors-webpack-plugin`
  * @prop {Object} [cepOptions={}] For type `adobeCep`: Additional option values that will be forwarded to `cep-webpack-plugin` constructor
  * @prop {Object|boolean} [banner = true] If `true`, includes `pkg-banner-webpack-plugin`. If Object, this will be used as plugin options.
  * @prop {Object|boolean} [offline = false] For type `webapp`: If `true`, includes `offline-plugin`. If Object, this will be used as plugin options.
