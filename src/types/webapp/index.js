@@ -278,7 +278,7 @@ export default class extends Html {
    */
   getHtmlFaviconPluginOptions() {
     return {
-      href: urlJoin(this.publicPath, "icon_128x128.png"), // TODO: Replace with shorter name, see https://github.com/arthurbergmz/webpack-pwa-manifest/issues/36#issuecomment-568140796
+      href: urlJoin(this.publicPath, "icon_128x128.png"), // TODO Replace with shorter name, see https://github.com/arthurbergmz/webpack-pwa-manifest/issues/36#issuecomment-568140796
     }
   }
 

@@ -171,7 +171,7 @@ export default class extends WebpackConfigType {
       },
     }
     if (!this.options.development && this.options.domain && isCi) {
-    // TODO: This is for html-webpack-plugin v4
+    // TODO This is for html-webpack-plugin v4
     // htmlPluginOptions.base = `https://${options.domain}`
     }
     return htmlPluginOptions
@@ -183,7 +183,7 @@ export default class extends WebpackConfigType {
   getStyleLoader() {
     if (this.isHot()) {
       return "style-loader"
-      // TODO: Would prefer MiniCssExtractPlugin, but it just doesn't work with HMR
+      // TODO Would prefer MiniCssExtractPlugin, but it just doesn't work with HMR
       // return {
       //   loader: MiniCssExtractPlugin.loader,
       //   options: {
