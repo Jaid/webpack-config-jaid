@@ -33,9 +33,9 @@ const env = process.env.NODE_ENV?.toLowerCase?.() || "development"
  * @param {import("./index.js").WebpackConfigJaidOptions} options
  */
 export default (options = {}) => {
-  debug(`NODE_ENV: ${env}`)
+  debug("NODE_ENV: %s", env)
 
-  debug(`Passed options: ${flatted.stringify(options)}`)
+  debug("Passed options: %o", options)
 
   let pkg
   try {
@@ -43,13 +43,13 @@ export default (options = {}) => {
       cwd: options.packageRoot || String(appRootPath),
       normalize: true,
     })
-    debug(`Pkg data: ${pkg |> json5.stringify}`)
+    debug("Pkg data: %o", pkg)
   } catch {
     pkg = {}
   }
 
   if (pkg.webpackConfigJaid) {
-    debug("Found webpackConfigJaid field in pkg: %j", pkg.webpackConfigJaid)
+    debug("Found webpackConfigJaid field in pkg: %s", pkg.webpackConfigJaid)
     if (pkg.webpackConfigJaid |> isString) {
       options = {
         type: pkg.webpackConfigJaid,
@@ -85,7 +85,7 @@ export default (options = {}) => {
       webpack,
     })
     if (hasContent(typeDefaultOptions)) {
-      debug(`Including default options from ${options.type}: ${typeDefaultOptions |> flatted.stringify}`)
+      debug("Including default options from %s: %o", options.type, typeDefaultOptions)
     }
   }
 
@@ -142,7 +142,7 @@ export default (options = {}) => {
   // output.path of Webpack config must be an absolute path, forcing here
   if (options.outDir && !path.isAbsolute(options.outDir)) {
     const absoluteOutDir = fromRoot(options.outDir)
-    debug(`Rewriting outDir ${options.outDir} to ${absoluteOutDir}`)
+    debug("Rewriting outDir %s to %s", options.outDir, absoluteOutDir)
     options.outDir = fromRoot(options.outDir)
   }
 
@@ -415,7 +415,7 @@ export default (options = {}) => {
     }))
   }
 
-  debug(`Base config: ${config |> flatted.stringify}`)
+  debug("Base config: %o", config)
 
   const extra = []
 
@@ -450,13 +450,13 @@ export default (options = {}) => {
   }
 
   extra.forEach((extraEntry, index) => {
-    debug(`Extra config #${index + 1}: ${extraEntry |> flatted.stringify}`)
+    debug("Extra config #%d: %o", index + 1, extraEntry)
   })
 
   const mergedConfig = extra.length ? webpackMerge(config, ...extra) : config
 
   if (process.env.webpackDevtool) {
-    debug(`Forced devtool from env: ${process.env.webpackDevtool}`)
+    debug("Forced devtool from env: %s", process.env.webpackDevtool)
     mergedConfig.devtool = process.env.webpackDevtool
   }
 
@@ -478,7 +478,7 @@ export default (options = {}) => {
     fss.outputYaml(pluginsOutputFile, cleanForYaml(plugins))
   }
 
-  debug(`Final Webpack config: ${mergedConfig |> flatted.stringify}`)
+  debug("Final Webpack config: %o", mergedConfig)
 
   return mergedConfig
 }

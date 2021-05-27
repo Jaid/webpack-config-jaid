@@ -126,9 +126,9 @@ afterAll(() => {
       differenceSymbol = "-"
       changeWord = "smaller"
     }
-    debug(`${name} got ${changeWord}:`)
-    debug(`| ${differenceSymbol}${readableThousands(difference)} B`)
-    debug(`| Before: ${readableThousands(before.packageBytes)} B (${readableMs(before.ms)})`)
-    debug(`| After: ${readableThousands(after.packageBytes)} B (${readableMs(after.ms)})`)
+    debug("%s got %s:", name, changeWord)
+    debug("| %s%d B", differenceSymbol, readableThousands(difference))
+    debug("| Before: %d B (%d)", readableThousands(before.packageBytes), readableMs(before.ms))
+    debug("| After: %d B (%d)", readableThousands(after.packageBytes), readableMs(after.ms))
   }
 })

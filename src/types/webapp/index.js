@@ -324,7 +324,7 @@ export default class extends Html {
   getWebpackConfig(context) {
     const {fromRoot, initialWebpackConfig} = context
     this.iconFile = fromRoot("icon.png")
-    debug(`Using icon ${this.iconFile}`)
+    debug("Using icon %s", this.iconFile)
     this.description = this.getDescription()
     this.themeColor = this.getThemeColor()
     this.backgroundColor = this.getBackgroundColor()
