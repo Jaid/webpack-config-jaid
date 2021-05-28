@@ -1,3 +1,5 @@
+import "jest-extended"
+
 import fss from "@absolunet/fss"
 import {isFunction} from "lodash"
 import ms from "ms.macro"
@@ -6,6 +8,7 @@ import pify from "pify"
 import readFileYaml from "read-file-yaml"
 import readableMs from "readable-ms"
 import sortKeys from "sort-keys"
+import {expect, it,describe} from "@jest/globals"
 
 import readableThousands from "../src/lib/readableThousands"
 
@@ -100,6 +103,7 @@ const setupTest = (name, packageRoot) => {
             outDir,
             packageOutDir,
             env,
+            expect
           })
         }
       }, timeout)
