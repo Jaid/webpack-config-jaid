@@ -7,7 +7,6 @@ import InjectBodyPlugin from "inject-body-webpack-plugin"
 import InjectBrowserSyncPlugin from "inject-browser-sync-webpack-plugin"
 import {isObject} from "lodash"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import ScriptExtPlugin from "script-ext-html-webpack-plugin"
 import webpack from "webpack"
 
 import getPostcssConfig from "lib/getPostcssConfig"
@@ -452,14 +451,13 @@ export default class extends WebpackConfigType {
       }))
     }
 
+    // TODO Find an alternative to the now deprecated ScriptExtPlugin inline feature
+    // https://github.com/numical/script-ext-html-webpack-plugin#deprecation-warning
     if (this.shouldInlineJavascript()) {
-      webpackConfig.plugins.push(new ScriptExtPlugin({
-        inline: /\.js$/,
-      }))
-    } else {
-      webpackConfig.plugins.push(new ScriptExtPlugin({
-        defaultAttribute: "defer",
-      }))
+      // webpackConfig.plugins.push(new ScriptExtPlugin({
+      //   inline: /\.js$/,
+      // }))
+      debug("Requested to inline javascript, but inlining is ignored right now")
     }
 
     if (this.useMiniCssExtractPlugin) {
