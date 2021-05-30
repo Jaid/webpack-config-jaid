@@ -21,7 +21,6 @@
     "debug": "^4.3.1",
     "deep-map": "^2.0.0",
     "ensure-start": "^1.0.6",
-    "es6-weak-map": "^2.0.3",
     "fast-xml-parser": "^3.19.0",
     "file-loader": "^6.2.0",
     "flatted": "^3.1.1",
