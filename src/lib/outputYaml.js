@@ -1,7 +1,8 @@
-import deepMap from "deep-map"
+import fs from "fs-extra"
+import jsYaml from "js-yaml"
 import {isFunction} from "lodash"
 
-export default object => deepMap(object, value => {
+const replacer = value => {
   if (value === undefined) {
     return "(undefined)"
   }
@@ -12,4 +13,9 @@ export default object => deepMap(object, value => {
     return value.toString()
   }
   return value
-})
+}
+
+export default (file, content) => {
+  const text = jsYaml.dump(content, {replacer})
+  fs.outputFileSync(file, text)
+}

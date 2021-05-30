@@ -19,7 +19,7 @@ import TerserPlugin from "terser-webpack-plugin"
 import webpack from "webpack"
 import FilterWarningsPlugin from "webpack-filter-warnings-plugin"
 
-import cleanForYaml from "lib/cleanForYaml"
+import outputYaml from "lib/outputYaml"
 import renderLicenses from "lib/renderLicenses"
 import webpackMerge from "lib/webpackMerge"
 
@@ -462,9 +462,9 @@ export default (options = {}) => {
 
   if (options.configOutput) {
     const outputFile = options.configOutput === true ? fromRoot("dist", "webpack-config-jaid", "webpackConfig.yml") : path.resolve(options.configOutput)
-    fss.outputYaml(outputFile, cleanForYaml(mergedConfig))
+    outputYaml(outputFile, mergedConfig)
     const optionsOutputFile = path.resolve(outputFile, "..", "options.yml")
-    fss.outputYaml(optionsOutputFile, cleanForYaml(options))
+    outputYaml(optionsOutputFile, options)
     const pluginsOutputFile = path.resolve(outputFile, "..", "plugins.yml")
     const plugins = []
     for (const plugin of mergedConfig.plugins) {
@@ -475,7 +475,7 @@ export default (options = {}) => {
         plugins.push(pluginName)
       }
     }
-    fss.outputYaml(pluginsOutputFile, cleanForYaml(plugins))
+    outputYaml(pluginsOutputFile, plugins)
   }
 
   debug("Final Webpack config: %o", mergedConfig)
