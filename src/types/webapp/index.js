@@ -6,7 +6,6 @@ import ensureStart from "ensure-start"
 import HtmlFaviconPlugin from "html-favicon-webpack-plugin"
 import {escape, isObject, omit, uniq} from "lodash"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
-import RobotsTxtPlugin from "robotstxt-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import urlJoin from "url-join"
 import PwaManifestPlugin from "webpack-pwa-manifest"
@@ -381,7 +380,9 @@ export default class extends Html {
     if (!this.options.development) {
       webpackConfig.plugins.push(new PwaManifestPlugin(this.getPwaManifestPluginOptions()))
       webpackConfig.plugins.push(new CnamePlugin(this.getCnamePluginOptions()))
-      webpackConfig.plugins.push(new RobotsTxtPlugin(this.getRobotsTxtPluginOptions()))
+      // TODO robotstxt-webpack-plugin is no longer mainainted, replace with something else
+      // https://github.com/itgalaxy/robotstxt-webpack-plugin
+      // webpackConfig.plugins.push(new RobotsTxtPlugin(this.getRobotsTxtPluginOptions()))
       webpackConfig.plugins.push(new SitemapXmlPlugin(this.getSitemapXmlPluginOptions()))
       const cssMinimizerPluginOptions = this.getCssMinimizerPluginOptions()
       if (cssMinimizerPluginOptions !== null) {
