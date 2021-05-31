@@ -9,6 +9,7 @@ import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import urlJoin from "url-join"
 import PwaManifestPlugin from "webpack-pwa-manifest"
+
 import webpackMerge from "lib/webpackMerge"
 
 import Html from "src/types/html"
