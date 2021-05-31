@@ -1,3 +1,6 @@
+import fs from "node:fs"
+import path from "node:path"
+
 import fss from "@absolunet/fss"
 import appRootPath from "app-root-path"
 import {CleanWebpackPlugin} from "clean-webpack-plugin"
@@ -5,13 +8,11 @@ import CopyWebpackPlugin from "copy-webpack-plugin"
 import ensureArray from "ensure-array"
 import ensureStart from "ensure-start"
 import flatted from "flatted"
-import fs from "fs"
 import hasContent from "has-content"
 import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import json5 from "json5"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import {isObject, isString} from "lodash"
-import path from "path"
 import PkgBannerPlugin from "pkg-banner-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import readPkg from "read-pkg"
@@ -449,9 +450,9 @@ export default (options = {}) => {
     extra.push(options.extraDevelopment)
   }
 
-  extra.forEach((extraEntry, index) => {
+  for (const [index, extraEntry] of extra.entries()) {
     debug("Extra config #%d: %o", index + 1, extraEntry)
-  })
+  }
 
   const mergedConfig = extra.length ? webpackMerge(config, ...extra) : config
 

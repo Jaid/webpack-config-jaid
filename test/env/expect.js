@@ -1,5 +1,5 @@
-import fs from "fs"
-import path from "path"
+import fs from "node:fs"
+import path from "node:path"
 
 exports.default = ({packageOutDir}) => {
   const indexPath = path.join(packageOutDir, "index.js")

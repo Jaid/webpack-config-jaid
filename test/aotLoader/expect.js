@@ -1,4 +1,4 @@
-import path from "path"
+import path from "node:path"
 
 export default ({packageOutDir}) => {
   const self = require(path.join(packageOutDir, "index.js"))
