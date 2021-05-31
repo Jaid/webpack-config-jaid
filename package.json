@@ -16,7 +16,7 @@
     "cname-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^9.0.0",
     "css-loader": "^5.2.6",
-    "css-minimizer-webpack-plugin": "^3.0.0",
+    "css-minimizer-webpack-plugin": "^3.0.1",
     "cssnano-preset-advanced": "^5.1.2",
     "debug": "^4.3.1",
     "ensure-start": "^1.0.6",
