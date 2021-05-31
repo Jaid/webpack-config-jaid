@@ -68,7 +68,6 @@
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2",
-    "webpack-filter-warnings-plugin": "^1.2.1",
     "webpack-merge": "5.7.3",
     "webpack-pwa-manifest": "^4.3.0",
     "yml-loader": "^2.1.0"

@@ -18,7 +18,6 @@ import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import readPkg from "read-pkg"
 import TerserPlugin from "terser-webpack-plugin"
 import webpack from "webpack"
-import FilterWarningsPlugin from "webpack-filter-warnings-plugin"
 
 import outputYaml from "lib/outputYaml"
 import renderLicenses from "lib/renderLicenses"
@@ -177,15 +176,6 @@ export default (options = {}) => {
     debug("Could not find entry %s, using %s instead", specificEntry, defaultEntry)
   }
 
-  const excludedWarnings = [
-    /^Critical dependency: the request of a dependency is an expression/,
-    /^Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/,
-  ]
-
-  if (options.offline) {
-    excludedWarnings.push(/OfflinePlugin: Cache pattern/)
-  }
-
   /**
    * @type {import("webpack").Configuration}
    */
@@ -260,9 +250,6 @@ export default (options = {}) => {
       new webpack.LoaderOptionsPlugin({
         debug: options.development,
         minimize: !options.development,
-      }),
-      new FilterWarningsPlugin({
-        exclude: excludedWarnings,
       }),
     ],
     output: {
