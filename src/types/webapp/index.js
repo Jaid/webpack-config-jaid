@@ -9,10 +9,11 @@ import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import urlJoin from "url-join"
 import PwaManifestPlugin from "webpack-pwa-manifest"
-
 import webpackMerge from "lib/webpackMerge"
 
 import Html from "src/types/html"
+
+// TODO Maybe integrate this https://github.com/pmmmwh/react-refresh-webpack-plugin/
 
 const debug = require("debug")(process.env.REPLACE_PKG_NAME)
 
@@ -366,11 +367,6 @@ export default class extends Html {
           historyApiFallback: {
             verbose: true,
             disableDotRule: false,
-          },
-        },
-        resolve: {
-          alias: {
-            "react-dom": "@hot-loader/react-dom",
           },
         },
       })
