@@ -50,7 +50,7 @@ export default (options = {}) => {
 
   if (pkg.webpackConfigJaid) {
     debug("Found webpackConfigJaid field in pkg: %s", pkg.webpackConfigJaid)
-    if (pkg.webpackConfigJaid |> isString) {
+    if (isString(pkg.webpackConfigJaid)) {
       options = {
         type: pkg.webpackConfigJaid,
         ...options,
