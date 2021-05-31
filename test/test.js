@@ -1,6 +1,6 @@
 import "jest-extended"
 
-import path from "node:path"
+import path from "path"
 
 import fss from "@absolunet/fss"
 import {describe, expect, it} from "@jest/globals"
