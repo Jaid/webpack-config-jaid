@@ -23,6 +23,7 @@
     "@absolunet/fss": "^1.7.0",
     "babel-preset-jaid": "^13.0.0",
     "browserslist-config-jaid-web": "^2.3.1",
+    "react-final-form": "^6.5.3",
     "react-hot-loader": "^4.13.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
@@ -30,6 +31,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
-    "build:prod": "NODE_ENV=production webpack"
+    "build:prod": "NODE_ENV=production webpack",
+    "start": "browserSync=5522 webpackPort=1212 NODE_ENV=development webpack serve"
   }
 }
