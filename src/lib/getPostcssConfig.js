@@ -1,16 +1,26 @@
+import pluginCenter from "postcss-center"
+import pluginEasings from "postcss-easings"
+import pluginImport from "postcss-import"
+import pluginNested from "postcss-nested"
+import pluginOrderedValues from "postcss-ordered-values"
+import pluginPresetEnv from "postcss-preset-env"
+import pluginSorting from "postcss-sorting"
+
+const pluginMap = {
+  nested: pluginNested,
+  presetEnv: pluginPresetEnv,
+  easings: pluginEasings,
+  import: pluginImport,
+  center: pluginCenter,
+  sorting: pluginSorting,
+  orderedValues: pluginOrderedValues,
+}
+
 export default options => {
   const plugins = []
 
   const addPlugin = (pluginName, pluginOptions) => {
-    if (pluginName[0] === "-") {
-      pluginName = `postcss${pluginName}`
-    }
-    let plugin
-    try {
-      plugin = __non_webpack_require__(pluginName)(pluginOptions)
-    } catch {
-      plugin = require(pluginName)(pluginOptions)
-    }
+    const plugin = pluginMap[pluginName](pluginOptions)
     plugins.push(plugin)
   }
 
