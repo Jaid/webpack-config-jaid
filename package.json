@@ -120,7 +120,7 @@
     "test:debug": "DEBUG=\"$(basename $PWD),$(basename $PWD):*\" NODE_ENV=test node --inspect=9229 node_modules/jest/bin/jest.js --runInBand",
     "buildWebapp:prod": "npm run build:dev && cd testWebapp && npm install && npm run build:prod",
     "buildWebapp:dev": "npm run build:dev && cd testWebapp && npm install && npm run build:dev",
-    "hmrWebapp": "npm run build:dev && cd testWebapp && npm install && browserSync=5522 webpackPort=1212 NODE_ENV=development webpack-dev-server"
+    "hmrWebapp": "npm run build:dev && cd testWebapp && npm install && browserSync=5522 webpackPort=1212 NODE_ENV=development webpack serve"
   },
   "name": "webpack-config-jaid",
   "description": "Takes tiny input and returns a Webpack config in the way I personally like.",
