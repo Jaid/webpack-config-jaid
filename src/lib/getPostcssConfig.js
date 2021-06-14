@@ -24,15 +24,15 @@ export default options => {
     plugins.push(plugin)
   }
 
-  addPlugin("-nested") // Resolves nested blocks
-  addPlugin("-preset-env") // Adds a bunch of CSS features
-  addPlugin("-easings") // Translates some easings from http://easings.net/
-  addPlugin("-import") // Inlines @import statements
-  addPlugin("-center") // Adds "top: center" and "left: center"
+  addPlugin("nested") // Resolves nested blocks
+  addPlugin("presetEnv") // Adds a bunch of CSS features
+  addPlugin("easings") // Translates some easings from http://easings.net/
+  addPlugin("import") // Inlines @import statements
+  addPlugin("center") // Adds "top: center" and "left: center"
 
   if (!options.development) {
     // Sorts property names alphabetically
-    addPlugin("-sorting", {
+    addPlugin("sorting", {
       order: [
         "custom-properties",
         "dollar-variables",
@@ -51,7 +51,7 @@ export default options => {
       ],
       "unspecified-properties-position": "bottomAlphabetical",
     })
-    addPlugin("-ordered-values") // Sorts arguments of properties, border for example
+    addPlugin("orderedValues") // Sorts arguments of properties, border for example
   }
 
   return {
