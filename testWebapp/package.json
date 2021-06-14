@@ -24,7 +24,6 @@
     "babel-preset-jaid": "^13.0.0",
     "browserslist-config-jaid-web": "^2.3.1",
     "react-final-form": "^6.5.3",
-    "react-hot-loader": "^4.13.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "webpack": "^5.38.1",

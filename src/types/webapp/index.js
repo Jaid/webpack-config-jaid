@@ -1,5 +1,6 @@
 import fss from "@absolunet/fss"
 import OfflinePlugin from "@lcdp/offline-plugin"
+import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin"
 import CnamePlugin from "cname-webpack-plugin"
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 import ensureStart from "ensure-start"
@@ -13,8 +14,6 @@ import PwaManifestPlugin from "webpack-pwa-manifest"
 import webpackMerge from "lib/webpackMerge"
 
 import Html from "src/types/html"
-
-// TODO Maybe integrate this https://github.com/pmmmwh/react-refresh-webpack-plugin/
 
 const debug = require("debug")(process.env.REPLACE_PKG_NAME)
 
@@ -354,7 +353,6 @@ export default class extends Html {
           ignored: uniq(ignoredPaths),
         },
         entry: [
-          "react-hot-loader/patch",
           `webpack-dev-server/client?http://localhost:${this.port}/`,
           "webpack/hot/only-dev-server",
           initialWebpackConfig.entry,
@@ -371,6 +369,7 @@ export default class extends Html {
           },
         },
       })
+      webpackConfig.plugins.push(new ReactRefreshPlugin)
       webpackConfig.plugins.push(new LogWatcherPlugin)
     }
     webpackConfig.plugins.push(new HtmlFaviconPlugin(this.getHtmlFaviconPluginOptions()))
