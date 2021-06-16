@@ -22,13 +22,14 @@ const webpackConfigJaid = require(indexModule)
 
 const sizeChanges = []
 
-function addTest(name, env, meta) {
-  it(`${name} ${env}`, async () => {
+function addTest(name, meta) {
+  const testName = `${name} ${Object.entries(meta).map(entry => `${entry[0]}=${entry[1]}`).join(" ")}`
+  it(testName, async () => {
     const packageRoot = path.join(__dirname, name)
     const configPath = path.join(packageRoot, "webpack.config.js")
     const jaidConfigPath = path.join(packageRoot, "jaidConfig.js")
     const expectScriptPath = path.join(packageRoot, "expect.js")
-    const outDir = path.join(__dirname, "..", "dist", "test", name, env)
+    const outDir = path.join(__dirname, "..", "dist", "test", testName)
     const oldStats = await readFileYaml(path.join(outDir, "benchmark.yml"))
     const packageOutDir = path.join(outDir, "package")
     const outputObject = (key, value) => {
@@ -41,7 +42,7 @@ function addTest(name, env, meta) {
         fss.outputJson5(file, sortedObject, {space: 2})
       }
     }
-    const development = env !== "production"
+    const development = meta.env !== "production"
     const startTime = Date.now()
     let webpackConfig
     if (fss.pathExists(configPath)) {
@@ -81,7 +82,7 @@ function addTest(name, env, meta) {
     if (oldStats?.packageBytes) {
       if (benchmark.packageBytes !== oldStats.packageBytes) {
         sizeChanges.push({
-          name: `${name}/${env}`,
+          name: testName,
           before: oldStats,
           after: benchmark,
         })
@@ -101,8 +102,8 @@ function addTest(name, env, meta) {
         webpackConfig,
         outDir,
         packageOutDir,
-        env,
         expect,
+        development,
         meta,
       })
     }
@@ -113,10 +114,15 @@ for (const entry of fss.readdir(__dirname)) {
   const entryPath = path.join(__dirname, entry)
   if (fss.stat(entryPath).isDirectory()) {
     for (const env of ["development", "production"]) {
-      addTest(entry, env, meta)
+      addTest(entry, {env})
     }
   }
 }
+
+addTest("webapp", {
+  env: "development",
+  hmr: true,
+})
 
 afterAll(() => {
   for (const {name, before, after} of sizeChanges) {
