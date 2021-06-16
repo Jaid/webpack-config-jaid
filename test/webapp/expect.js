@@ -34,7 +34,7 @@ exports.default = async ({packageOutDir}) => {
     })
     // If the icon loaded properly, the DOM element is at least as large as the image file
     expect(boundingBox.width).toBeGreaterThan(100)
-    expect(boundingBox.width).toBeGreaterThan(100)
+    expect(boundingBox.height).toBeGreaterThan(100)
   } catch (error) {
     forwardedError = error
   }
