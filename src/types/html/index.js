@@ -400,7 +400,7 @@ export default class extends WebpackConfigType {
         use: externalCssChain,
       },
       {
-        test: /\.scss$/,
+        test: /(\.scss|\.sass)$/,
         use: sassChain,
       },
     ]

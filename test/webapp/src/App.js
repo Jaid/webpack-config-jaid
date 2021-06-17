@@ -1,10 +1,11 @@
 import "modern-normalize"
+import "./global.scss"
 
 import React from "react"
 import Picture from "react-modern-picture"
 
 import icon from "./perk.png"
-import css from "./style.scss"
+import css from "./style.sass"
 
 // eslint-disable-next-line
 const info = `This is a ${process.browser ? "browser" : "non-browser"} environment with user-agent ${navigator.userAgent}`
