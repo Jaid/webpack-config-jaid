@@ -46,7 +46,7 @@
     "modern-image-loader": "^1.1.1",
     "pascal-case": "^3.1.2",
     "pkg-banner-webpack-plugin": "^1.2.1",
-    "postcss": "^8.3.3",
+    "postcss": "^8.3.5",
     "postcss-center": "^1.1.0",
     "postcss-easings": "^3.0.1",
     "postcss-import": "^14.0.2",
