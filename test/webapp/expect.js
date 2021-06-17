@@ -1,8 +1,45 @@
 const puppeteer = require("puppeteer")
 const path = require("path")
 const {pathExists} = require("fs-extra")
+const WebpackDevServer = require("webpack-dev-server")
+const webpack = require("webpack")
 
-exports.default = async ({packageOutDir}) => {
+const debug = require("debug")("webpack-config-jaid")
+
+async function testHmr(webpackConfig) {
+  const compiler = webpack(webpackConfig)
+  const devServer = new WebpackDevServer(compiler)
+  devServer.listen(1212, "localhost", error => {
+    if (error) {
+      throw error
+    }
+    debug("WebpackDevServer listening at localhost:", 1212)
+  })
+  // const webpackPath = path.join(__dirname, "..", "..", "node_modules", ".bin", "webpack.cmd")
+  // const serveProcess = execa(webpackPath, ["serve"], {
+  //   env: {
+  //     webpackPort: 1212,
+  //     browserSync: 5522,
+  //     NODE_ENV: "development",
+  //   },
+  //   cwd: packageRoot,
+  //   shell: true,
+  //   timeout: 60_000,
+  //   stdio: "inherit",
+  // })
+  // // await delay(ms`2 seconds`)
+  // const result = await serveProcess
+  // if (result.failed) {
+  //   throw new Error
+  // }
+}
+
+exports.default = async ({packageOutDir, webpackConfig, meta}) => {
+  if (meta.hmr) {
+    debug("%o", webpackConfig)
+    await testHmr(webpackConfig)
+    return
+  }
   const indexHtml = path.join(packageOutDir, "index.html")
   const indexHtmlExists = await pathExists(indexHtml)
   expect(indexHtmlExists).toBeTruthy()

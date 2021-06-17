@@ -70,7 +70,10 @@ function addTest(name, meta) {
       webpackConfig = webpackConfigJaid.default(jaidConfig)
     }
     outputObject("webpack.config", webpackConfig)
-    const stats = await webpack(webpackConfig)
+    let stats
+    if (!meta.hmr) {
+      stats = await webpack(webpackConfig)
+    }
     const benchmark = {
       ms: Date.now() - startTime,
     }
@@ -89,9 +92,11 @@ function addTest(name, meta) {
       }
     }
     outputObject("benchmark", benchmark)
-    const statsJson = stats.toJson()
-    expect(statsJson.errors).toEqual([])
-    outputObject("stats", statsJson)
+    if (stats) {
+      const statsJson = stats.toJson()
+      expect(statsJson.errors).toEqual([])
+      outputObject("stats", statsJson)
+    }
     if (fss.pathExists(expectScriptPath)) {
       const selfTest = require(expectScriptPath).default
       await selfTest({
