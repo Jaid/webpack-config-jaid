@@ -23,7 +23,6 @@ export default options => {
   }
 
   addPlugin("nested") // Resolves nested blocks
-  addPlugin("presetEnv") // Adds a bunch of CSS features
   addPlugin("easings") // Translates some easings from http://easings.net/
   addPlugin("import") // Inlines @import statements
   addPlugin("center") // Adds "top: center" and "left: center"
