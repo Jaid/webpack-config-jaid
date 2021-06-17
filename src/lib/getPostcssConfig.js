@@ -3,12 +3,10 @@ import pluginEasings from "postcss-easings"
 import pluginImport from "postcss-import"
 import pluginNested from "postcss-nested"
 import pluginOrderedValues from "postcss-ordered-values"
-import pluginPresetEnv from "postcss-preset-env"
 import pluginSorting from "postcss-sorting"
 
 const pluginMap = {
   nested: pluginNested,
-  presetEnv: pluginPresetEnv,
   easings: pluginEasings,
   import: pluginImport,
   center: pluginCenter,
