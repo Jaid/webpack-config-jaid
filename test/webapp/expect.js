@@ -8,7 +8,9 @@ const debug = require("debug")("webpack-config-jaid")
 
 async function testHmr(webpackConfig) {
   const compiler = webpack(webpackConfig)
-  const devServer = new WebpackDevServer(compiler)
+  debug("HMR webpack config: %o", webpackConfig)
+  const devServer = new WebpackDevServer(compiler, webpackConfig.devServer)
+  debug("WebpackDevServer: %o", devServer)
   devServer.listen(1212, "localhost", error => {
     if (error) {
       throw error
