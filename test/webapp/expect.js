@@ -42,7 +42,8 @@ async function testHmr(webpackConfig) {
   if (forwardedError) {
     throw forwardedError
   }
-  await delay(2000)
+  const finalDelay = process.env.devServerLifetime ? Number(process.env.devServerLifetime) : 3000
+  await delay(finalDelay)
   const close = pify(devServer.close.bind(devServer))
   await close()
 }
