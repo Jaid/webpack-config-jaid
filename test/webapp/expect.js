@@ -39,13 +39,13 @@ async function testHmr(webpackConfig) {
     forwardedError = error
   }
   await browser?.close()
-  if (forwardedError) {
-    throw forwardedError
-  }
   const finalDelay = process.env.devServerLifetime ? Number(process.env.devServerLifetime) : 3000
   await delay(finalDelay)
   const close = pify(devServer.close.bind(devServer))
   await close()
+  if (forwardedError) {
+    throw forwardedError
+  }
 }
 
 exports.default = async ({packageOutDir, webpackConfig, meta}) => {
