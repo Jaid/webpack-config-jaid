@@ -12,8 +12,12 @@ const info = `This is a ${process.browser ? "browser" : "non-browser"} environme
 export default class App extends React.Component {
 
   render() {
-    const titleElement = React.createElement("div", {className: css.text}, "App")
+    const titleElement = React.createElement("div", {
+      key: "title",
+      className: css.text,
+    }, "App")
     const infoElement = React.createElement("div", {
+      key: "info",
       className: css.text,
       id: "info",
     }, info)
