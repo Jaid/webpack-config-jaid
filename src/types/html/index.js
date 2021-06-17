@@ -124,7 +124,7 @@ export default class extends WebpackConfigType {
    * @return {string}
    */
   getPublicPath() {
-    return this.options.publicPath || "/"
+    return this.options.publicPath || "."
   }
 
   /**

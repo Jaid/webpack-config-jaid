@@ -51,13 +51,10 @@ export default class extends Html {
    * @return {string}
    */
   getPublicPath() {
-    if (this.options.publicPath) {
-      return this.options.publicPath
-    } else if (this.isHot()) {
+    if (this.isHot()) {
       return `http://localhost:${this.port}/`
-    } else {
-      return "/"
     }
+    return super.getPublicPath()
   }
 
   /**
