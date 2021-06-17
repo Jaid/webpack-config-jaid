@@ -348,25 +348,21 @@ export default class extends Html {
         fromRoot(".git"),
         fromRoot(".git").replaceAll("\\", "/"),
       ]
+      const devServerConfig = {
+        // publicPath: this.publicPath,
+        port: this.port,
+        hot: true,
+        overlay: true,
+        // headers: {"Access-Control-Allow-Origin": "*"},
+        historyApiFallback: true,
+      }
+      webpackConfig = webpackMerge(webpackConfig, {
+        devServer: devServerConfig,
+      })
+      addDevServerEntrypoints(webpackConfig, devServerConfig)
       webpackConfig = webpackMerge(webpackConfig, {
         watchOptions: {
           ignored: uniq(ignoredPaths),
-        },
-        entry: [
-          `webpack-dev-server/client?http://localhost:${this.port}/`,
-          "webpack/hot/only-dev-server",
-          initialWebpackConfig.entry,
-        ],
-        devServer: {
-          publicPath: this.publicPath,
-          port: this.port,
-          hot: true,
-          overlay: true,
-          headers: {"Access-Control-Allow-Origin": "*"},
-          historyApiFallback: {
-            verbose: true,
-            disableDotRule: false,
-          },
         },
       })
       webpackConfig.plugins.push(new ReactRefreshPlugin)
