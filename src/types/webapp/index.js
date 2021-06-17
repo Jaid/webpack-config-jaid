@@ -9,6 +9,7 @@ import {escape, isObject, omit, uniq} from "lodash"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import urlJoin from "url-join"
+import {addDevServerEntrypoints} from "webpack-dev-server"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 
 import webpackMerge from "lib/webpackMerge"

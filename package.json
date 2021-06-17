@@ -81,6 +81,7 @@
     "classnames": "^2.3.1",
     "coffee": "^5.4.0",
     "cross-env": "^7.0.3",
+    "delay": "^5.0.0",
     "eslint": "^7.28.0",
     "eslint-config-jaid": "^1.55.0",
     "format-thousands": "^2.0.0",

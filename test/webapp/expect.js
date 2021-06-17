@@ -3,6 +3,8 @@ const path = require("path")
 const {pathExists} = require("fs-extra")
 const WebpackDevServer = require("webpack-dev-server")
 const webpack = require("webpack")
+const delay = require("delay")
+const pify = require("pify")
 
 const debug = require("debug")("webpack-config-jaid")
 
@@ -11,29 +13,38 @@ async function testHmr(webpackConfig) {
   debug("HMR webpack config: %o", webpackConfig)
   const devServer = new WebpackDevServer(compiler, webpackConfig.devServer)
   debug("WebpackDevServer: %o", devServer)
-  devServer.listen(1212, "localhost", error => {
+  devServer.listen(webpackConfig.devServer.port, "localhost", error => {
     if (error) {
       throw error
     }
-    debug("WebpackDevServer listening at localhost:", 1212)
+    debug("WebpackDevServer listening at localhost:", webpackConfig.devServer.port)
   })
-  // const webpackPath = path.join(__dirname, "..", "..", "node_modules", ".bin", "webpack.cmd")
-  // const serveProcess = execa(webpackPath, ["serve"], {
-  //   env: {
-  //     webpackPort: 1212,
-  //     browserSync: 5522,
-  //     NODE_ENV: "development",
-  //   },
-  //   cwd: packageRoot,
-  //   shell: true,
-  //   timeout: 60_000,
-  //   stdio: "inherit",
-  // })
-  // // await delay(ms`2 seconds`)
-  // const result = await serveProcess
-  // if (result.failed) {
-  //   throw new Error
-  // }
+  // If this is not given, there will be random “is not a constructor” errors, very weird
+  await delay(3000)
+  let browser
+  let forwardedError
+  try {
+    browser = await puppeteer.launch()
+    const page = await browser.newPage()
+    await page.goto(`http://localhost:${webpackConfig.devServer.port}`, {
+      waitUntil: "networkidle2",
+    })
+    const text = await page.evaluate(() => {
+      // eslint-disable-next-line
+      return document.querySelector("#info").innerText
+    })
+    debug("Text on page: %s", text)
+    expect(text.startsWith("This is a browser environment with user-agent Mozilla")).toBeTruthy()
+  } catch (error) {
+    forwardedError = error
+  }
+  await browser?.close()
+  if (forwardedError) {
+    throw forwardedError
+  }
+  await delay(2000)
+  const close = pify(devServer.close.bind(devServer))
+  await close()
 }
 
 exports.default = async ({packageOutDir, webpackConfig, meta}) => {
