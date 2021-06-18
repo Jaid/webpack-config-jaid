@@ -77,7 +77,9 @@ GITHUB_WORKFLOW|If defined, CI mode will be active which increases script compre
 NODE_ENV|Used to determine if `webpackConfig.mode` should be `"development"` or not.
 TRAVIS_TAG|If defined, CI mode will be active which increases script compression rate.
 webpackDevtool|Overwrites `webpackConfig.devtool` with given value.
-webpackPort|Port that `webpack-dev-server` hosts the HMR app on.
+webpackPort|Port that `webpack-dev-server` hosts the HMR app on. Same as option devPort.
+
+
 
 
 
@@ -86,6 +88,9 @@ webpackPort|Port that `webpack-dev-server` hosts the HMR app on.
 
 
 ## Development
+
+<details>
+<summary><b>Development hints for maintaining and improving webpack-config-jaid</b></summary>
 
 
 
@@ -104,12 +109,13 @@ Testing in production environment:
 npm run test
 ```
 
+</details>
 
 ## License
 [MIT License](https://raw.githubusercontent.com/jaid/webpack-config-jaid/master/license.txt)  
 Copyright © 2021, Jaid \<jaid.jsx@gmail.com> (https://github.com/jaid)
 
 <!---
-Readme generated with tldw v7.0.0
+Readme generated with tldw v7.1.0
 https://github.com/Jaid/tldw
 -->
