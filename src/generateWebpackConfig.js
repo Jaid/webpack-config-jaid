@@ -298,9 +298,9 @@ export default (options = {}) => {
     })
   }
 
-  if (options.nodeExternals && pkg.dependencies) {
+  if (options.nodeExternals) {
     config.externals = ({request}, callback) => { // eslint-disable-line promise/prefer-await-to-callbacks
-      if (pkg.dependencies[request]) {
+      if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
         return callback(null, `commonjs2 ${request}`) // eslint-disable-line promise/prefer-await-to-callbacks
       }
       callback() // eslint-disable-line promise/prefer-await-to-callbacks
