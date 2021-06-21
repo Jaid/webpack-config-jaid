@@ -11,6 +11,7 @@ import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import urlJoin from "url-join"
 import {addDevServerEntrypoints} from "webpack-dev-server"
 import PwaManifestPlugin from "webpack-pwa-manifest"
+import WorkboxPlugin from "workbox-webpack-plugin"
 
 import webpackMerge from "lib/webpackMerge"
 
@@ -318,6 +319,16 @@ export default class extends Html {
   }
 
   /**
+   * @return {import("workbox-webpack-plugin").GenerateSWOptions}
+   */
+  getWorkboxPluginOptions() {
+    return {
+      clientsClaim: true,
+      skipWaiting: true,
+    }
+  }
+
+  /**
    * @param {import("src/types/WebpackConfigType").GetWebpackConfigContext} context
    * @return {import("webpack").Configuration}
    */
@@ -381,6 +392,10 @@ export default class extends Html {
         webpackConfig.plugins.push(new CssMinimizerPlugin(cssMinimizerPluginOptions))
       }
       webpackConfig.plugins.push(new OfflinePlugin(this.getOfflinePluginOptions()))
+      const workboxPluginOptions = this.getWorkboxPluginOptions()
+      if (workboxPluginOptions !== null) {
+        webpackConfig.plugins.push(new WorkboxPlugin.GenerateSW(workboxPluginOptions))
+      }
     }
     const finalConfig = webpackMerge(parentConfig, webpackConfig)
     return finalConfig

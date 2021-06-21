@@ -51,6 +51,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {Object} [cepOptions={}] For type `adobeCep`: Additional option values that will be forwarded to `cep-webpack-plugin` constructor
  * @prop {Object|boolean} [banner = true] If `true`, includes `pkg-banner-webpack-plugin`. If Object, this will be used as plugin options.
  * @prop {Object|boolean} [offline = false] For type `webapp`: If `true`, includes `offline-plugin`. If Object, this will be used as plugin options.
+ * @prop {Object|boolean} [workbox=false] For type `webapp`: If `true`, includes `workbox-webpack-plugin`. If Object, this will be used as plugin options.
  * @prop {Object|boolean} [pwa = false] For type `webapp`: If `true`, includes `@expo/webpack-pwa-manifest-plugin`. If Object, this will be used as plugin options.
  * @prop {boolean} [browserSync = Boolean(process.env.browserSync)] If `true`, `browser-sync-webpack-plugin` will be included
  * @prop {number} [devPort] webpack-dev-server port
