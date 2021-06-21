@@ -140,7 +140,7 @@ export default class extends Html {
     const text = this.title || this.pkg?.name || this.domain || "Loading"
     const escapedText = escape(text)
     // Non-minified version: https://codesandbox.io/s/react-dom-loading-placeholder-content-3ddp9
-    return `<div><style>body{background:black}i:after{content:"";display:block;width:.5em;height:.5em;margin:8px;border-radius:50%;border:6px solid;border-color:${textColor} transparent ${textColor} transparent;animation:a 1s linear infinite;animation-timing-function:ease}@keyframes a{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}main{position:fixed;width:100vw;height:100vh;color:${textColor};display:flex;justify-content:center;align-items:center;font-size:2em;font-family:Ubuntu,sans-serif;flex-direction:column-reverse}</style><main><i></i>${escapedText}</main></div>`
+    return `<div><style>body{background:black}i:after{content:"";display:block;width:.7em;height:.7em;margin:.5em;border-radius:50%;border:4px solid;border-color:${textColor} transparent ${textColor} transparent;animation:a 1s linear infinite;animation-timing-function:ease}@keyframes a{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}main{position:fixed;width:100vw;height:100vh;color:${textColor};display:flex;justify-content:center;align-items:center;font-size:2em;font-family:Ubuntu,sans-serif;flex-direction:column-reverse}</style><main><i></i>${escapedText}</main></div>`
   }
 
   /**
