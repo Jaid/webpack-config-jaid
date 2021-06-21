@@ -13,8 +13,7 @@ offlineRuntime.install()
 
 const store = createStore(reducer)
 
-const rootNode = document.createElement("div")
-document.body.append(rootNode)
+const rootNode = document.querySelector("body>div")
 
 // jsx not enabled here
 // const rootElement = <Provider store={store}>
