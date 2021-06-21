@@ -3,7 +3,7 @@ exports.default = ({meta}) => {
     backgroundColor: "13061b",
   }
   if (meta.hmr) {
-    config.devPort = 1212
+    config.devPort = 12_127
   }
   return config
 }
