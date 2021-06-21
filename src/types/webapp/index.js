@@ -284,6 +284,9 @@ export default class extends Html {
   }
 
   getOfflinePluginOptions() {
+    if (!this.options.offline) {
+      return
+    }
     return {
       safeToUseOptionalCaches: true,
       appShell: "index.html",
@@ -315,6 +318,7 @@ export default class extends Html {
         "CNAME",
       ],
       version: this.pkg.version || String(Date.now()),
+      ...this.options.offline,
     }
   }
 
@@ -388,12 +392,15 @@ export default class extends Html {
       // webpackConfig.plugins.push(new RobotsTxtPlugin(this.getRobotsTxtPluginOptions()))
       webpackConfig.plugins.push(new SitemapXmlPlugin(this.getSitemapXmlPluginOptions()))
       const cssMinimizerPluginOptions = this.getCssMinimizerPluginOptions()
-      if (cssMinimizerPluginOptions !== null) {
+      if (cssMinimizerPluginOptions) {
         webpackConfig.plugins.push(new CssMinimizerPlugin(cssMinimizerPluginOptions))
       }
-      webpackConfig.plugins.push(new OfflinePlugin(this.getOfflinePluginOptions()))
+      const offlinePluginOptions = this.getOfflinePluginOptions()
+      if (offlinePluginOptions) {
+        webpackConfig.plugins.push(new OfflinePlugin(offlinePluginOptions))
+      }
       const workboxPluginOptions = this.getWorkboxPluginOptions()
-      if (workboxPluginOptions !== null) {
+      if (workboxPluginOptions) {
         webpackConfig.plugins.push(new WorkboxPlugin.GenerateSW(workboxPluginOptions))
       }
     }
