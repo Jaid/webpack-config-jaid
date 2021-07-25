@@ -37,6 +37,7 @@ export default class extends WebpackConfigType {
   getWebpackConfig({pkg}) {
     const config = {
       output: {
+        // TODO libraryTarget should be “module” as soon as it's better supported by Webpack. “outputModule” is currently only an experiment, see https://webpack.js.org/configuration/experiments/
         libraryTarget: "umd2",
         globalObject: "this",
       },
