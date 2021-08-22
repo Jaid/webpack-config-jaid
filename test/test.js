@@ -94,6 +94,9 @@ function addTest(name, meta) {
     outputObject("benchmark", benchmark)
     if (stats) {
       const statsJson = stats.toJson()
+      if (statsJson.errors.length) {
+        throw statsJson.errors[0]
+      }
       expect(statsJson.errors).toEqual([])
       outputObject("stats", statsJson)
     }
