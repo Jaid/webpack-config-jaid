@@ -15,7 +15,7 @@
     "cep-webpack-plugin": "^2.3.0",
     "clean-webpack-plugin": "^3.0.0",
     "cname-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^9.0.0",
+    "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
     "css-minimizer-webpack-plugin": "^3.0.1",
     "cssnano-preset-advanced": "^5.1.3",
