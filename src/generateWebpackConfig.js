@@ -241,8 +241,7 @@ export default (options = {}) => {
                 },
               },
             },
-          ]
-          ,
+          ],
         },
       ],
     },
