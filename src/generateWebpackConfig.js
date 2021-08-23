@@ -388,7 +388,8 @@ export default (options = {}) => {
     }
   }
 
-  if (!options.development && options.licenseFileName) {
+  // TODO license-webpack-plugin is currently forced to be excluded until I find a solution for the ENOENT scandir error
+  if (!options.development && options.licenseFileName && false) {
     config.plugins.push(new LicenseWebpackPlugin({
       renderLicenses,
       outputFilename: options.licenseFileName,
