@@ -392,7 +392,7 @@ export default (options = {}) => {
     config.plugins.push(new LicenseWebpackPlugin({
       renderLicenses,
       outputFilename: options.licenseFileName,
-      perChunkOutput: false, // This is important, combines the whole proeject's third party licenses into a single file, will throw a “Conflict: Multiple assets emit different content to the same filename” otherwise
+      perChunkOutput: false, // This is important, this combines all the project's third party licenses into a single file, will throw a “Conflict: Multiple assets emit different content to the same filename” otherwise
     }))
   }
 
