@@ -62,6 +62,13 @@ export default (options = {}) => {
     }
   }
 
+  if (options.esm === undefined) {
+    options.esm = pkg.type === "module"
+    if (options.esm) {
+      debug("ESM is enabled (this is experimental)")
+    }
+  }
+
   /**
    * @type {import("./types/WebpackConfigType").default}
    */

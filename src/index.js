@@ -55,6 +55,7 @@ import generateWebpackConfig from "./generateWebpackConfig"
  * @prop {Object|boolean} [pwa = false] For type `webapp`: If `true`, includes `@expo/webpack-pwa-manifest-plugin`. If Object, this will be used as plugin options.
  * @prop {boolean} [browserSync = Boolean(process.env.browserSync)] If `true`, `browser-sync-webpack-plugin` will be included
  * @prop {number} [devPort] webpack-dev-server port
+ * @prop {boolean} [esm] Use ESM instead of CommonJS
  */
 
 /**
