@@ -31,27 +31,45 @@ export default class extends WebpackConfigType {
 
   /**
    * @function
-   * @param {GetDefaultOptionsContext} context
+   * @param {import("../WebpackConfigType").GetWebpackConfigContext} context
    * @return {import("webpack").Configuration}
    */
-  getWebpackConfig({pkg}) {
-    const config = {
-      output: {
-        // TODO libraryTarget should be “module” as soon as it's better supported by Webpack. “outputModule” is currently only an experiment, see https://webpack.js.org/configuration/experiments/
+  getWebpackConfig({pkg, options}) {
+    /**
+      * @type {import("webpack").Configuration}
+    */
+    const config = {}
+    if (!options.esm) {
+      config.output = {
         libraryTarget: "umd2",
         globalObject: "this",
-      },
-    }
-    if (pkg?.name) {
-      config.output.library = this.getLibraryNameFromPkg(pkg)
+      }
+      if (pkg?.name) {
+        config.output.library = this.getLibraryNameFromPkg(pkg)
+      }
+      return config
     }
     // Normally config.target shouldn't be hardcoded
     // Webpack can decide this one by itself using browserslist
     // But a missing feature currently disallows mixing web targets and node targets
     // TODO Remove or improve this hack later
     // See https://github.com/webpack/webpack/issues/11660#issuecomment-841625881
-    config.target = "web"
-    return config
+    return {
+      target: "web",
+      optimization: {
+        minimize: false,
+      },
+      experiments: {
+        outputModule: true, // https://webpack.js.org/configuration/experiments/#experimentsoutputmodule
+      },
+      output: {
+        module: true, // https://webpack.js.org/configuration/output/#outputmodule
+        filename: "index.mjs", // https://webpack.js.org/configuration/output/#outputfilename
+        library: {
+          type: "module", // https://webpack.js.org/configuration/output/#librarytarget-module
+        },
+      },
+    }
   }
 
 }
