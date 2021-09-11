@@ -1,4 +1,4 @@
-import {DefinePlugin} from "webpack"
+import webpack from "webpack"
 
 import webpackMerge from "../../lib/webpackMerge.js"
 
@@ -48,7 +48,7 @@ export default class extends WebpackConfigType {
         ],
       },
       plugins: [
-        new DefinePlugin({
+        new webpack.DefinePlugin({
           "process.browser": false,
         }),
       ],

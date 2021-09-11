@@ -12,12 +12,13 @@ import urlJoin from "url-join"
 import {addDevServerEntrypoints} from "webpack-dev-server"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 import WorkboxPlugin from "workbox-webpack-plugin"
+import createDebug from "debug"
 
 import webpackMerge from "../../lib/webpackMerge.js"
 
 import Html from "../../types/html/index.js"
 
-const debug = require("debug")(process.env.REPLACE_PKG_NAME)
+const debug = createDebug(process.env.REPLACE_PKG_NAME)
 
 export default class extends Html {
 
