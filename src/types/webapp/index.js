@@ -13,9 +13,9 @@ import {addDevServerEntrypoints} from "webpack-dev-server"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 import WorkboxPlugin from "workbox-webpack-plugin"
 
-import webpackMerge from "lib/webpackMerge.js"
+import webpackMerge from "../../lib/webpackMerge.js"
 
-import Html from "src/types/html/index.js"
+import Html from "../../types/html/index.js"
 
 const debug = require("debug")(process.env.REPLACE_PKG_NAME)
 

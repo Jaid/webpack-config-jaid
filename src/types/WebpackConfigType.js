@@ -1,6 +1,6 @@
 import camelcase from "camelcase"
 
-import isCi from "lib/isCi.js"
+import isCi from "../lib/isCi.js"
 
 /**
  * @typedef {Object} GetDefaultOptionsContext

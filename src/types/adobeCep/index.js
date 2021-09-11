@@ -1,9 +1,9 @@
 import camelcase from "camelcase"
 import CepPlugin from "cep-webpack-plugin"
 
-import webpackMerge from "lib/webpackMerge.js"
+import webpackMerge from "../../lib/webpackMerge.js"
 
-import Html from "src/types/html/index.js"
+import Html from "../../types/html/index.js"
 
 export default class extends Html {
 

@@ -9,8 +9,8 @@ import {isObject} from "lodash-es"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import webpack from "webpack"
 
-import getPostcssConfig from "lib/getPostcssConfig.js"
-import isCi from "lib/isCi.js"
+import getPostcssConfig from "../../lib/getPostcssConfig.js"
+import isCi from "../../lib/isCi.js"
 
 import WebpackConfigType from "../WebpackConfigType"
 

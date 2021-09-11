@@ -1,6 +1,6 @@
 import {pascalCase} from "pascal-case"
 
-import NodeLib from "src/types/nodeLib/index.js"
+import NodeLib from "../../types/nodeLib/index.js"
 
 export default class extends NodeLib {
 

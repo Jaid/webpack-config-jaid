@@ -1,6 +1,6 @@
 import camelcase from "camelcase"
 
-import WebpackConfigType from "../WebpackConfigType"
+import WebpackConfigType from "../WebpackConfigType.js"
 
 export default class extends WebpackConfigType {
 
