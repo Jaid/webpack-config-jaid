@@ -1,8 +1,8 @@
 import {DefinePlugin} from "webpack"
 
-import webpackMerge from "lib/webpackMerge"
+import webpackMerge from "lib/webpackMerge.js"
 
-import WebpackConfigType from "../WebpackConfigType"
+import WebpackConfigType from "../WebpackConfigType.js"
 
 /**
  * @class

@@ -1,16 +1,13 @@
-import fss from "@absolunet/fss"
 import appRootPath from "app-root-path"
 import {CleanWebpackPlugin} from "clean-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import ensureArray from "ensure-array"
 import ensureStart from "ensure-start"
-import flatted from "flatted"
 import fs from "fs"
 import hasContent from "has-content"
 import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
-import json5 from "json5"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
-import {isObject, isString} from "lodash"
+import {isObject, isString} from "lodash-es"
 import path from "path"
 import PkgBannerPlugin from "pkg-banner-webpack-plugin"
 import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
@@ -18,11 +15,10 @@ import readPkg from "read-pkg"
 import TerserPlugin from "terser-webpack-plugin"
 import webpack from "webpack"
 
-import outputYaml from "lib/outputYaml"
-import renderLicenses from "lib/renderLicenses"
-import webpackMerge from "lib/webpackMerge"
-
-import types from "./types"
+import outputYaml from "./lib/outputYaml.js"
+import renderLicenses from "./lib/renderLicenses.js"
+import webpackMerge from "./lib/webpackMerge.js"
+import types from "./types/index.js"
 
 const debug = require("debug")(process.env.REPLACE_PKG_NAME)
 

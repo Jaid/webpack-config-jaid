@@ -1,6 +1,6 @@
-import webpackMerge from "lib/webpackMerge"
+import webpackMerge from "lib/webpackMerge.js"
 
-import Node from "src/types/node"
+import Node from "src/types/node/index.js"
 
 export default class extends Node {
 

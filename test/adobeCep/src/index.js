@@ -1,6 +1,6 @@
 import "./style.scss"
 
-import {trim} from "lodash"
+import {trim} from "lodash-es"
 
 import icon from "./perk.png"
 

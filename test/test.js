@@ -2,7 +2,7 @@ import "jest-extended"
 
 import fss from "@absolunet/fss"
 import {expect, it} from "@jest/globals"
-import {isFunction} from "lodash"
+import {isFunction} from "lodash-es"
 import ms from "ms.macro"
 import path from "path"
 import pify from "pify"

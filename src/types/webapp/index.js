@@ -5,7 +5,7 @@ import CnamePlugin from "cname-webpack-plugin"
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 import ensureStart from "ensure-start"
 import HtmlFaviconPlugin from "html-favicon-webpack-plugin"
-import {escape, isObject, omit, uniq} from "lodash"
+import {escape, isObject, omit, uniq} from "lodash-es"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import urlJoin from "url-join"
@@ -13,9 +13,9 @@ import {addDevServerEntrypoints} from "webpack-dev-server"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 import WorkboxPlugin from "workbox-webpack-plugin"
 
-import webpackMerge from "lib/webpackMerge"
+import webpackMerge from "lib/webpackMerge.js"
 
-import Html from "src/types/html"
+import Html from "src/types/html/index.js"
 
 const debug = require("debug")(process.env.REPLACE_PKG_NAME)
 

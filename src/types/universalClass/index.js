@@ -1,6 +1,6 @@
 import {pascalCase} from "pascal-case"
 
-import UniversalLib from "src/types/universalLib"
+import UniversalLib from "src/types/universalLib/index.js"
 
 export default class extends UniversalLib {
 

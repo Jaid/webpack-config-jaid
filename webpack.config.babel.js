@@ -1,4 +1,4 @@
-import configure from "./src"
+import configure from "./src/index.js"
 
 export default configure({
   documentation: {babel: true},

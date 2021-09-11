@@ -1,6 +1,7 @@
 {
   "version": "15.1.0",
   "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
+  "type": "module",
   "dependencies": {
     "@absolunet/fss": "^1.7.0",
     "@lcdp/offline-plugin": "^5.1.0",
@@ -40,6 +41,7 @@
     "license-webpack-plugin": "^2.3.21",
     "lines-loader": "^2.0.1",
     "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "log-watcher-webpack-plugin": "^1.0.4",
     "markdown-loader": "^6.0.0",
     "mini-css-extract-plugin": "^2.1.0",

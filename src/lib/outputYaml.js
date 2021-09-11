@@ -1,6 +1,6 @@
 import fs from "fs-extra"
 import jsYaml from "js-yaml"
-import {isFunction} from "lodash"
+import {isFunction} from "lodash-es"
 
 const replacer = value => {
   if (value === undefined) {

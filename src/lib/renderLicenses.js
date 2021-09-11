@@ -1,5 +1,5 @@
 import immer from "immer"
-import {sortBy} from "lodash"
+import {sortBy} from "lodash-es"
 
 export default licenses => {
   const normalized = licenses.map(license => license.name ? license : immer(draft => {
