@@ -294,7 +294,7 @@ export default class extends WebpackConfigType {
    * @return {string}
    */
   getGoogleAnalyticsTrackingId() {
-    if (this.options.googleAnalyticsTrackingId |> isEmpty) {
+    if (isEmpty(this.options.googleAnalyticsTrackingId)) {
       return null
     }
     if (this.options.googleAnalyticsOnlyInProduction && this.options.development) {
