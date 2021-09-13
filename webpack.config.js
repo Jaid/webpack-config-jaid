@@ -10,18 +10,16 @@ const pkgFile = path.join(rootFolder, "package.json")
 const pkg = JSON.parse(fs.readFileSync(pkgFile))
 const entryFolder = path.join(rootFolder, "src")
 
-const options = {
-  development: false,
-  packageRoot: "P:/Git/epoch-seconds-issue-77",
-  outDir: path.join(rootFolder, "dist", "testOutput"),
-}
+const env = process.env.NODE_ENV || "development"
+const isDevelopment = env !== "production"
 
 /**
  * @type {import("webpack").Configuration}
  */
 const baseConfig = {
-  context: path.resolve(options.packageRoot),
-  mode: "development",
+  target: "node16",
+  context: rootFolder,
+  mode: isDevelopment ? "development" : "production",
   devtool: "eval-source-map",
   module: {
     rules: [
@@ -44,8 +42,8 @@ const baseConfig = {
     }),
   ],
   output: {
-    path: options.outDir,
-    // module: true, // https://webpack.js.org/configuration/output/#outputmodule
+    path: path.join(rootFolder, "dist", "package", env),
+    module: true, // https://webpack.js.org/configuration/output/#outputmodule
     // filename: "index.mjs", // https://webpack.js.org/configuration/output/#outputfilename
     // library: {
     // type: "module", // https://webpack.js.org/configuration/output/#librarytarget-module
