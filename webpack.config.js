@@ -20,7 +20,7 @@ const baseConfig = {
   target: "node16",
   context: rootFolder,
   mode: isDevelopment ? "development" : "production",
-  devtool: "eval-source-map",
+  devtool: isDevelopment ? "eval-source-map" : "source-map",
   module: {
     rules: [
       {
