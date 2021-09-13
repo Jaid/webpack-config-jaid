@@ -1,5 +1,6 @@
 import BrowserSyncPlugin from "browser-sync-webpack-plugin"
 import camelcase from "camelcase"
+import createDebug from "debug"
 import {isEmpty} from "has-content"
 import HtmlInlineCssPlugin from "html-inline-css-webpack-plugin"
 import HtmlPlugin from "html-webpack-plugin"
@@ -11,10 +12,7 @@ import webpack from "webpack"
 
 import getPostcssConfig from "../../lib/getPostcssConfig.js"
 import isCi from "../../lib/isCi.js"
-
 import WebpackConfigType from "../WebpackConfigType"
-
-import createDebug from "debug"
 
 const debug = createDebug(process.env.REPLACE_PKG_NAME)
 

@@ -1,8 +1,7 @@
 import {camelCase, isObject} from "lodash-es"
 
 import webpackMerge from "../../lib/webpackMerge.js"
-
-import Node from "../../types/node/index.js"
+import Node from "../node/index.js"
 
 const generatorCorePackageField = "generator-core-version"
 const generatorCoreLatestVersion = "3.12"
