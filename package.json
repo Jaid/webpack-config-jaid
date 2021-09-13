@@ -87,6 +87,7 @@
     "delay": "^5.0.0",
     "eslint": "^7.29.0",
     "eslint-config-jaid": "^1.55.0",
+    "esm": "^3.2.25",
     "format-thousands": "^2.0.0",
     "fs-extra": "^10.0.0",
     "get-folder-size": "^2.0.1",

@@ -48,7 +48,7 @@ async function testHmr(webpackConfig) {
   }
 }
 
-exports.default = async ({packageOutDir, webpackConfig, meta}) => {
+export default async ({packageOutDir, webpackConfig, meta}) => {
   if (meta.hmr) {
     debug("%o", webpackConfig)
     await testHmr(webpackConfig)

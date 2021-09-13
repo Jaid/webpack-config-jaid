@@ -1,3 +1,3 @@
-exports.default = {
+export default {
   documentation: {babel: true},
 }

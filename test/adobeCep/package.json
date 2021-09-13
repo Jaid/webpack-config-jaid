@@ -6,5 +6,6 @@
   "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
   "dependencies": {
     "postcss-nested": "^4.1.2"
-  }
+  },
+  "type": "module"
 }

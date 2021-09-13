@@ -44,10 +44,10 @@ const baseConfig = {
   output: {
     path: path.join(rootFolder, "dist", "package", env),
     module: true, // https://webpack.js.org/configuration/output/#outputmodule
-    // filename: "index.mjs", // https://webpack.js.org/configuration/output/#outputfilename
-    // library: {
-    // type: "module", // https://webpack.js.org/configuration/output/#librarytarget-module
-    // },
+    filename: "index.js", // https://webpack.js.org/configuration/output/#outputfilename
+    library: {
+      type: "module", // https://webpack.js.org/configuration/output/#librarytarget-module
+    },
   },
   optimization: {
     minimize: false,

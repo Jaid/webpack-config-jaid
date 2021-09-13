@@ -8,5 +8,6 @@
   "eslintConfig": {
     "extends": "jaid"
   },
-  "webpackConfigJaid": "universalLib"
+  "webpackConfigJaid": "universalLib",
+  "type": "module"
 }

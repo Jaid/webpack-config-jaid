@@ -1,18 +1,18 @@
 import BrowserSyncPlugin from "browser-sync-webpack-plugin"
 import camelcase from "camelcase"
 import createDebug from "debug"
-import {isEmpty} from "has-content"
-import HtmlInlineCssPlugin from "html-inline-css-webpack-plugin"
 import HtmlPlugin from "html-webpack-plugin"
-import InjectBodyPlugin from "inject-body-webpack-plugin"
 import InjectBrowserSyncPlugin from "inject-browser-sync-webpack-plugin"
 import {isObject} from "lodash-es"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import webpack from "webpack"
 
+import HtmlInlineCssPlugin from "lib/esm/html-inline-css-webpack-plugin.js"
+import InjectBodyPlugin from "lib/esm/inject-body-webpack-plugin.js"
+
 import getPostcssConfig from "../../lib/getPostcssConfig.js"
 import isCi from "../../lib/isCi.js"
-import WebpackConfigType from "../WebpackConfigType"
+import WebpackConfigType from "../WebpackConfigType.js"
 
 const debug = createDebug(process.env.REPLACE_PKG_NAME)
 
@@ -294,7 +294,7 @@ export default class extends WebpackConfigType {
    * @return {string}
    */
   getGoogleAnalyticsTrackingId() {
-    if (isEmpty(this.options.googleAnalyticsTrackingId)) {
+    if (!this.options.googleAnalyticsTrackingId) {
       return null
     }
     if (this.options.googleAnalyticsOnlyInProduction && this.options.development) {

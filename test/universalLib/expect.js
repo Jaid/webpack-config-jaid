@@ -1,8 +1,8 @@
-const path = require("path")
+import path from "path"
 
-exports.default = ({packageOutDir}) => {
+export default async ({packageOutDir}) => {
   const selfFile = path.join(packageOutDir, "index.js")
-  const self = require(selfFile).default
+  const {default: self} = await import(selfFile)
   const result = self()
   expect(result).toBe(123)
 }

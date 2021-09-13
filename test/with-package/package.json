@@ -11,5 +11,6 @@
   "eslintConfig": {
     "extends": "jaid"
   },
-  "webpackConfigJaid": "nodeLib"
+  "webpackConfigJaid": "nodeLib",
+  "type": "module"
 }

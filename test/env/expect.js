@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-exports.default = ({packageOutDir}) => {
+export default ({packageOutDir}) => {
   const indexPath = path.join(packageOutDir, "index.js")
   const selfText = fs.readFileSync(indexPath, "utf8")
   expect(selfText).toMatch("process.env.MAIN")

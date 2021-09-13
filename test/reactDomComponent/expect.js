@@ -3,7 +3,7 @@ const reactTestRenderer = require("react-test-renderer")
 const React = require("react")
 const readFileString = require("read-file-string").default
 
-exports.default = async ({packageOutDir, development}) => {
+export default async ({packageOutDir, development}) => {
   const Component = require(path.join(packageOutDir, "index.js")).default
   const dom = React.createElement(Component, {
     className: "abc",

@@ -1,6 +1,6 @@
 const path = require("path")
 
-exports.default = ({outDir}) => {
+export default ({outDir}) => {
   return {
     type: "nodeLib",
     documentation: {

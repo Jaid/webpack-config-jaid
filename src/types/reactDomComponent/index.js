@@ -1,4 +1,5 @@
-import webpackMerge from "../../lib/webpackMerge.js"
+import webpackMerge from "lib/esm/webpack-merge.js"
+
 import UniversalClass from "../universalClass/index.js"
 
 export default class extends UniversalClass {

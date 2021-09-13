@@ -1,4 +1,4 @@
-import ensureStart from "ensure-start"
+import ensureStart from "lib/esm/ensure-start.js"
 
 const getLinkFromDomain = domain => ensureStart(domain, "https://")
 

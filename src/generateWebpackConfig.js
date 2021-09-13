@@ -1,26 +1,28 @@
 import appRootPath from "app-root-path"
 import {CleanWebpackPlugin} from "clean-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
+import createDebug from "debug"
 import ensureArray from "ensure-array"
-import ensureStart from "ensure-start"
+import ensureStart from "lib/esm/ensure-start.js"
 import fs from "fs"
-import hasContent from "has-content"
 import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import {isObject, isString} from "lodash-es"
 import path from "path"
-import PkgBannerPlugin from "pkg-banner-webpack-plugin"
-import PublishimoWebpackPlugin from "publishimo-webpack-plugin"
 import readPkg from "read-pkg"
 import TerserPlugin from "terser-webpack-plugin"
 import webpack from "webpack"
 
+import hasContent from "lib/esm/has-content.js"
+import PkgBannerPlugin from "lib/esm/pkg-banner-webpack-plugin.js"
+import PublishimoWebpackPlugin from "lib/esm/publishimo-webpack-plugin.js"
+import webpackMerge from "lib/esm/webpack-merge.js"
+
 import outputYaml from "./lib/outputYaml.js"
 import renderLicenses from "./lib/renderLicenses.js"
-import webpackMerge from "./lib/webpackMerge.js"
 import types from "./types/index.js"
 
-const debug = require("debug")(process.env.REPLACE_PKG_NAME)
+const debug = createDebug(process.env.REPLACE_PKG_NAME)
 
 const env = process.env.NODE_ENV?.toLowerCase?.() || "development"
 
@@ -338,6 +340,9 @@ export default (options = {}) => {
         "optionalDependencies",
         "peerDependencies",
       ]
+    }
+    if (options.esm) {
+      publishimoConfig.includeFields = ["type"]
     }
     if (typeof options.publishimo === "object") {
       Object.assign(publishimoConfig, options.publishimo)

@@ -4,7 +4,7 @@ import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin"
 import CnamePlugin from "cname-webpack-plugin"
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 import createDebug from "debug"
-import ensureStart from "ensure-start"
+import ensureStart from "lib/esm/ensure-start.js"
 import HtmlFaviconPlugin from "html-favicon-webpack-plugin"
 import {escape, isObject, omit, uniq} from "lodash-es"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
@@ -14,7 +14,8 @@ import {addDevServerEntrypoints} from "webpack-dev-server"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 import WorkboxPlugin from "workbox-webpack-plugin"
 
-import webpackMerge from "../../lib/webpackMerge.js"
+import webpackMerge from "lib/esm/webpack-merge.js"
+
 import Html from "../html/index.js"
 
 const debug = createDebug(process.env.REPLACE_PKG_NAME)

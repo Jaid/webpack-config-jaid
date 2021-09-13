@@ -1,5 +1,6 @@
 {
   "name": "universal-lib-test",
   "webpackConfigJaid": "universalLib",
-  "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)"
+  "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
+  "type": "module"
 }

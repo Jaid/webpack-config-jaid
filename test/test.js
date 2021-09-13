@@ -2,35 +2,42 @@ import "jest-extended"
 
 import fss from "@absolunet/fss"
 import {expect, it} from "@jest/globals"
+import createDebug from "debug"
+import getFolderSizeModule from "get-folder-size"
 import {isFunction} from "lodash-es"
 import ms from "ms.macro"
 import path from "path"
 import pify from "pify"
 import readFileYaml from "read-file-yaml"
-import readableMs from "readable-ms"
 import sortKeys from "sort-keys"
+import {fileURLToPath} from "url"
+import webpackModule from "webpack"
+
+import readableMs from "lib/esm/readable-ms.js"
 
 import readableThousands from "../src/lib/readableThousands"
 
-const webpack = pify(require("webpack"))
-const getFolderSize = pify(require("get-folder-size"))
+const webpack = pify(webpackModule)
+const getFolderSize = pify(getFolderSizeModule)
 
-const debug = require("debug")("test")
-
-const indexModule = process.env.MAIN ? path.resolve(__dirname, "..", process.env.MAIN) : path.join(__dirname, "..", "src")
-const webpackConfigJaid = require(indexModule)
+const debug = createDebug("test")
+const dirName = path.dirname(fileURLToPath(import.meta.url))
+const indexPath = process.env.MAIN ? path.resolve(dirName, "..", process.env.MAIN) : path.join(dirName, "..", "src")
+debug("Testing build: %s", indexPath)
+const webpackConfigJaid = await import(indexPath)
+debug("%O", webpackConfigJaid.default)
 
 const sizeChanges = []
 
 function addTest(name, meta) {
   const testName = `${name} ${Object.entries(meta).map(entry => `${entry[0]}=${entry[1]}`).join(" ")}`
   it(testName, async () => {
-    const packageRoot = path.join(__dirname, name)
+    const packageRoot = path.join(dirName, name)
     const configPath = path.join(packageRoot, "webpack.config.js")
     const jaidConfigPath = path.join(packageRoot, "jaidConfig.js")
     const expectScriptPath = path.join(packageRoot, "expect.js")
-    const outDir = path.join(__dirname, "..", "dist", "test", testName)
-    const oldStats = await readFileYaml(path.join(outDir, "benchmark.yml"))
+    const outDir = path.join(dirName, "..", "dist", "test", testName)
+    const oldStats = await readFileYaml.default(path.join(outDir, "benchmark.yml"))
     const packageOutDir = path.join(outDir, "package")
     const outputObject = (key, value) => {
       const sortedObject = sortKeys(value, {deep: true})
@@ -46,11 +53,11 @@ function addTest(name, meta) {
     const startTime = Date.now()
     let webpackConfig
     if (fss.pathExists(configPath)) {
-      webpackConfig = require(configPath).default(webpackConfigJaid, packageRoot, packageOutDir, development)
+      webpackConfig = await import(configPath).default(webpackConfigJaid, packageRoot, packageOutDir, development)
     } else {
       let importedJaidConfig = {}
       if (fss.pathExists(jaidConfigPath)) {
-        importedJaidConfig = require(jaidConfigPath).default
+        importedJaidConfig = await import(jaidConfigPath).default
         if (isFunction(importedJaidConfig)) {
           importedJaidConfig = importedJaidConfig({
             packageRoot,
@@ -101,7 +108,7 @@ function addTest(name, meta) {
       outputObject("stats", statsJson)
     }
     if (fss.pathExists(expectScriptPath)) {
-      const selfTest = require(expectScriptPath).default
+      const {default: selfTest} = await import(expectScriptPath)
       await selfTest({
         name,
         packageRoot,
@@ -118,8 +125,8 @@ function addTest(name, meta) {
   }, ms`10 minutes`)
 }
 
-for (const entry of fss.readdir(__dirname)) {
-  const entryPath = path.join(__dirname, entry)
+for (const entry of fss.readdir(dirName)) {
+  const entryPath = path.join(dirName, entry)
   if (fss.stat(entryPath).isDirectory()) {
     for (const env of ["development", "production"]) {
       addTest(entry, {env})

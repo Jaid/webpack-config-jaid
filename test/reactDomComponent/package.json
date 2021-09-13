@@ -6,5 +6,6 @@
   "eslintConfig": {
     "extends": "jaid"
   },
-  "webpackConfigJaid": "reactDomComponent"
+  "webpackConfigJaid": "reactDomComponent",
+  "type": "module"
 }

@@ -1,7 +1,7 @@
 const path = require("path")
 const fs = require("fs")
 
-exports.default = ({packageOutDir}) => {
+export default ({packageOutDir}) => {
   const indexPath = path.join(packageOutDir, "index.js")
   const selfText = fs.readFileSync(indexPath, "utf8")
   expect(selfText).toMatch("https://")

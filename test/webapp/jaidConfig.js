@@ -1,4 +1,4 @@
-exports.default = ({meta}) => {
+export default ({meta}) => {
   const config = {
     backgroundColor: "13061b",
   }
