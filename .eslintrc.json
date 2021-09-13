@@ -1,3 +1,5 @@
-module.exports = {
-  extends: "jaid",
-}a
+{
+  "extends": [
+    "jaid"
+  ]
+}
