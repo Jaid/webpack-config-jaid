@@ -53,11 +53,13 @@ function addTest(name, meta) {
     const startTime = Date.now()
     let webpackConfig
     if (fss.pathExists(configPath)) {
-      webpackConfig = await import(configPath).default(webpackConfigJaid, packageRoot, packageOutDir, development)
+      const webpackConfigModule = await import(configPath)
+      webpackConfig = webpackConfigModule.default(webpackConfigJaid, packageRoot, packageOutDir, development)
     } else {
       let importedJaidConfig = {}
       if (fss.pathExists(jaidConfigPath)) {
-        importedJaidConfig = await import(jaidConfigPath).default
+        const importedJaidConfigModule = await import(jaidConfigPath)
+        importedJaidConfig = importedJaidConfigModule.default
         if (isFunction(importedJaidConfig)) {
           importedJaidConfig = importedJaidConfig({
             packageRoot,
