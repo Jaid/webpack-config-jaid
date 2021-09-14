@@ -1,12 +1,14 @@
-const puppeteer = require("puppeteer")
-const path = require("path")
-const {pathExists} = require("fs-extra")
-const WebpackDevServer = require("webpack-dev-server")
-const webpack = require("webpack")
-const delay = require("delay")
-const pify = require("pify")
+import path from "node:path"
 
-const debug = require("debug")("webpack-config-jaid")
+import createDebug from "debug"
+import delay from "delay"
+import {pathExists} from "fs-extra"
+import pify from "pify"
+import puppeteer from "puppeteer"
+import webpack from "webpack"
+import WebpackDevServer from "webpack-dev-server"
+
+const debug = createDebug("webpack-config-jaid")
 
 async function testHmr(webpackConfig) {
   const compiler = webpack(webpackConfig)
