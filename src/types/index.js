@@ -13,19 +13,19 @@ import universalLib from "./universalLib/index.js"
 import webapp from "./webapp/index.js"
 
 const types = {
-  adobeCep, // adobeCep: require("./adobeCep").default,
-  cli, // cli: require("./cli").default,
-  executable, // executable: require("./executable").default,
-  generatorCorePlugin, // generatorCorePlugin: require("./generatorCorePlugin").default,
-  nodeClass, // nodeClass: require("./nodeClass").default,
-  githubAction, // githubAction: require("./githubAction").default,
+  adobeCep,
+  cli,
+  executable,
+  generatorCorePlugin,
+  nodeClass,
+  githubAction,
   nodeLib,
   nodeScript,
   universalClass,
   universalLib,
-  webapp, // webapp: require("./webapp").default,
-  html, // html: require("./html").default,
-  reactDomComponent, // reactDomComponent: require("./reactDomComponent").default,
+  webapp,
+  html,
+  reactDomComponent,
 }
 
 export default types
