@@ -1,12 +1,12 @@
-const path = require("path")
-const fs = require("fs")
+import path from "node:path"
+import fs from "node:fs/promises"
 
-export default ({packageOutDir}) => {
+export default async ({packageOutDir}) => {
   const indexPath = path.join(packageOutDir, "index.js")
-  const selfText = fs.readFileSync(indexPath, "utf8")
+  const selfText = await fs.readFile(indexPath, "utf8")
   expect(selfText).toMatch("https://")
   expect(selfText).toMatch("require(")
-  const self = require(indexPath)
-  expect(typeof self.default).toBe("string")
-  expect(self.default).toBe("https://jaid.codes")
+  const {default: self} = await import(indexPath)
+  expect(typeof self).toBe("string")
+  expect(self).toBe("https://jaid.codes")
 }

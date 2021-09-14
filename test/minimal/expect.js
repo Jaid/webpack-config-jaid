@@ -1,8 +1,8 @@
 import path from "path"
 
-export default ({packageOutDir}) => {
-  const self = require(path.join(packageOutDir, "index.js"))
-  expect(typeof self.default).toBe("function")
-  const result = self.default()
+export default async ({packageOutDir}) => {
+  const {default: self} = await import(path.join(packageOutDir, "index.js"))
+  expect(typeof self).toBe("function")
+  const result = self()
   expect(result).toBe(123)
 }

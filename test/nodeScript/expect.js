@@ -1,9 +1,9 @@
-const path = require("path")
-const fs = require("fs-extra")
+import path from "node:path"
+import fs from "fs-extra"
 
-export default ({packageOutDir, outDir, expect}) => {
+export default async ({packageOutDir, outDir, expect}) => {
   const selfFile = path.join(packageOutDir, "index.js")
-  require(selfFile)
+  await import(selfFile)
   const writtenFile = path.join(outDir, "testFile.json")
   const json = fs.readJsonSync(writtenFile)
   expect(json.date).toBeGreaterThan(0)

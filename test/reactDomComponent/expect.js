@@ -1,4 +1,4 @@
-const path = require("path")
+import path from "node:path"
 const reactTestRenderer = require("react-test-renderer")
 const React = require("react")
 const readFileString = require("read-file-string").default

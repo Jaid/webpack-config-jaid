@@ -27,6 +27,22 @@ export default class extends Node {
     const nodeConfig = super.getWebpackConfig()
     const config = {
       output: {
+        library: {
+          type: "module", // https://webpack.js.org/configuration/output/#librarytarget-module
+        },
+      },
+    }
+    return webpackMerge(nodeConfig, config)
+  }
+
+  /**
+   * @function
+   * @param {import("../WebpackConfigType").GetWebpackConfigContext} context
+   */
+  getWebpackConfigCommonjs({pkg}) {
+    const nodeConfig = super.getWebpackConfig()
+    const config = {
+      output: {
         libraryTarget: "umd2",
       },
     }

@@ -56,15 +56,7 @@ export default class extends WebpackConfigType {
     // See https://github.com/webpack/webpack/issues/11660#issuecomment-841625881
     return {
       target: "web",
-      optimization: {
-        // minimize: false,
-      },
-      experiments: {
-        outputModule: true, // https://webpack.js.org/configuration/experiments/#experimentsoutputmodule
-      },
       output: {
-        module: true, // https://webpack.js.org/configuration/output/#outputmodule
-        filename: "index.js", // https://webpack.js.org/configuration/output/#outputfilename
         library: {
           type: "module", // https://webpack.js.org/configuration/output/#librarytarget-module
         },

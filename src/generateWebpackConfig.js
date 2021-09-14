@@ -139,6 +139,7 @@ export default (options = {}) => {
     offline: false,
     pwa: false,
     browserSync: process.env.browserSync,
+    esm: true,
     ...typeDefaultOptions || {},
     ...options,
   }
@@ -278,6 +279,15 @@ export default (options = {}) => {
     },
   }
 
+  if (options.esm) {
+    config.experiments = {
+      outputModule: true
+    }
+    config.output = {
+      module: true,
+    }
+  }
+
   if (options.clean) {
     if (isObject(options.clean)) {
       config.plugins.push(new CleanWebpackPlugin(options.clean))
@@ -308,7 +318,7 @@ export default (options = {}) => {
   if (options.nodeExternals) {
     config.externals = ({request}, callback) => { // eslint-disable-line promise/prefer-await-to-callbacks
       if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
-        return callback(null, `commonjs2 ${request}`) // eslint-disable-line promise/prefer-await-to-callbacks
+        return callback(null, `module ${request}`) // eslint-disable-line promise/prefer-await-to-callbacks
       }
       callback() // eslint-disable-line promise/prefer-await-to-callbacks
     }
