@@ -72,25 +72,27 @@ export default (options = {}) => {
    */
   let typeProvider
   let typeDefaultOptions
-  if (options.type) {
-    if (isString(options.type)) {
-      const typeClass = types[options.type]
-      if (!typeClass) {
-        throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeClass} (Available types: ${Object.keys(types).join(", ")})`)
-      }
-      typeProvider = new typeClass
-    } else {
-      typeProvider = options.type
+  if (!options.type) {
+    throw new Error("options.type not given for webpack-config-jaid")
+  }
+
+  if (isString(options.type)) {
+    const typeClass = types[options.type]
+    if (!typeClass) {
+      throw new TypeError(`Invalid webpack-config-jaid type "${options.type}", returned ${typeClass} (Available types: ${Object.keys(types).join(", ")})`)
     }
-    typeProvider.pkg = pkg
-    typeDefaultOptions = typeProvider.getDefaultOptions({
-      env,
-      options,
-      webpack,
-    })
-    if (hasContent(typeDefaultOptions)) {
-      debug("Including default options from %s: %o", options.type, typeDefaultOptions)
-    }
+    typeProvider = new typeClass
+  } else {
+    typeProvider = options.type
+  }
+  typeProvider.pkg = pkg
+  typeDefaultOptions = typeProvider.getDefaultOptions({
+    env,
+    options,
+    webpack,
+  })
+  if (hasContent(typeDefaultOptions)) {
+    debug("Including default options from %s: %o", options.type, typeDefaultOptions)
   }
 
   options = {
