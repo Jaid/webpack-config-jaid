@@ -8,7 +8,6 @@ import {escape, isObject, omit, uniq} from "lodash-es"
 import LogWatcherPlugin from "log-watcher-webpack-plugin"
 import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
 import urlJoin from "url-join"
-import {addDevServerEntrypoints} from "webpack-dev-server"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 import WorkboxPlugin from "workbox-webpack-plugin"
 
@@ -364,25 +363,28 @@ export default class extends Html {
         fromRoot(".git"),
         fromRoot(".git").replaceAll("\\", "/"),
       ]
-      const devServerConfig = {
-        // publicPath: this.publicPath,
-        port: this.port,
-        hot: true,
-        overlay: true,
-        // headers: {"Access-Control-Allow-Origin": "*"},
-        historyApiFallback: true,
-      }
-      webpackConfig = webpackMerge(webpackConfig, {
-        devServer: devServerConfig,
-      })
-      addDevServerEntrypoints(webpackConfig, devServerConfig)
-      webpackConfig = webpackMerge(webpackConfig, {
+      webpackConfig = {
         watchOptions: {
           ignored: uniq(ignoredPaths),
         },
-      })
-      webpackConfig.plugins.push(new ReactRefreshPlugin)
-      webpackConfig.plugins.push(new LogWatcherPlugin)
+        entry: [ // entry taken from here: https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md#migration-guide
+          "webpack/hot/dev-server.js",
+          "webpack-dev-server/client/index.js?hot=true&live-reload=true",
+          initialWebpackConfig.entry,
+        ],
+        devServer: {
+          // publicPath: this.publicPath,
+          port: this.port,
+          hot: true,
+          overlay: true,
+          // headers: {"Access-Control-Allow-Origin": "*"},
+          historyApiFallback: true,
+        },
+        plugins: [
+          new ReactRefreshPlugin,
+          new LogWatcherPlugin
+        ]
+      }
     }
     webpackConfig.plugins.push(new HtmlFaviconPlugin(this.getHtmlFaviconPluginOptions()))
     if (!this.options.development) {
