@@ -5,8 +5,8 @@ import CnamePlugin from "cname-webpack-plugin"
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 import createDebug from "debug"
 import {escape, isObject, omit, uniq} from "lodash-es"
-import LogWatcherPlugin from "log-watcher-webpack-plugin"
-import SitemapXmlPlugin from "sitemap-xml-webpack-plugin"
+import LogWatcherPlugin from "lib/esm/log-watcher-webpack-plugin.js"
+import SitemapXmlPlugin from "lib/esm/sitemap-xml-webpack-plugin.js"
 import urlJoin from "url-join"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 import WorkboxPlugin from "workbox-webpack-plugin"
@@ -376,7 +376,9 @@ export default class extends Html {
           // publicPath: this.publicPath,
           port: this.port,
           hot: true,
-          overlay: true,
+          client: {
+           overlay: true,
+          },
           // headers: {"Access-Control-Allow-Origin": "*"},
           historyApiFallback: true,
         },
@@ -400,7 +402,7 @@ export default class extends Html {
       }
       const offlinePluginOptions = this.getOfflinePluginOptions()
       if (offlinePluginOptions) {
-        webpackConfig.plugins.push(new OfflinePlugin(offlinePluginOptions))
+        // webpackConfig.plugins.push(new OfflinePlugin(offlinePluginOptions))
       }
       const workboxPluginOptions = this.getWorkboxPluginOptions()
       if (workboxPluginOptions) {
