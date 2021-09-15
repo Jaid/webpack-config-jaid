@@ -486,7 +486,7 @@ export default (options = {}) => {
     outputYaml(pluginsOutputFile, plugins)
   }
 
-  debug("Final Webpack config: %o", mergedConfig)
+  debug("Final Webpack config: %O", mergedConfig)
 
   return mergedConfig
 }
