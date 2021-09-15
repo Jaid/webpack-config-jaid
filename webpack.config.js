@@ -5,6 +5,8 @@ import {fileURLToPath} from "node:url"
 import {CleanWebpackPlugin} from "clean-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 
+import PublishimoPlugin from "./src/lib/esm/publishimo-webpack-plugin.js"
+
 const rootFolder = path.dirname(fileURLToPath(import.meta.url))
 const pkgFile = path.join(rootFolder, "package.json")
 const pkg = JSON.parse(fs.readFileSync(pkgFile))
@@ -32,6 +34,11 @@ const baseConfig = {
   },
   plugins: [
     new CleanWebpackPlugin,
+    new PublishimoPlugin({
+      autoMain: true,
+      banner: false,
+      includeFields: ["type"]
+    }),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -49,15 +56,13 @@ const baseConfig = {
       type: "module", // https://webpack.js.org/configuration/output/#librarytarget-module
     },
   },
-  optimization: {
-    minimize: false,
-  },
   experiments: {
     outputModule: true, // https://webpack.js.org/configuration/experiments/#experimentsoutputmodule
+    topLevelAwait: true
   },
   externals: async ({request}) => {
     if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
-      return  `module ${request}`
+      return `module ${request}`
      }
   }
 }
