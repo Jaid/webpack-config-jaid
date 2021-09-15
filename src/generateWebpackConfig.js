@@ -60,15 +60,6 @@ export default (options = {}) => {
     }
   }
 
-  if (options.esm === undefined) {
-    options.esm = pkg.type === "module"
-    if (options.esm) {
-      debug("ESM is enabled (this is experimental)")
-    }
-  }
-  // TODO Temporary
-  options.esm = true
-
   /**
    * @type {import("./types/WebpackConfigType").default}
    */
@@ -141,7 +132,6 @@ export default (options = {}) => {
     offline: false,
     pwa: false,
     browserSync: process.env.browserSync,
-    esm: true,
     ...typeDefaultOptions || {},
     ...options,
   }
@@ -266,6 +256,7 @@ export default (options = {}) => {
     output: {
       path: options.outDir,
       filename: "index.js",
+      module: true
     },
     stats: {
       all: false,
@@ -281,14 +272,10 @@ export default (options = {}) => {
       maxEntrypointSize: 4 * 1000 * 1000, // 4 MB
       maxAssetSize: 4 * 1000 * 1000, // 4 MB
     },
-  }
-
-  if (options.esm) {
-    config.experiments = {
+    experiments: {
       outputModule: true,
       topLevelAwait: true
     }
-    config.output.module = true
   }
 
   if (options.clean) {
@@ -347,6 +334,7 @@ export default (options = {}) => {
       autoMain: options.type === "cli" ? "bin" : true,
       autoTypes: Boolean(options.documentation),
       banner: false,
+      includeFields: ["type"]
     }
     if (options.nodeExternals === false) {
       publishimoConfig.excludeFields = [
@@ -354,9 +342,6 @@ export default (options = {}) => {
         "optionalDependencies",
         "peerDependencies",
       ]
-    }
-    if (options.esm) {
-      publishimoConfig.includeFields = ["type"]
     }
     if (typeof options.publishimo === "object") {
       Object.assign(publishimoConfig, options.publishimo)
