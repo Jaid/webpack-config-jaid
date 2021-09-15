@@ -283,9 +283,7 @@ export default (options = {}) => {
     config.experiments = {
       outputModule: true
     }
-    config.output = {
-      module: true,
-    }
+    config.output.module = true
   }
 
   if (options.clean) {
