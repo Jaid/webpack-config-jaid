@@ -5,7 +5,7 @@ import createDebug from "debug"
 import ensureArray from "ensure-array"
 import ensureStart from "lib/esm/ensure-start.js"
 import fs from "fs"
-import JsdocTsdWebpackPlugin from "jsdoc-tsd-webpack-plugin"
+import JsdocTsdWebpackPlugin from "lib/esm/jsdoc-tsd-webpack-plugin.js"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import {isObject, isString} from "lodash-es"
 import path from "path"
@@ -66,6 +66,8 @@ export default (options = {}) => {
       debug("ESM is enabled (this is experimental)")
     }
   }
+  // TODO Temporary
+  options.esm = true
 
   /**
    * @type {import("./types/WebpackConfigType").default}
@@ -281,7 +283,8 @@ export default (options = {}) => {
 
   if (options.esm) {
     config.experiments = {
-      outputModule: true
+      outputModule: true,
+      topLevelAwait: true
     }
     config.output.module = true
   }

@@ -1,10 +1,12 @@
 import path from "node:path"
-const reactTestRenderer = require("react-test-renderer")
-const React = require("react")
-const readFileString = require("read-file-string").default
+import reactTestRenderer from "react-test-renderer"
+import React from "react"
+import readFileStringModule from "read-file-string"
+
+const readFileString = readFileStringModule.default
 
 export default async ({packageOutDir, development}) => {
-  const Component = require(path.join(packageOutDir, "index.js")).default
+  const {default: Component} = await import (path.join(packageOutDir, "index.js"))
   const dom = React.createElement(Component, {
     className: "abc",
     text: "content",

@@ -1,5 +1,5 @@
 import camelcase from "camelcase"
-import CepPlugin from "cep-webpack-plugin"
+import CepPlugin from "lib/esm/cep-webpack-plugin.js"
 
 import webpackMerge from "lib/esm/webpack-merge.js"
 
