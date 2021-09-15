@@ -1,3 +1,3 @@
-import val from "./val.js?aot"
+import val from "./val.js"
 
 export default () => val

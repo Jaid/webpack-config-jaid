@@ -203,13 +203,15 @@ export default (options = {}) => {
         {
           test: /\.(js|jsx|ts|tsx)$/,
           oneOf: [
-            {
-              resourceQuery: /\?aot$/,
-              use: [
-                "aot-loader",
-                "babel-loader",
-              ],
-            },
+            // TODO aot-loader is only for CommonJS, because it's using package require-from-string
+            // Need to find (or create) an own loader using module-from-string
+            // {
+            //   resourceQuery: /\?aot$/,
+            //   use: [
+            //     "aot-loader",
+            //     "babel-loader",
+            //   ],
+            // },
             {
               include: entryFolder,
               loader: "babel-loader",
