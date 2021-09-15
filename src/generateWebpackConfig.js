@@ -316,11 +316,10 @@ export default (options = {}) => {
   }
 
   if (options.nodeExternals) {
-    config.externals = ({request}, callback) => { // eslint-disable-line promise/prefer-await-to-callbacks
+    config.externals = async ({request}) => {
       if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
-        return callback(null, `module ${request}`) // eslint-disable-line promise/prefer-await-to-callbacks
+        return  `module ${request}`
       }
-      callback() // eslint-disable-line promise/prefer-await-to-callbacks
     }
   }
 

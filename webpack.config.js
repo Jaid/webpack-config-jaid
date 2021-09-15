@@ -55,12 +55,11 @@ const baseConfig = {
   experiments: {
     outputModule: true, // https://webpack.js.org/configuration/experiments/#experimentsoutputmodule
   },
-  externals: ({request}, callback) => { // eslint-disable-line promise/prefer-await-to-callbacks
+  externals: async ({request}) => {
     if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
-      return callback(null, `module ${request}`) // eslint-disable-line promise/prefer-await-to-callbacks
-    }
-    callback() // eslint-disable-line promise/prefer-await-to-callbacks
-  },
+      return  `module ${request}`
+     }
+  }
 }
 
 export default baseConfig
