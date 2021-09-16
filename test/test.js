@@ -3,7 +3,7 @@ import "jest-extended"
 import fss from "@absolunet/fss"
 import {expect, it} from "@jest/globals"
 import createDebug from "debug"
-import getFolderSizeModule from "get-folder-size"
+import getFolderSize from "get-folder-size"
 import {isFunction} from "lodash-es"
 import ms from "ms.macro"
 import path from "node:path"
@@ -18,7 +18,6 @@ import readableMs from "lib/esm/readable-ms.js"
 import readableThousands from "../src/lib/readableThousands"
 
 const webpack = pify(webpackModule)
-const getFolderSize = pify(getFolderSizeModule)
 
 const debug = createDebug("test")
 const dirName = path.dirname(fileURLToPath(import.meta.url))
