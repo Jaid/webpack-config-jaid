@@ -9,7 +9,7 @@ import JsdocTsdWebpackPlugin from "lib/esm/jsdoc-tsd-webpack-plugin.js"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import {isObject, isString} from "lodash-es"
 import path from "path"
-import readPkg from "read-pkg"
+import {readPackageSync} from "read-pkg"
 import TerserPlugin from "terser-webpack-plugin"
 import webpack from "webpack"
 
@@ -36,7 +36,7 @@ export default (options = {}) => {
 
   let pkg
   try {
-    pkg = readPkg.sync({
+    pkg = readPackageSync({
       cwd: options.packageRoot || String(appRootPath),
       normalize: true,
     })
