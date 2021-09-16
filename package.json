@@ -103,8 +103,7 @@
     "readable-ms": "^2.0.4",
     "rimraf": "^3.0.2",
     "sort-keys": "^4.2.0",
-    "tsconfig-jaid": "^2.1.1",
-    "winston": "^3.3.3"
+    "tsconfig-jaid": "^2.1.1"
   },
   "scripts": {
     "clean": "rimraf dist/",
