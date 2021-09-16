@@ -35,7 +35,6 @@ const baseConfig = {
   plugins: [
     new CleanWebpackPlugin,
     new PublishimoPlugin({
-      autoMain: true,
       banner: false,
       includeFields: ["type"]
     }),
@@ -43,7 +42,9 @@ const baseConfig = {
       patterns: [
         {
           from: "license.txt",
-          noErrorOnMissing: true,
+        },
+        {
+          from: "assets.d.ts",
         },
       ],
     }),
