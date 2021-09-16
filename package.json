@@ -79,7 +79,6 @@
     "babel-preset-jaid": "^14.0.0",
     "browserslist-config-jaid-node": "^3.0.0",
     "browserslist-config-jaid-universal": "^3.0.0",
-    "chalk": "^4.1.1",
     "classnames": "^2.3.1",
     "coffee": "^5.4.0",
     "cross-env": "^7.0.3",
