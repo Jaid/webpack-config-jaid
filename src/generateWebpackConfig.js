@@ -271,7 +271,8 @@ export default (options = {}) => {
     },
     experiments: {
       outputModule: true,
-      topLevelAwait: true
+      topLevelAwait: true,
+      futureDefaults: true
     }
   }
 
