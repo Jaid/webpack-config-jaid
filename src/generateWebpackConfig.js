@@ -181,9 +181,6 @@ export default (options = {}) => {
   const config = {
     entry,
     context: path.resolve(options.packageRoot),
-    resolve: {
-      extensions: [".js", ".jsx", ".ts", ".tsx", ".json", ".yml"],
-    },
     mode: options.development ? "development" : "production",
     devtool: options.development ? "eval-source-map" : "source-map",
     optimization: {},
