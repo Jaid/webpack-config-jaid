@@ -20,6 +20,9 @@ const isDevelopment = env !== "production"
  */
 const baseConfig = {
   target: "node16",
+  optimization: {
+    nodeEnv: false,
+  },
   context: rootFolder,
   mode: isDevelopment ? "development" : "production",
   devtool: isDevelopment ? "eval-source-map" : "source-map",
