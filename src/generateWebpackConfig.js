@@ -316,7 +316,7 @@ export default (options = {}) => {
     }
     if (externalsStrategy === "packageRegex") {
       config.externals = async ({request}) => {
-        if (/^@?([\d.a-z-]+\/)*([\d.a-z-]+)$/.test(request)) {
+        if (/^@?([\da-z-]+\/)*([\da-z-]+)$/.test(request)) {
           return `module ${request}`
         }
       }

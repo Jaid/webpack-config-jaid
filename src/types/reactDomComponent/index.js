@@ -4,6 +4,12 @@ import UniversalClass from "../universalClass/index.js"
 
 export default class extends UniversalClass {
 
+  getDefaultOptions() {
+    return {
+      nodeExternals: false,
+    }
+  }
+
   /**
    * @function
    * @param {import("../WebpackConfigType").GetWebpackConfigContext} context
