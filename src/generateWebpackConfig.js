@@ -305,9 +305,20 @@ export default (options = {}) => {
   }
 
   if (options.nodeExternals) {
-    config.externals = async ({request}) => {
-      if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
-        return `module ${request}`
+    const externalsStrategy = isString(options.nodeExternals) ? options.nodeExternals : "pkg"
+    debug("Externals strategy: %s", externalsStrategy)
+    if (externalsStrategy === "pkg") {
+      config.externals = async ({request}) => {
+        if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
+          return `module ${request}`
+        }
+      }
+    }
+    if (externalsStrategy === "packageRegex") {
+      config.externals = async ({request}) => {
+        if (/^@?([\d.a-z-]+\/)*([\d.a-z-]+)$/.test(request)) {
+          return `module ${request}`
+        }
       }
     }
   }

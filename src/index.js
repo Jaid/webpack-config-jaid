@@ -21,7 +21,7 @@ import generateWebpackConfig from "./generateWebpackConfig.js"
  * @prop {array} [include=["readme.*","license.*"]] Files (relative to project directory) that get copied to dist directory
  * @prop {boolean|object} [publishimo=false] Set to true to include publishimo-webpack-plugin, or set as object to add options for the plugin instance
  * @prop {boolean|object} [documentation=false] Set to true to include jsdoc-tsd-webpack-plugin, or set as object to add options for the plugin instance
- * @prop {boolean} [nodeExternals=true] If true, package dependencies will be loaded at runtime with require(), if false, they will be bundled
+ * @prop {boolean|"pkg"|"packageRegex"} [nodeExternals=true] If true or string, package dependencies will be loaded at runtime (with import-from statements), if false, they will be bundled
  * @prop {boolean|string} [configOutput = Boolean(process.env.debugWebpack)] If true, generated Webpack config and plugin info will be written to `dist/webpack-config-jaid`
  * @prop {boolean|string[]|object} [clean=!options.development] If false, no files and folders will be removed. If true, removed folders will be decided automatically. If an array is given, its paths will be removed. If an object is given, removed folders will be decided automatically and `options.clean` will be forwarded to the constructor of CleanWebpackPlugin.
  * @prop {string} [title=null] Project title
