@@ -307,18 +307,25 @@ export default (options = {}) => {
   if (options.nodeExternals) {
     const externalsStrategy = isString(options.nodeExternals) ? options.nodeExternals : "pkg"
     debug("Externals strategy: %s", externalsStrategy)
-    if (externalsStrategy === "pkg") {
-      config.externals = async ({request}) => {
+    const externalsStrategies = {
+      pkg: request => {
         if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
           return `module ${request}`
         }
-      }
-    }
-    if (externalsStrategy === "packageRegex") {
-      config.externals = async ({request}) => {
+      },
+      packageRegex: request => {
         if (/^@?([\da-z-]+\/)*([\da-z-]+)$/.test(request)) {
           return `module ${request}`
         }
+      },
+    }
+    config.externals = async ({request}) => {
+      const resolvingChoice = externalsStrategies[externalsStrategy](request)
+      if (resolvingChoice) {
+        debug("External: %s", request)
+        return resolvingChoice
+      } else {
+        debug("Bundling: %s", request)
       }
     }
   }
