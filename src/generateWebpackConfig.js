@@ -112,7 +112,7 @@ export default (options = {}) => {
     },
     publishimo: false,
     documentation: false,
-    nodeExternals: true,
+    nodeExternals: "packageRegex",
     configOutput: Boolean(process.env.debugWebpack),
     title: pkg.title || null,
     robots: false,
