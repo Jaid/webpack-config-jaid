@@ -1,21 +1,23 @@
 import "jest-extended"
 
-import fss from "@absolunet/fss"
 import {expect, it} from "@jest/globals"
+
+import path from "node:path"
+import {fileURLToPath} from "node:url"
+
+import fss from "@absolunet/fss"
 import createDebug from "debug"
 import getFolderSize from "get-folder-size"
 import {isFunction} from "lodash-es"
 import ms from "ms.macro"
-import path from "node:path"
 import pify from "pify"
 import readFileYaml from "read-file-yaml"
 import sortKeys from "sort-keys"
-import {fileURLToPath} from "url"
 import webpackModule from "webpack"
 
 import readableMs from "lib/esm/readable-ms.js"
 
-import readableThousands from "../src/lib/readableThousands"
+import readableThousands from "../src/lib/readableThousands.js"
 
 const webpack = pify(webpackModule)
 

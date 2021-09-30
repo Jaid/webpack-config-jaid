@@ -1,4 +1,4 @@
-import path from "path"
+import path from "node:path"
 
 export default async ({packageOutDir}) => {
   const {default: self} = await import(path.join(packageOutDir, "index.js"))

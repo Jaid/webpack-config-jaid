@@ -1,6 +1,7 @@
+import path from "node:path"
+
 import fss from "@absolunet/fss"
 import coffee from "coffee"
-import path from "path"
 
 export default async ({packageOutDir}) => {
   const self = path.join(packageOutDir, "cli.js")

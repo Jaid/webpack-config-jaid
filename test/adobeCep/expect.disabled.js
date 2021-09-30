@@ -1,5 +1,5 @@
-import fs from "fs"
-import path from "path"
+import fs from "node:fs"
+import path from "node:path"
 
 // Renamed from expect.js to expect.disabled.js
 // because compiling expect.js in an webapp test does crash for some reason

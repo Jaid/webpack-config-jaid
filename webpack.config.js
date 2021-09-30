@@ -39,7 +39,7 @@ const baseConfig = {
     new CleanWebpackPlugin,
     new PublishimoPlugin({
       banner: false,
-      includeFields: ["type"]
+      includeFields: ["type"],
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -62,13 +62,13 @@ const baseConfig = {
   },
   experiments: {
     outputModule: true, // https://webpack.js.org/configuration/experiments/#experimentsoutputmodule
-    topLevelAwait: true
+    topLevelAwait: true,
   },
   externals: async ({request}) => {
     if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
       return `module ${request}`
-     }
-  }
+    }
+  },
 }
 
 export default baseConfig

@@ -1,4 +1,5 @@
 import webpackMerge from "lib/esm/webpack-merge.js"
+
 import Node from "../node/index.js"
 
 export default class extends Node {

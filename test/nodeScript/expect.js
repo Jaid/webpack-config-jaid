@@ -1,4 +1,5 @@
 import path from "node:path"
+
 import fs from "fs-extra"
 
 export default async ({packageOutDir, outDir, expect}) => {

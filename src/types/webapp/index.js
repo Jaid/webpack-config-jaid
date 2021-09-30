@@ -5,14 +5,14 @@ import CnamePlugin from "cname-webpack-plugin"
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 import createDebug from "debug"
 import {escape, isObject, omit, uniq} from "lodash-es"
-import LogWatcherPlugin from "lib/esm/log-watcher-webpack-plugin.js"
-import SitemapXmlPlugin from "lib/esm/sitemap-xml-webpack-plugin.js"
 import urlJoin from "url-join"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 import WorkboxPlugin from "workbox-webpack-plugin"
 
 import ensureStart from "lib/esm/ensure-start.js"
 import HtmlFaviconPlugin from "lib/esm/html-favicon-webpack-plugin.js"
+import LogWatcherPlugin from "lib/esm/log-watcher-webpack-plugin.js"
+import SitemapXmlPlugin from "lib/esm/sitemap-xml-webpack-plugin.js"
 import webpackMerge from "lib/esm/webpack-merge.js"
 
 import Html from "../html/index.js"
@@ -377,15 +377,15 @@ export default class extends Html {
           port: this.port,
           hot: true,
           client: {
-           overlay: true,
+            overlay: true,
           },
           // headers: {"Access-Control-Allow-Origin": "*"},
           historyApiFallback: true,
         },
         plugins: [
           new ReactRefreshPlugin,
-          new LogWatcherPlugin
-        ]
+          new LogWatcherPlugin,
+        ],
       }
     }
     webpackConfig.plugins.push(new HtmlFaviconPlugin(this.getHtmlFaviconPluginOptions()))

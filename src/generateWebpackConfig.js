@@ -1,19 +1,20 @@
+import fs from "node:fs"
+import path from "node:path"
+
 import appRootPath from "app-root-path"
 import {CleanWebpackPlugin} from "clean-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import createDebug from "debug"
 import ensureArray from "ensure-array"
-import ensureStart from "lib/esm/ensure-start.js"
-import fs from "fs"
-import JsdocTsdWebpackPlugin from "lib/esm/jsdoc-tsd-webpack-plugin.js"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import {isObject, isString} from "lodash-es"
-import path from "path"
 import {readPackageSync} from "read-pkg"
 import TerserPlugin from "terser-webpack-plugin"
 import webpack from "webpack"
 
+import ensureStart from "lib/esm/ensure-start.js"
 import hasContent from "lib/esm/has-content.js"
+import JsdocTsdWebpackPlugin from "lib/esm/jsdoc-tsd-webpack-plugin.js"
 import PkgBannerPlugin from "lib/esm/pkg-banner-webpack-plugin.js"
 import PublishimoWebpackPlugin from "lib/esm/publishimo-webpack-plugin.js"
 import webpackMerge from "lib/esm/webpack-merge.js"
@@ -132,7 +133,7 @@ export default (options = {}) => {
     offline: false,
     pwa: false,
     browserSync: process.env.browserSync,
-    ...typeDefaultOptions || {},
+    ...typeDefaultOptions,
     ...options,
   }
 
@@ -253,7 +254,7 @@ export default (options = {}) => {
     output: {
       path: options.outDir,
       filename: "index.js",
-      module: true
+      module: true,
     },
     stats: {
       all: false,
@@ -272,8 +273,8 @@ export default (options = {}) => {
     experiments: {
       outputModule: true,
       topLevelAwait: true,
-      futureDefaults: true
-    }
+      futureDefaults: true,
+    },
   }
 
   if (options.clean) {
@@ -306,7 +307,7 @@ export default (options = {}) => {
   if (options.nodeExternals) {
     config.externals = async ({request}) => {
       if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
-        return  `module ${request}`
+        return `module ${request}`
       }
     }
   }
@@ -332,7 +333,7 @@ export default (options = {}) => {
       autoMain: options.type === "cli" ? "bin" : true,
       autoTypes: Boolean(options.documentation),
       banner: false,
-      includeFields: ["type"]
+      includeFields: ["type"],
     }
     if (options.nodeExternals === false) {
       publishimoConfig.excludeFields = [
