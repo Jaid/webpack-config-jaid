@@ -78,6 +78,7 @@
     "babel-preset-jaid": "^14.0.0",
     "browserslist-config-jaid-node": "^3.0.0",
     "browserslist-config-jaid-universal": "^3.0.0",
+    "chalk": "^4.1.2",
     "classnames": "^2.3.1",
     "coffee": "^5.4.0",
     "delay": "^5.0.0",
@@ -102,7 +103,8 @@
     "readable-ms": "^2.0.4",
     "rimraf": "^3.0.2",
     "sort-keys": "^5.0.0",
-    "tsconfig-jaid": "^2.1.1"
+    "tsconfig-jaid": "^2.1.1",
+    "yargs": "^17.2.1"
   },
   "scripts": {
     "clean": "rimraf dist/",
