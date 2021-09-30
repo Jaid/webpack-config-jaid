@@ -9,5 +9,5 @@ export default async ({packageOutDir}) => {
   expect(selfContent).toMatch(/^#!\/usr\/bin\/env node/)
   await coffee.fork(self, ["--version"]).expect("code", 0).expect("stdout", /^1.0.0/).end()
   await coffee.fork(self, ["moin"]).expect("code", 0).expect("stdout", /^MOIN$/).end()
-  await coffee.fork(self, ["moin", "--color"]).expect("code", 0).expect("stdout", /MOIN$/).end()
+  await coffee.fork(self, ["moin", "--color"]).expect("code", 0).expect("stdout", /.+MOIN.+/).end()
 }
