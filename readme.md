@@ -9,7 +9,11 @@
 
 #### Opinionated
 
-This project is tailored to my personal needs and workflows and therefore highly opinionated. Feel free to use it or get inspired by it, but please do not get frustrated if you come across weird features or difficulties integrating it in your own ecosystem.
+:warning: This project is tailored to my personal needs and workflows and therefore highly opinionated. Feel free to use it or get inspired by it, but please do not get frustrated if you come across weird features or difficulties integrating it in your own ecosystem.
+
+#### Pure ESM library
+
+:information_source: This package has only ESM exports. You should `import` it from MJS files or [read more here](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
 
 
 
@@ -58,7 +62,6 @@ generatorCorePlugin|
 executable|
 html|
 node|
-
 
 
 
@@ -116,6 +119,6 @@ npm run test
 Copyright © 2021, Jaid \<jaid.jsx@gmail.com> (https://github.com/jaid)
 
 <!---
-Readme generated with tldw v7.1.0
+Readme generated with tldw v7.3.1
 https://github.com/Jaid/tldw
 -->
