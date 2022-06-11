@@ -19,18 +19,4 @@ export default class extends Node {
     }
   }
 
-  /**
-   * @function
-   * @param {import("../WebpackConfigType").GetWebpackConfigContext} context
-   */
-  getWebpackConfig() {
-    const nodeConfig = super.getWebpackConfig()
-    const config = {
-      output: {
-        filename: "cli.js",
-      },
-    }
-    return webpackMerge(nodeConfig, config)
-  }
-
 }

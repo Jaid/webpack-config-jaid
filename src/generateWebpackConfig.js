@@ -165,14 +165,14 @@ export default (options = {}) => {
 
   const entryFolder = options.sourceFolder ? fromRoot(options.sourceFolder) : options.packageRoot
 
-  let entry
+  let entryPath
   const specificEntry = path.join(entryFolder, `index.${env}.js`)
   if (fs.existsSync(specificEntry)) {
-    entry = specificEntry
+    entryPath = specificEntry
     debug("Using environment-specific entry %s", specificEntry)
   } else {
     const defaultEntry = entryFolder
-    entry = defaultEntry
+    entryPath = defaultEntry
     debug("Could not find entry %s, using %s instead", specificEntry, defaultEntry)
   }
 
@@ -180,7 +180,10 @@ export default (options = {}) => {
    * @type {import("webpack").Configuration}
    */
   const config = {
-    entry,
+    entry: {
+      import: entryPath,
+      filename: "index.js",
+    },
     context: path.resolve(options.packageRoot),
     mode: options.development ? "development" : "production",
     devtool: options.development ? "eval-source-map" : "source-map",
@@ -244,6 +247,12 @@ export default (options = {}) => {
           ],
         },
       ],
+      parser: {
+        javascript: {
+          importMeta: true,
+          importMetaContext: true,
+        },
+      },
     },
     plugins: [
       new webpack.LoaderOptionsPlugin({
@@ -255,6 +264,8 @@ export default (options = {}) => {
       path: options.outDir,
       filename: "index.js",
       module: true,
+      chunkFormat: "module",
+      chunkLoading: "import",
     },
     stats: {
       all: false,
@@ -397,6 +408,30 @@ export default (options = {}) => {
   }
 
   if (!options.development) {
+    Object.assign(config.output, {
+      filename: "[name].js",
+      chunkFilename: "[id].js",
+      asyncChunks: true,
+    })
+    Object.assign(config.optimization, {
+      chunkIds: "deterministic",
+      concatenateModules: true,
+      mangleExports: "size",
+      removeAvailableModules: true,
+      runtimeChunk: {
+        name: "runtime",
+      },
+      splitChunks: {
+        chunks: "async",
+        cacheGroups: {
+          defaultVendors: {
+            test: /[/\\]node_modules[/\\]/,
+            name: "vendor",
+            chunks: "all",
+          },
+        },
+      },
+    })
     if (options.terserOptions === false) {
       debug("terserOptions is false, skipping minification")
       config.optimization.minimize = false
