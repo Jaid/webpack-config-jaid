@@ -404,6 +404,7 @@ export default (options = {}) => {
     config.plugins.push(new webpack.BannerPlugin({
       banner: ensureStart(options.hashbang.trim(), "#!"),
       raw: true,
+      entryOnly: true,
     }))
   }
 
