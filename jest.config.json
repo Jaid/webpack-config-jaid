@@ -23,5 +23,5 @@
     "^lib": "<rootDir>/src/lib"
   },
   "maxWorkers": 1,
-  "verbose": true
+  "verbose": false
 }
