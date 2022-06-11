@@ -418,7 +418,7 @@ export default class extends WebpackConfigType {
       },
       output: {
         publicPath: this.publicPath,
-        filename: options.development ? "index.js" : `${this.pkg.version || "[chunkhash:6]"}.js`,
+        filename: options.development ? undefined : `${this.pkg.version || "[chunkhash:6]"}.js`,
       },
       module: {
         rules: [

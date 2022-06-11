@@ -181,8 +181,7 @@ export default (options = {}) => {
    */
   const config = {
     entry: {
-      import: entryPath,
-      filename: "index.js",
+      index: entryPath,
     },
     context: path.resolve(options.packageRoot),
     mode: options.development ? "development" : "production",
@@ -261,8 +260,8 @@ export default (options = {}) => {
       }),
     ],
     output: {
+      hashFunction: "sha256", // TODO Remove later, see https://stackoverflow.com/a/69476335
       path: options.outDir,
-      filename: "index.js",
       module: true,
       chunkFormat: "module",
       chunkLoading: "import",

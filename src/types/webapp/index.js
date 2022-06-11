@@ -367,11 +367,14 @@ export default class extends Html {
         watchOptions: {
           ignored: uniq(ignoredPaths),
         },
-        entry: [ // entry taken from here: https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md#migration-guide
-          "webpack/hot/dev-server.js",
-          "webpack-dev-server/client/index.js?hot=true&live-reload=true",
-          initialWebpackConfig.entry,
-        ],
+        entry: { // entry taken from here: https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md#migration-guide
+          devServer: {
+            import: "webpack/hot/dev-server.js",
+            filename: "devServer.js",
+          },
+          devServerClient: "webpack-dev-server/client/index.js?hot=true&live-reload=true",
+          ...initialWebpackConfig.entry,
+        },
         devServer: {
           // publicPath: this.publicPath,
           port: this.port,

@@ -53,6 +53,7 @@ const baseConfig = {
     }),
   ],
   output: {
+    hashFunction: "sha256", // TODO Remove later, see https://stackoverflow.com/a/69476335
     path: path.join(rootFolder, "dist", "package", env),
     module: true, // https://webpack.js.org/configuration/output/#outputmodule
     filename: "index.js", // https://webpack.js.org/configuration/output/#outputfilename
