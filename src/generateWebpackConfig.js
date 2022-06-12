@@ -172,7 +172,7 @@ export default (options = {}) => {
     debug("Using environment-specific entry %s", specificEntry)
   } else {
     const defaultEntry = entryFolder
-    entryPath = defaultEntry
+    entryPath = path.join(defaultEntry, "index.js")
     debug("Could not find entry %s, using %s instead", specificEntry, defaultEntry)
   }
 
