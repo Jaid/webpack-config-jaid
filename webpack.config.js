@@ -19,7 +19,7 @@ const isDevelopment = env !== "production"
  * @type {import("webpack").Configuration}
  */
 const baseConfig = {
-  target: "node16",
+  target: "node18.3",
   optimization: {
     nodeEnv: false,
   },
@@ -64,6 +64,7 @@ const baseConfig = {
   experiments: {
     outputModule: true, // https://webpack.js.org/configuration/experiments/#experimentsoutputmodule
     topLevelAwait: true,
+    futureDefaults: true,
   },
   externals: async ({request}) => {
     if (pkg.dependencies?.[request] || pkg.peerDependencies?.[request]) {
