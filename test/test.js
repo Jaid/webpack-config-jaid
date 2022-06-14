@@ -126,7 +126,7 @@ function addTest(name, meta) {
 }
 
 for (const entry of fss.readdir(dirName)) {
-  if (disabledTests.includes(dirName)) {
+  if (disabledTests.includes(entry)) {
     continue
   }
   const entryPath = path.join(dirName, entry)
@@ -137,10 +137,12 @@ for (const entry of fss.readdir(dirName)) {
   }
 }
 
-addTest("webapp", {
-  env: "development",
-  hmr: true,
-})
+if (!disabledTests.includes("webapp")) {
+  addTest("webapp", {
+    env: "development",
+    hmr: true,
+  })
+}
 
 afterAll(() => {
   for (const {name, before, after} of sizeChanges) {
