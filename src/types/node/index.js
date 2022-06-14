@@ -30,7 +30,7 @@ export default class extends WebpackConfigType {
   getWebpackConfig(context) {
     const parentConfig = super.getWebpackConfig(context)
     const nodeConfig = {
-      target: "node16",
+      target: "node18",
       optimization: {
         nodeEnv: false,
       },
