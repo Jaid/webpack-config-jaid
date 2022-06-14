@@ -90,6 +90,7 @@
     "get-folder-size": "^3.1.0",
     "jest": "^28.1.1",
     "jest-extended": "^2.0.0",
+    "jest-light-runner": "^0.2.1",
     "modern-normalize": "^1.1.0",
     "pify": "^6.0.0",
     "pretty-bytes": "^6.0.0",

@@ -1,9 +1,7 @@
 import "jest-extended"
 
-import {afterAll, expect, test} from "@jest/globals"
-
 import path from "node:path"
-import {fileURLToPath} from "node:url"
+import {fileURLToPath, pathToFileURL} from "node:url"
 
 import fss from "@absolunet/fss"
 import createDebug from "debug"
@@ -11,24 +9,19 @@ import getFolderSize from "get-folder-size"
 import {isFunction} from "lodash-es"
 import pify from "pify"
 import readFileYaml from "read-file-yaml"
-import segfaultHandler from "segfault-handler"
 import sortKeys from "sort-keys"
 import webpackModule from "webpack"
 
-import webpackConfigJaid from "../src/index.js"
 import readableMs from "../src/lib/esm/readable-ms.js"
 import readableThousands from "../src/lib/readableThousands.js"
-
-debugger
-segfaultHandler.registerHandler("crash.log")
 
 const webpack = pify(webpackModule)
 
 const debug = createDebug("test")
 const dirName = path.dirname(fileURLToPath(import.meta.url))
-// const indexPath = process.env.MAIN ? path.resolve(dirName, "..", process.env.MAIN) : path.join(dirName, "..", "src", "index.js")
-// debug("Testing build: %s", indexPath)
-// const webpackConfigJaid = await import(indexPath)
+const indexPath = process.env.MAIN ? path.resolve(dirName, "..", process.env.MAIN) : path.join(dirName, "..", "src", "index.js")
+debug("Testing build: %s", indexPath)
+const {default: webpackConfigJaid} = await import(pathToFileURL(indexPath))
 debug("%O", webpackConfigJaid)
 
 const sizeChanges = []
@@ -36,7 +29,7 @@ const sizeChanges = []
 function addTest(name, meta) {
   debug("Adding test %s %o", name, meta)
   const testName = `${name} ${Object.entries(meta).map(entry => `${entry[0]}=${entry[1]}`).join(" ")}`
-  test(testName, async () => {
+  it(testName, async () => {
     const packageRoot = path.join(dirName, name)
     const configPath = path.join(packageRoot, "webpack.config.js")
     const jaidConfigPath = path.join(packageRoot, "jaidConfig.js")
@@ -58,12 +51,12 @@ function addTest(name, meta) {
     const startTime = Date.now()
     let webpackConfig
     if (fss.pathExists(configPath)) {
-      const webpackConfigModule = await import(configPath)
+      const webpackConfigModule = await import(pathToFileURL(configPath))
       webpackConfig = webpackConfigModule.default(webpackConfigJaid, packageRoot, packageOutDir, development)
     } else {
       let importedJaidConfig = {}
       if (fss.pathExists(jaidConfigPath)) {
-        const importedJaidConfigModule = await import(jaidConfigPath)
+        const importedJaidConfigModule = await import(pathToFileURL(jaidConfigPath))
         importedJaidConfig = importedJaidConfigModule.default
         if (isFunction(importedJaidConfig)) {
           importedJaidConfig = importedJaidConfig({
@@ -115,7 +108,7 @@ function addTest(name, meta) {
       outputObject("stats", statsJson)
     }
     if (fss.pathExists(expectScriptPath)) {
-      const {default: selfTest} = await import(expectScriptPath)
+      const {default: selfTest} = await import(pathToFileURL(expectScriptPath))
       await selfTest({
         name,
         packageRoot,
@@ -129,29 +122,22 @@ function addTest(name, meta) {
         meta,
       })
     }
-  }, 1000 * 60 * 5)
+  }, 1000 * 60 * 5) // 5 minutes
 }
 
 for (const entry of fss.readdir(dirName)) {
-  if (entry !== "minimal") { // TODO Enable again
-    continue
-  }
   const entryPath = path.join(dirName, entry)
   if (fss.stat(entryPath).isDirectory()) {
     for (const env of ["development", "production"]) {
-      if (env !== "development") { // TODO Enable again
-        continue
-      }
       addTest(entry, {env})
     }
   }
 }
 
-// TODO Enable again
-// addTest("webapp", {
-//   env: "development",
-//   hmr: true,
-// })
+addTest("webapp", {
+  env: "development",
+  hmr: true,
+})
 
 afterAll(() => {
   for (const {name, before, after} of sizeChanges) {

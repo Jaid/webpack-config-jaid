@@ -4,7 +4,7 @@ import fss from "@absolunet/fss"
 import coffee from "coffee"
 
 export default async ({packageOutDir}) => {
-  const self = path.join(packageOutDir, "cli.js")
+  const self = path.join(packageOutDir, "index.js")
   const selfContent = fss.readFile(self, "utf8")
   expect(selfContent).toMatch("#!/usr/bin/env node")
   expect(selfContent).toMatch("process.stdout.write")
