@@ -1,6 +1,6 @@
 import webpack from "webpack"
 
-import webpackMerge from "lib/esm/webpack-merge.js"
+import webpackMerge from "../../esm/webpack-merge.js"
 
 import WebpackConfigType from "../WebpackConfigType.js"
 

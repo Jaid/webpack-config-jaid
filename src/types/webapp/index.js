@@ -9,11 +9,11 @@ import urlJoin from "url-join"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 import WorkboxPlugin from "workbox-webpack-plugin"
 
-import ensureStart from "lib/esm/ensure-start.js"
-import HtmlFaviconPlugin from "lib/esm/html-favicon-webpack-plugin.js"
-import LogWatcherPlugin from "lib/esm/log-watcher-webpack-plugin.js"
-import SitemapXmlPlugin from "lib/esm/sitemap-xml-webpack-plugin.js"
-import webpackMerge from "lib/esm/webpack-merge.js"
+import ensureStart from "../../esm/ensure-start.js"
+import HtmlFaviconPlugin from "../../esm/html-favicon-webpack-plugin.js"
+import LogWatcherPlugin from "../../esm/log-watcher-webpack-plugin.js"
+import SitemapXmlPlugin from "../../esm/sitemap-xml-webpack-plugin.js"
+import webpackMerge from "../../esm/webpack-merge.js"
 
 import Html from "../html/index.js"
 

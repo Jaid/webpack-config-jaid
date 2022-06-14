@@ -7,8 +7,8 @@ import {isObject} from "lodash-es"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import webpack from "webpack"
 
-import HtmlInlineCssPlugin from "lib/esm/html-inline-css-webpack-plugin.js"
-import InjectBodyPlugin from "lib/esm/inject-body-webpack-plugin.js"
+import HtmlInlineCssPlugin from "../../esm/html-inline-css-webpack-plugin.js"
+import InjectBodyPlugin from "../../esm/inject-body-webpack-plugin.js"
 
 import getPostcssConfig from "../../lib/getPostcssConfig.js"
 import isCi from "../../lib/isCi.js"

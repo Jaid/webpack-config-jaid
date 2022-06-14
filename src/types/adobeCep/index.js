@@ -1,8 +1,7 @@
 import camelcase from "camelcase"
 
-import CepPlugin from "lib/esm/cep-webpack-plugin.js"
-import webpackMerge from "lib/esm/webpack-merge.js"
-
+import CepPlugin from "../../lib/esm/cep-webpack-plugin.js"
+import webpackMerge from "../../lib/esm/webpack-merge.js"
 import Html from "../html/index.js"
 
 export default class extends Html {
