@@ -41,12 +41,12 @@ export default class extends WebpackConfigType {
   /**
    * @type {string}
    */
-  title=null
+  title = null
 
   /**
    * @type {string}
    */
-  description=null
+  description = null
 
   /**
    * @type {Object}
