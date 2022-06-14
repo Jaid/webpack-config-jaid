@@ -22,12 +22,10 @@ const dirName = path.dirname(fileURLToPath(import.meta.url))
 const indexPath = process.env.MAIN ? path.resolve(dirName, "..", process.env.MAIN) : path.join(dirName, "..", "src", "index.js")
 debug("Testing build: %s", indexPath)
 const {default: webpackConfigJaid} = await import(pathToFileURL(indexPath))
-debug("%O", webpackConfigJaid)
 
 const sizeChanges = []
 
 function addTest(name, meta) {
-  debug("Adding test %s %o", name, meta)
   const testName = `${name} ${Object.entries(meta).map(entry => `${entry[0]}=${entry[1]}`).join(" ")}`
   it(testName, async () => {
     const packageRoot = path.join(dirName, name)
@@ -86,7 +84,7 @@ function addTest(name, meta) {
     }
     try {
       const packageSize = await getFolderSize(packageOutDir)
-      benchmark.packageBytes = packageSize
+      benchmark.packageBytes = packageSize.size
       benchmark.codeBytes = fss.stat(path.join(packageOutDir, "index.js")).size
     } catch {}
     if (oldStats?.packageBytes) {
