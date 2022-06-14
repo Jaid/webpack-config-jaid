@@ -150,8 +150,8 @@ afterAll(() => {
       changeWord = "smaller"
     }
     debug("%s got %s:", name, changeWord)
-    debug("| %s%d B", differenceSymbol, readableThousands(difference))
-    debug("| Before: %d B (%d)", readableThousands(before.packageBytes), readableMs(before.ms))
-    debug("| After: %d B (%d)", readableThousands(after.packageBytes), readableMs(after.ms))
+    debug("| %s%s B", differenceSymbol, readableThousands(difference))
+    debug("| Before: %s B (%s)", readableThousands(before.packageBytes), readableMs(before.ms))
+    debug("| After: %s B (%s)", readableThousands(after.packageBytes), readableMs(after.ms))
   }
 })
