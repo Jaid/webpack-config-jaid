@@ -404,6 +404,7 @@ export default (options = {}) => {
       banner: ensureStart(options.hashbang.trim(), "#!"),
       raw: true,
       entryOnly: true,
+      test: "index",
     }))
   }
 
