@@ -14,7 +14,6 @@ import HtmlFaviconPlugin from "../../esm/html-favicon-webpack-plugin.js"
 import LogWatcherPlugin from "../../esm/log-watcher-webpack-plugin.js"
 import SitemapXmlPlugin from "../../esm/sitemap-xml-webpack-plugin.js"
 import webpackMerge from "../../esm/webpack-merge.js"
-
 import Html from "../html/index.js"
 
 const debug = createDebug(process.env.REPLACE_PKG_NAME)

@@ -9,7 +9,6 @@ import webpack from "webpack"
 
 import HtmlInlineCssPlugin from "../../esm/html-inline-css-webpack-plugin.js"
 import InjectBodyPlugin from "../../esm/inject-body-webpack-plugin.js"
-
 import getPostcssConfig from "../../lib/getPostcssConfig.js"
 import isCi from "../../lib/isCi.js"
 import WebpackConfigType from "../WebpackConfigType.js"
