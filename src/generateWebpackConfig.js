@@ -1,4 +1,3 @@
-import fs from "node:fs"
 import path from "node:path"
 
 import appRootPath from "app-root-path"
@@ -6,6 +5,7 @@ import {CleanWebpackPlugin} from "clean-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import createDebug from "debug"
 import ensureArray from "ensure-array"
+import fsExtra from "fs-extra"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import {isObject, isString} from "lodash-es"
 import {readPackageSync} from "read-pkg"
@@ -166,7 +166,7 @@ export default (options = {}) => {
 
   let entryPath
   const specificEntry = path.join(entryFolder, `index.${env}.js`)
-  if (fs.existsSync(specificEntry)) {
+  if (fsExtra.pathExistsSync(specificEntry)) {
     entryPath = specificEntry
     debug("Using environment-specific entry %s", specificEntry)
   } else {
