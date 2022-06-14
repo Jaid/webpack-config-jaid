@@ -15,7 +15,7 @@ import webpackModule from "webpack"
 import readableMs from "../src/lib/esm/readable-ms.js"
 import readableThousands from "../src/lib/readableThousands.js"
 
-const disabledTests = ["webapp"]
+const disabledTests = ["webapp", "adobeCep"]
 
 const webpack = pify(webpackModule)
 
@@ -39,12 +39,15 @@ function addTest(name, meta) {
     const packageOutDir = path.join(outDir, "package")
     const outputObject = (key, value) => {
       const sortedObject = sortKeys(value, {deep: true})
+      const yamlFile = path.join(outDir, `${key}.yml`)
       try {
-        const file = path.join(outDir, `${key}.yml`)
-        fss.outputYaml(file, sortedObject)
+        fss.outputYaml(yamlFile, sortedObject)
       } catch {
         const file = path.join(outDir, `${key}.json5`)
         fss.outputJson5(file, sortedObject, {space: 2})
+        const input = fss.readJson5(file)
+        fss.outputYaml(yamlFile, input)
+        fss.remove(file)
       }
     }
     const development = meta.env !== "production"

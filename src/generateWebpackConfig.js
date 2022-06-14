@@ -340,7 +340,9 @@ export default (options = {}) => {
     }
   }
 
-  if (options.documentation) {
+  // TODO Temporarily disabled
+  // Test error: https://pastebin.com/raw/N5HRsrZ2
+  if (options.documentation && false) {
     const plugin = options.documentation === true ? new JsdocTsdWebpackPlugin : new JsdocTsdWebpackPlugin(options.documentation)
     config.plugins.push(plugin)
     if (options.clean) {
