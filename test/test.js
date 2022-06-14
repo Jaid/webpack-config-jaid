@@ -15,6 +15,8 @@ import webpackModule from "webpack"
 import readableMs from "../src/lib/esm/readable-ms.js"
 import readableThousands from "../src/lib/readableThousands.js"
 
+const disabledTests = ["webapp"]
+
 const webpack = pify(webpackModule)
 
 const debug = createDebug("test")
@@ -124,6 +126,9 @@ function addTest(name, meta) {
 }
 
 for (const entry of fss.readdir(dirName)) {
+  if (disabledTests.includes(dirName)) {
+    continue
+  }
   const entryPath = path.join(dirName, entry)
   if (fss.stat(entryPath).isDirectory()) {
     for (const env of ["development", "production"]) {
