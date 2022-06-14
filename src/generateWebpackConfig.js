@@ -261,7 +261,6 @@ export default (options = {}) => {
     output: {
       filename: "[name].js",
       chunkFilename: "[id].js",
-      hashFunction: "sha256", // TODO Remove later, see https://stackoverflow.com/a/69476335
       path: options.outDir,
       module: true,
       chunkFormat: "module",
