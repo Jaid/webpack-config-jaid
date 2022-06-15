@@ -91,7 +91,7 @@ export default (options = {}, subPackage) => {
 
   options = {
     packageRoot: String(appRootPath),
-    sourceFolder: subPackage ? `src/${subPackage}src` : "src",
+    sourceFolder: subPackage ? path.join("src", subPackage, "src") : "src",
     development: env !== "production",
     extra: null,
     extraProduction: null,
@@ -180,6 +180,7 @@ export default (options = {}, subPackage) => {
    * @type {import("webpack").Configuration}
    */
   const config = {
+    name: subPackage ?? "main",
     entry: {
       index: entryPath,
     },

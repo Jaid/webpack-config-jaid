@@ -1,6 +1,6 @@
 /** @module webpack-config-jaid */
 
-import {omit} from "lodash-es"
+import {omit, pick} from "lodash-es"
 
 import generateWebpackConfig from "./generateWebpackConfig.js"
 
@@ -70,12 +70,17 @@ const configure = options => {
   const subPackages = options?.subPackages
   if (!subPackages) {
     return generateWebpackConfig(options)
-  } else {
-    const configs = [generateWebpackConfig(omit(options, ["subPackages"]))]
-    for (const [id, subOptions] of Object.entries(options.subPackages)) {
-      configs.push(generateWebpackConfig(subOptions, id))
-    }
   }
+  const configs = [generateWebpackConfig(omit(options, ["subPackages"]))]
+  const propertiesFromRootToSub = ["packageRoot", "outDir", "env"]
+  for (const [id, subOptions] of Object.entries(options.subPackages)) {
+    const finalOptions = {
+      ...pick(options, propertiesFromRootToSub),
+      ...subOptions,
+    }
+    configs.push(generateWebpackConfig(finalOptions, id))
+  }
+  return configs
 }
 
 /**
