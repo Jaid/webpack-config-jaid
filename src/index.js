@@ -87,12 +87,7 @@ const configure = options => {
     return generateWebpackConfig(pkg, options)
   }
   const configs = [generateWebpackConfig(pkg, omit(options, ["subPackages"]))]
-  // const propertiesFromRootToSub = ["packageRoot", "outDir", "env"]
   for (const [id, subOptions] of Object.entries(options.subPackages)) {
-  //   const finalOptions = {
-  //     ...pick(options, propertiesFromRootToSub),
-  //     ...subOptions,
-  //   }
     configs.push(generateWebpackConfig(pkg, subOptions, id))
   }
   return configs
