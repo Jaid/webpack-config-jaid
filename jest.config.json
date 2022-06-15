@@ -23,5 +23,6 @@
     "^lib": "<rootDir>/src/lib"
   },
   "maxWorkers": 1,
-  "verbose": false
+  "verbose": false,
+  "runner": "jest-light-runner"
 }
