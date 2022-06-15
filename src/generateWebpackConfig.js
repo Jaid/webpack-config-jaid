@@ -8,7 +8,6 @@ import ensureArray from "ensure-array"
 import fsExtra from "fs-extra"
 import {LicenseWebpackPlugin} from "license-webpack-plugin"
 import {isObject, isString} from "lodash-es"
-import {readPackageSync} from "read-pkg"
 import TerserPlugin from "terser-webpack-plugin"
 import webpack from "webpack"
 
@@ -27,24 +26,14 @@ const debug = createDebug(process.env.REPLACE_PKG_NAME)
 const env = process.env.NODE_ENV?.toLowerCase?.() || "development"
 
 /**
- * @param {import("./index.js").WebpackConfigJaidOptions} options
+ * @param {Object} [pkg]
+ * @param {import("./index.js").WebpackConfigJaidOptions} [options]
  * @param {string} [subPackage]
  */
-export default (options = {}, subPackage) => {
+export default (pkg = {}, options = {}, subPackage) => {
   debug("NODE_ENV: %s", env)
 
   debug("Passed options: %o", options)
-
-  let pkg
-  try {
-    pkg = readPackageSync({
-      cwd: options.packageRoot || String(appRootPath),
-      normalize: true,
-    })
-    debug("Pkg data: %o", pkg)
-  } catch {
-    pkg = {}
-  }
 
   if (pkg.webpackConfigJaid) {
     debug("Found webpackConfigJaid field in pkg: %s", pkg.webpackConfigJaid)

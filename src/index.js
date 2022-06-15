@@ -1,6 +1,9 @@
 /** @module webpack-config-jaid */
 
+import appRootPath from "app-root-path"
+import createDebug from "debug"
 import {omit, pick} from "lodash-es"
+import {readPackageSync} from "read-pkg"
 
 import generateWebpackConfig from "./generateWebpackConfig.js"
 
@@ -60,6 +63,8 @@ import generateWebpackConfig from "./generateWebpackConfig.js"
  * @prop {Object} [subPackages=null] If given a string, the configuration is a subpackage
  */
 
+const debug = createDebug(process.env.REPLACE_PKG_NAME)
+
 /**
  * Creates Webpack config based on given options
  * @function default
@@ -67,18 +72,28 @@ import generateWebpackConfig from "./generateWebpackConfig.js"
  * @returns {object} Webpack configuration object
  */
 const configure = options => {
+  let pkg
+  try {
+    pkg = readPackageSync({
+      cwd: options.packageRoot || String(appRootPath),
+      normalize: true,
+    })
+    debug("Pkg data: %o", pkg)
+  } catch {
+    pkg = {}
+  }
   const subPackages = options?.subPackages
   if (!subPackages) {
-    return generateWebpackConfig(options)
+    return generateWebpackConfig(pkg, options)
   }
-  const configs = [generateWebpackConfig(omit(options, ["subPackages"]))]
+  const configs = [generateWebpackConfig(pkg, omit(options, ["subPackages"]))]
   const propertiesFromRootToSub = ["packageRoot", "outDir", "env"]
   for (const [id, subOptions] of Object.entries(options.subPackages)) {
     const finalOptions = {
       ...pick(options, propertiesFromRootToSub),
       ...subOptions,
     }
-    configs.push(generateWebpackConfig(finalOptions, id))
+    configs.push(generateWebpackConfig(pkg, finalOptions, id))
   }
   return configs
 }
