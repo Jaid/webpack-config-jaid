@@ -216,7 +216,7 @@ export default (pkg = {}, options = {}, subPackage) => {
         },
         {
           test: /\.txt$/,
-          loader: "asset/raw",
+          type: "asset/raw",
         },
         {
           test: /\.(hbs|handlebars)$/,
@@ -250,8 +250,9 @@ export default (pkg = {}, options = {}, subPackage) => {
       }),
     ],
     output: {
-      filename: "[name].js",
+      filename: "[name][id].js",
       chunkFilename: "[id].js",
+      assetModuleFilename: "assets/[file]",
       path: options.outDir,
       module: true,
       chunkFormat: "module",
@@ -292,17 +293,6 @@ export default (pkg = {}, options = {}, subPackage) => {
         cleanOnceBeforeBuildPatterns: [options.outDir],
       }))
     }
-  }
-
-  if (options.development) {
-    Object.assign(config.output, {
-      auxiliaryComment: {
-        root: "[Exposing Section] root",
-        commonjs: "[Exposing Section] commonjs",
-        commonjs2: "[Exposing Section] commonjs2",
-        amd: "[Exposing Section] amd",
-      },
-    })
   }
 
   if (options.nodeExternals) {
