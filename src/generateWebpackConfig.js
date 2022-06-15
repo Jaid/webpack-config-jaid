@@ -216,7 +216,7 @@ export default (pkg = {}, options = {}, subPackage) => {
         },
         {
           test: /\.txt$/,
-          loader: "raw-loader",
+          loader: "asset/raw",
         },
         {
           test: /\.(hbs|handlebars)$/,

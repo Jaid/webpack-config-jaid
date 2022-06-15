@@ -324,24 +324,15 @@ export default class extends WebpackConfigType {
     if (this.options.development) {
       return {
         test: testRegex,
-        loader: "file-loader",
-        options: {
-          publicPath: this.publicPath,
-          name: "[path][name]-untouched.[ext]",
-        },
+        type: "asset/resource",
       }
     }
     return {
       test: testRegex,
-      loader: "url-loader",
-      options: {
-        limit: this.base64UrlLimit,
-        fallback: {
-          loader: "file-loader",
-          options: {
-            publicPath: this.publicPath,
-            name: "[hash:base64:6].[ext]",
-          },
+      loader: "asset",
+      parser: {
+        dataUrlCondition: {
+          maxSize: this.getBase64UrlLimit,
         },
       },
     }
@@ -423,17 +414,10 @@ export default class extends WebpackConfigType {
         rules: [
           {
             test: binaryFileRegex,
-            use: {
-              loader: "url-loader",
-              options: {
-                limit: this.base64UrlLimit,
-                fallback: {
-                  loader: "file-loader",
-                  options: {
-                    publicPath: this.publicPath,
-                    name: options.development ? "[path][name].[ext]" : "[hash:base64:6].[ext]",
-                  },
-                },
+            type: "asset",
+            parser: {
+              dataUrlCondition: {
+                maxSize: this.base64UrlLimit,
               },
             },
           },
