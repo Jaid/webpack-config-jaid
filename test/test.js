@@ -15,7 +15,7 @@ import webpackModule from "webpack"
 import readableMs from "../src/lib/esm/readable-ms.js"
 import readableThousands from "../src/lib/readableThousands.js"
 
-const disabledTests = ["webapp", "adobeCep"]
+const disabledTests = ["webapp"]
 
 const webpack = promisify(webpackModule)
 
@@ -80,11 +80,21 @@ const runTest = async (name, testId, meta) => {
         })
       }
     }
-    const jaidConfig = {
+    const forcedOptions = {
       packageRoot,
       development,
       outDir: packageOutDir,
+    }
+    const jaidConfig = {
+      ...forcedOptions,
       ...importedJaidConfig,
+    }
+    if (jaidConfig.subPackages) {
+      for (const options of Object.values(jaidConfig.subPackages)) {
+        options.packageRoot = options.packageRoot ?? forcedOptions.packageRoot
+        options.development = options.development ?? forcedOptions.development
+        options.outDir = options.outDir ?? forcedOptions.outDir
+      }
     }
     outputObject("jaidConfig", jaidConfig)
     const webpackConfigJaidStart = Date.now()

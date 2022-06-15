@@ -1,1 +1,1 @@
-document.querySelector("body")
+console.dir(document.querySelector("body"))
