@@ -1,0 +1,5 @@
+{
+  "name": "with-sub-package",
+  "webpackConfigJaid": "cli",
+  "type": "module"
+}
