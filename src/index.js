@@ -1,5 +1,7 @@
 /** @module webpack-config-jaid */
 
+import {omit} from "lodash-es"
+
 import generateWebpackConfig from "./generateWebpackConfig.js"
 
 /**
@@ -55,6 +57,7 @@ import generateWebpackConfig from "./generateWebpackConfig.js"
  * @prop {Object|boolean} [pwa = false] For type `webapp`: If `true`, includes `@expo/webpack-pwa-manifest-plugin`. If Object, this will be used as plugin options.
  * @prop {boolean} [browserSync = Boolean(process.env.browserSync)] If `true`, `browser-sync-webpack-plugin` will be included
  * @prop {number} [devPort] webpack-dev-server port
+ * @prop {Object} [subPackages=null] If given a string, the configuration is a subpackage
  */
 
 /**
@@ -63,7 +66,17 @@ import generateWebpackConfig from "./generateWebpackConfig.js"
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export default generateWebpackConfig
+const configure = options => {
+  const subPackages = options?.subPackages
+  if (!subPackages) {
+    return generateWebpackConfig(options)
+  } else {
+    const configs = [generateWebpackConfig(omit(options, ["subPackages"]))]
+    for (const [id, subOptions] of Object.entries(options.subPackages)) {
+      configs.push(generateWebpackConfig(subOptions, id))
+    }
+  }
+}
 
 /**
  * Creates Webpack config based on given options, uses type "cli"
@@ -71,7 +84,7 @@ export default generateWebpackConfig
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureCli = options => generateWebpackConfig({
+export const configureCli = options => configure({
   ...options,
   type: "cli",
 })
@@ -82,7 +95,7 @@ export const configureCli = options => generateWebpackConfig({
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureNodeLib = options => generateWebpackConfig({
+export const configureNodeLib = options => configure({
   ...options,
   type: "nodeLib",
 })
@@ -93,7 +106,7 @@ export const configureNodeLib = options => generateWebpackConfig({
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureNodeClass = options => generateWebpackConfig({
+export const configureNodeClass = options => configure({
   ...options,
   type: "nodeClass",
 })
@@ -104,7 +117,7 @@ export const configureNodeClass = options => generateWebpackConfig({
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureUniversalLib = options => generateWebpackConfig({
+export const configureUniversalLib = options => configure({
   ...options,
   type: "universalLib",
 })
@@ -115,7 +128,7 @@ export const configureUniversalLib = options => generateWebpackConfig({
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureUniversalClass = options => generateWebpackConfig({
+export const configureUniversalClass = options => configure({
   ...options,
   type: "universalClass",
 })
@@ -126,7 +139,7 @@ export const configureUniversalClass = options => generateWebpackConfig({
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureWebapp = options => generateWebpackConfig({
+export const configureWebapp = options => configure({
   ...options,
   type: "webapp",
 })
@@ -137,7 +150,7 @@ export const configureWebapp = options => generateWebpackConfig({
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureNodeScript = options => generateWebpackConfig({
+export const configureNodeScript = options => configure({
   ...options,
   type: "nodeScript",
 })
@@ -148,7 +161,7 @@ export const configureNodeScript = options => generateWebpackConfig({
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureGeneratorCorePlugin = options => generateWebpackConfig({
+export const configureGeneratorCorePlugin = options => configure({
   ...options,
   type: "generatorCorePlugin",
 })
@@ -159,7 +172,9 @@ export const configureGeneratorCorePlugin = options => generateWebpackConfig({
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-export const configureExecutable = options => generateWebpackConfig({
+export const configureExecutable = options => configure({
   ...options,
   type: "executable",
 })
+
+export default configure

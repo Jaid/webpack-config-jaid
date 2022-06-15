@@ -28,8 +28,9 @@ const env = process.env.NODE_ENV?.toLowerCase?.() || "development"
 
 /**
  * @param {import("./index.js").WebpackConfigJaidOptions} options
+ * @param {string} [subPackage]
  */
-export default (options = {}) => {
+export default (options = {}, subPackage) => {
   debug("NODE_ENV: %s", env)
 
   debug("Passed options: %o", options)
@@ -90,7 +91,7 @@ export default (options = {}) => {
 
   options = {
     packageRoot: String(appRootPath),
-    sourceFolder: "src",
+    sourceFolder: subPackage ? `src/${subPackage}src` : "src",
     development: env !== "production",
     extra: null,
     extraProduction: null,
@@ -151,7 +152,7 @@ export default (options = {}) => {
   options = {
     clean: !options.development,
     banner: !options.development,
-    outDir: fromRoot("dist", "package", env),
+    outDir: subPackage ? fromRoot("dist", "sub-package", subPackage, env) : fromRoot("dist", "package", env),
     ...options,
   }
 
