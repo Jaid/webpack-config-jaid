@@ -173,7 +173,7 @@ export default (options = {}, subPackage) => {
   } else {
     const defaultEntry = entryFolder
     entryPath = path.join(defaultEntry, "index.js")
-    debug("Could not find entry %s, using %s instead", specificEntry, defaultEntry)
+    debug("Could not find entry %s, using %s instead", specificEntry, entryPath)
   }
 
   /**
