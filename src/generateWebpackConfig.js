@@ -250,13 +250,15 @@ export default (pkg = {}, options = {}, subPackage) => {
       }),
     ],
     output: {
-      filename: "[name][id].js",
-      chunkFilename: "[id].js",
-      assetModuleFilename: "assets/[file]",
+      filename: "[name].js",
+      chunkFilename: "[name].js",
+      assetModuleFilename: options.development ? "assets/[file]" : "[contenthash][ext][query]",
       path: options.outDir,
       module: true,
       chunkFormat: "module",
       chunkLoading: "import",
+      hashDigest: "base64url",
+      hashDigestLength: 8,
     },
     stats: {
       all: false,
@@ -392,11 +394,6 @@ export default (pkg = {}, options = {}, subPackage) => {
   }
 
   if (!options.development) {
-    Object.assign(config.output, {
-      filename: "[name].js",
-      chunkFilename: "[id].js",
-      asyncChunks: true,
-    })
     Object.assign(config.optimization, {
       chunkIds: "deterministic",
       concatenateModules: true,

@@ -99,7 +99,7 @@ const runTest = async (name, testId, meta) => {
     outputObject("jaidConfig", jaidConfig)
     const webpackConfigJaidStart = Date.now()
     webpackConfig = webpackConfigJaid(jaidConfig)
-    benchmark.webpackConfigJaidTime = Date.now() - webpackConfigJaidStart
+    benchmark.timeWebpackConfigJaid = Date.now() - webpackConfigJaidStart
   }
   outputObject("webpack.config", webpackConfig)
   let stats
@@ -193,6 +193,6 @@ afterAll(() => {
     debug("%s got %s:", name, changeWord)
     debug("| %s%s B", differenceSymbol, readableThousands(difference))
     debug("| Before: %s B (%s)", readableThousands(before.packageBytes), readableMs(before.ms))
-    debug("| After: %s B (%s)", readableThousands(after.packageBytes), readableMs(after.ms))
+    debug("|  After: %s B (%s)", readableThousands(after.packageBytes), readableMs(after.ms))
   }
 })

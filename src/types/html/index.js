@@ -100,7 +100,7 @@ export default class extends WebpackConfigType {
    * return {number}
    */
   getBase64UrlLimit() {
-    return 1000
+    return 0
   }
 
   /**
@@ -329,10 +329,10 @@ export default class extends WebpackConfigType {
     }
     return {
       test: testRegex,
-      loader: "asset",
+      type: "asset",
       parser: {
         dataUrlCondition: {
-          maxSize: this.getBase64UrlLimit,
+          maxSize: this.base64UrlLimit,
         },
       },
     }
@@ -408,7 +408,7 @@ export default class extends WebpackConfigType {
       },
       output: {
         publicPath: this.publicPath,
-        filename: options.development ? undefined : `${this.pkg.version || "[chunkhash:6]"}.js`,
+        // filename: options.development ? undefined : `${this.pkg.version || "[chunkhash:6]"}.js`,
       },
       module: {
         rules: [
