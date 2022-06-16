@@ -6,6 +6,7 @@ import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 import createDebug from "debug"
 import {escape, isObject, omit, uniq} from "lodash-es"
 import urlJoin from "url-join"
+import {HotModuleReplacementPlugin} from "webpack"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 import WorkboxPlugin from "workbox-webpack-plugin"
 
@@ -366,13 +367,13 @@ export default class extends Html {
         watchOptions: {
           ignored: uniq(ignoredPaths),
         },
-        entry: { // entry taken from here: https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md#migration-guide
+        entry: {
+          ...initialWebpackConfig.entry,
           devServer: {
             import: "webpack/hot/dev-server.js",
             filename: "devServer.js",
           },
           devServerClient: "webpack-dev-server/client/index.js?hot=true&live-reload=true",
-          ...initialWebpackConfig.entry,
         },
         devServer: {
           // publicPath: this.publicPath,
@@ -381,10 +382,11 @@ export default class extends Html {
           client: {
             overlay: true,
           },
-          // headers: {"Access-Control-Allow-Origin": "*"},
+          headers: {"Access-Control-Allow-Origin": "*"},
           historyApiFallback: true,
         },
         plugins: [
+          new HotModuleReplacementPlugin,
           new ReactRefreshPlugin,
           new LogWatcherPlugin,
         ],
