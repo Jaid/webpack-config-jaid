@@ -178,7 +178,6 @@ export default (pkg = {}, options = {}, subPackage) => {
     devtool: "source-map",
     optimization: {},
     module: {
-      // TODO file-loader, url-loader and raw-loader are deprecated, replace with Webpack Asset Modules, see https://webpack.js.org/guides/asset-modules and https://dev.to/smelukov/webpack-5-asset-modules-2o3h
       rules: [
         {
           test: /\.(js|jsx|ts|tsx)$/,
