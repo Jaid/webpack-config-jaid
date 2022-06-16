@@ -86,10 +86,6 @@ export default (pkg = {}, options = {}, subPackage) => {
     extraProduction: null,
     extraDevelopment: null,
     type: null,
-    include: options.development ? false : [
-      "readme.*",
-      "license.*",
-    ],
     licenseFileName: "thirdPartyLicenses.txt",
     terserOptions: {
       compress: {
@@ -142,6 +138,10 @@ export default (pkg = {}, options = {}, subPackage) => {
     clean: !options.development,
     banner: !options.development,
     outDir: subPackage ? fromRoot("dist", "sub-package", subPackage, env) : fromRoot("dist", "package", env),
+    include: options.development ? false : [
+      "readme.*",
+      "license.*",
+    ],
     ...options,
   }
 
