@@ -215,11 +215,11 @@ export default (pkg = {}, options = {}, subPackage) => {
         },
         {
           test: /\.txt$/,
-          type: "asset/raw",
+          type: "asset/source",
         },
         {
           resourceQuery: /\?raw$/,
-          type: "asset/raw",
+          type: "asset/source",
         },
         {
           test: /\.(hbs|handlebars)$/,
