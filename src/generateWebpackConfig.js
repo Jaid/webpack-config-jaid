@@ -219,6 +219,10 @@ export default (pkg = {}, options = {}, subPackage) => {
           type: "asset/raw",
         },
         {
+          resourceQuery: /\?raw$/,
+          type: "asset/raw",
+        },
+        {
           test: /\.(hbs|handlebars)$/,
           oneOf: [
             {
