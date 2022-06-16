@@ -8,6 +8,9 @@
     "enable": true
   },
   "compilerOptions": {
-    "baseUrl": "."
-  }
+    "baseUrl": ".",
+    "lib": [
+      "ESNext",
+    ]
+  },
 }

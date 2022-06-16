@@ -1,18 +1,15 @@
 import fss from "@absolunet/fss"
-import OfflinePlugin from "@lcdp/offline-plugin"
 import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin"
 import CnamePlugin from "cname-webpack-plugin"
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 import createDebug from "debug"
-import {escape, isObject, omit, uniq} from "lodash-es"
+import {escape, isObject, omit} from "lodash-es"
 import urlJoin from "url-join"
-import {HotModuleReplacementPlugin} from "webpack"
 import PwaManifestPlugin from "webpack-pwa-manifest"
 import WorkboxPlugin from "workbox-webpack-plugin"
 
 import ensureStart from "../../lib/esm/ensure-start.js"
 import HtmlFaviconPlugin from "../../lib/esm/html-favicon-webpack-plugin.js"
-import LogWatcherPlugin from "../../lib/esm/log-watcher-webpack-plugin.js"
 import SitemapXmlPlugin from "../../lib/esm/sitemap-xml-webpack-plugin.js"
 import webpackMerge from "../../lib/esm/webpack-merge.js"
 import Html from "../html/index.js"
@@ -337,7 +334,7 @@ export default class extends Html {
    * @return {import("webpack").Configuration}
    */
   getWebpackConfig(context) {
-    const {fromRoot, initialWebpackConfig} = context
+    const {fromRoot} = context
     this.iconFile = fromRoot("icon.png")
     debug("Using icon %s", this.iconFile)
     this.description = this.getDescription()
@@ -352,45 +349,11 @@ export default class extends Html {
     /**
      * @type {import("webpack").Configuration}
      */
-    let webpackConfig = {
+    const webpackConfig = {
       plugins: [],
     }
     if (this.hot) {
-      // Need to ignore both front slash versions and back slash versions of paths for Windows support
-      const ignoredPaths = [
-        fromRoot("dist"),
-        fromRoot("dist").replaceAll("\\", "/"),
-        fromRoot(".git"),
-        fromRoot(".git").replaceAll("\\", "/"),
-      ]
-      webpackConfig = {
-        watchOptions: {
-          ignored: uniq(ignoredPaths),
-        },
-        entry: {
-          ...initialWebpackConfig.entry,
-          devServer: {
-            import: "webpack/hot/dev-server.js",
-            filename: "devServer.js",
-          },
-          devServerClient: "webpack-dev-server/client/index.js?hot=true&live-reload=true",
-        },
-        devServer: {
-          // publicPath: this.publicPath,
-          port: this.port,
-          hot: true,
-          client: {
-            overlay: true,
-          },
-          headers: {"Access-Control-Allow-Origin": "*"},
-          historyApiFallback: true,
-        },
-        plugins: [
-          new HotModuleReplacementPlugin,
-          new ReactRefreshPlugin,
-          new LogWatcherPlugin,
-        ],
-      }
+      webpackConfig.plugins.push(new ReactRefreshPlugin)
     }
     webpackConfig.plugins.push(new HtmlFaviconPlugin(this.getHtmlFaviconPluginOptions()))
     if (!this.options.development) {

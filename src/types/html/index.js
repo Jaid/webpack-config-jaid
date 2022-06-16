@@ -3,12 +3,13 @@ import camelcase from "camelcase"
 import createDebug from "debug"
 import HtmlPlugin from "html-webpack-plugin"
 import InjectBrowserSyncPlugin from "inject-browser-sync-webpack-plugin"
-import {isObject} from "lodash-es"
+import {isObject, uniq} from "lodash-es"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import webpack from "webpack"
+import webpack, {HotModuleReplacementPlugin} from "webpack"
 
 import HtmlInlineCssPlugin from "../../lib/esm/html-inline-css-webpack-plugin.js"
 import InjectBodyPlugin from "../../lib/esm/inject-body-webpack-plugin.js"
+import logWatcherWebpackPlugin from "../../lib/esm/log-watcher-webpack-plugin.js"
 import getPostcssConfig from "../../lib/getPostcssConfig.js"
 import isCi from "../../lib/isCi.js"
 import WebpackConfigType from "../WebpackConfigType.js"
@@ -342,7 +343,7 @@ export default class extends WebpackConfigType {
    * @param {import("src/types/WebpackConfigType").GetWebpackConfigContext} context
    * @return {import("webpack").Configuration}
    */
-  getWebpackConfig({options, entryFolder}) {
+  getWebpackConfig({options, entryFolder, fromRoot, initialWebpackConfig}) {
     if (options.devPort) {
       this.port = options.devPort
     }
@@ -467,6 +468,43 @@ export default class extends WebpackConfigType {
     webpackConfig.plugins.push(new webpack.DefinePlugin({
       GOOGLE_ANALYTICS_TRACKING_ID: JSON.stringify(googleAnalyticsTrackingId),
     }))
+
+    if (options.development && this.hot) {
+      // Need to ignore both front slash versions and back slash versions of paths for Windows support
+      const ignoredPaths = [
+        fromRoot("dist"),
+        fromRoot("dist").replaceAll("\\", "/"),
+        fromRoot(".git"),
+        fromRoot(".git").replaceAll("\\", "/"),
+      ]
+      webpackConfig = {
+        watchOptions: {
+          ignored: uniq(ignoredPaths),
+        },
+        entry: {
+          ...initialWebpackConfig.entry,
+          devServer: {
+            import: "webpack/hot/dev-server.js",
+            filename: "devServer.js",
+          },
+          devServerClient: "webpack-dev-server/client/index.js?hot=true&live-reload=true",
+        },
+        devServer: {
+          // publicPath: this.publicPath,
+          port: this.port,
+          hot: true,
+          client: {
+            overlay: true,
+          },
+          headers: {"Access-Control-Allow-Origin": "*"},
+          historyApiFallback: true,
+        },
+        plugins: [
+          new HotModuleReplacementPlugin,
+          new logWatcherWebpackPlugin,
+        ],
+      }
+    }
 
     return webpackConfig
   }
