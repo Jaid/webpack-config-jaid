@@ -86,7 +86,7 @@ export default (pkg = {}, options = {}, subPackage) => {
     extraProduction: null,
     extraDevelopment: null,
     type: null,
-    include: [
+    include: options.development ? false : [
       "readme.*",
       "license.*",
     ],
