@@ -307,7 +307,7 @@ export default (pkg = {}, options = {}, subPackage) => {
         }
       },
       packageRegex: request => {
-        if (/^@?([\da-z-]+\/)*([\da-z-]+)$/.test(request)) {
+        if (/^@?([\da-z-]+\/)*([\d.a-z-]+)$/.test(request)) {
           return `module ${request}`
         }
       },
