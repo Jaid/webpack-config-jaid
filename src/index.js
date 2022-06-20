@@ -2,7 +2,7 @@
 
 import appRootPath from "app-root-path"
 import createDebug from "debug"
-import {omit, pick} from "lodash-es"
+import {omit} from "lodash-es"
 import {readPackageSync} from "read-pkg"
 
 import generateWebpackConfig from "./generateWebpackConfig.js"
@@ -79,7 +79,10 @@ const configure = options => {
       normalize: true,
     })
     debug("Pkg data: %o", pkg)
-  } catch {
+  } catch (error) {
+    debug("No package.json found: %s", error)
+    debug("options.packageRoot: %o", options.packageRoot)
+    debug("appRootPath: %o", String(appRootPath))
     pkg = {}
   }
   const subPackages = options?.subPackages
