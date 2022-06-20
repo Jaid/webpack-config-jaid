@@ -17,12 +17,5 @@
     "<rootDir>/dist",
     "<rootDir>/build"
   ],
-  "moduleNameMapper": {
-    "^root": "<rootDir>",
-    "^src": "<rootDir>/src",
-    "^lib": "<rootDir>/src/lib"
-  },
-  "maxWorkers": 1,
-  "verbose": false,
-  "runner": "jest-light-runner"
+  "maxWorkers": 1
 }
