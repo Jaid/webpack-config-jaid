@@ -71,7 +71,7 @@ const debug = createDebug(process.env.REPLACE_PKG_NAME)
  * @param {WebpackConfigJaidOptions} [options] Given options
  * @returns {object} Webpack configuration object
  */
-const configure = options => {
+const configure = (options = {}) => {
   let pkg
   try {
     pkg = readPackageSync({
