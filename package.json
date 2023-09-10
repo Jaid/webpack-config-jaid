@@ -1,7 +1,27 @@
 {
   "version": "17.4.2",
-  "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
   "type": "module",
+  "name": "webpack-config-jaid",
+  "description": "Takes tiny input and returns a Webpack config in the way I personally like.",
+  "keywords": [
+    "bundler",
+    "compiler",
+    "config",
+    "options",
+    "preset",
+    "settings",
+    "template",
+    "webpack",
+    "webpack-config",
+    "webpack-preset"
+  ],
+  "author": "Jaid <jaid.jsx@gmail.com> (https://github.com/Jaid)",
+  "homepage": "https://github.com/Jaid/webpack-config-jaid",
+  "funding": "https://github.com/sponsors/jaid",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaid/webpack-config-jaid"
+  },
   "dependencies": {
     "@absolunet/fss": "^1.7.0",
     "@lcdp/offline-plugin": "^5.1.1",
@@ -94,7 +114,6 @@
     "puppeteer": "^21.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-modern-picture": "^1.3.0",
     "react-redux": "^8.1.2",
     "react-test-renderer": "^18.2.0",
     "read-file-string": "^1.1.2",
@@ -121,25 +140,5 @@
     "hmrWebapp": "npm run build:dev && cd testWebapp && npm install && npm start",
     "prepareActionJest": "npm run build:prod"
   },
-  "name": "webpack-config-jaid",
-  "description": "Takes tiny input and returns a Webpack config in the way I personally like.",
-  "webpackConfigJaid": "nodeLib",
-  "funding": "https://github.com/sponsors/jaid",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jaid/webpack-config-jaid"
-  },
-  "homepage": "https://github.com/Jaid/webpack-config-jaid",
-  "keywords": [
-    "bundler",
-    "compiler",
-    "config",
-    "options",
-    "preset",
-    "settings",
-    "template",
-    "webpack",
-    "webpack-config",
-    "webpack-preset"
-  ]
+  "webpackConfigJaid": "nodeLib"
 }
