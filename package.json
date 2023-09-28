@@ -29,7 +29,7 @@
     "webpack": "^5.88.2"
   },
   "devDependencies": {
-    "eslint-config-jaid": "^8.8.0",
+    "eslint-config-jaid": "^8.15.3",
     "tsconfig-jaid-node": "^6.1.1"
   },
   "scripts": {
