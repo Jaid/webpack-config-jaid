@@ -1,19 +1,20 @@
-import type {Class} from 'type-fest'
+import type {Class, PackageJson} from 'type-fest'
 import type {Configuration, RuleSetCondition, RuleSetUse, WebpackPluginInstance} from 'webpack'
 
 import path from 'node:path'
 
 import * as lodash from 'lodash-es'
+import {AdditiveOperator} from 'typescript'
 
 export type Key = string
 export type Env = "development" | "production"
-export type Options = {
+export type BaseOptions = {
   contextFolder: string
-  env: string
+  env: Env
   outputFolder: string
 }
-type TesterInput = RegExp | string | string[]
-type PluginInput = Class<WebpackPluginInstance> | WebpackPluginInstance
+export type TesterInput = RegExp | string | string[]
+export type PluginInput = Class<WebpackPluginInstance> | WebpackPluginInstance
 
 const compileTester = (testerInput: TesterInput): RuleSetCondition => {
   if (testerInput instanceof RegExp) {
@@ -25,21 +26,22 @@ const compileTester = (testerInput: TesterInput): RuleSetCondition => {
   }
   return new RegExp(`\\.${testerInput}$`)
 }
-export class ConfigBuilder {
+export class ConfigBuilder<OptionsGeneric = {}, BaseOptionsGeneric = BaseOptions> {
   protected config: Configuration = {}
   protected contextFolder: string
   protected mode: "none" | Env
-  protected options: Options
+  protected options: OptionsGeneric
   protected outputFolder: string
   #isProduction: boolean
-  constructor(options: Partial<Options> = {}) {
+  constructor(options: Partial<OptionsGeneric> = {}) {
     const defaultOptions = this.getDefaultOptions()
     const mergedOptions = this.mergeOptions(options, defaultOptions)
-    this.options = this.normalizeOptions(mergedOptions) ?? mergedOptions
-    this.#isProduction = this.options.env === `production`
+    const finalOptions = <BaseOptions> (this.normalizeOptions(mergedOptions) ?? mergedOptions)
+    this.options = <OptionsGeneric> finalOptions
+    this.#isProduction = finalOptions.env === `production`
     this.mode = this.#isProduction ? `production` : `development`
-    this.outputFolder = path.resolve(this.options.outputFolder)
-    this.contextFolder = path.resolve(this.options.contextFolder)
+    this.outputFolder = path.resolve(finalOptions.outputFolder)
+    this.contextFolder = path.resolve(finalOptions.contextFolder)
   }
   get isDevelopment() {
     return !this.#isProduction
@@ -116,8 +118,8 @@ export class ConfigBuilder {
   get(key: Key) {
     return <unknown> lodash.get(this.config, key)
   }
-  getDefaultOptions(): Partial<Options> {
-    return {
+  getDefaultOptions(): OptionsGeneric {
+    return <OptionsGeneric> {
       contextFolder: `.`,
       env: process.env.NODE_ENV ?? `development`,
       outputFolder: `out/package`,
@@ -135,10 +137,10 @@ export class ConfigBuilder {
   has(key: Key) {
     return lodash.has(this.config, key)
   }
-  mergeOptions(options: Partial<Options>, defaultOptions: Partial<Options>): Options {
-    return <Options> Object.assign({}, defaultOptions, options)
+  mergeOptions(options: Partial<OptionsGeneric>, defaultOptions: Partial<OptionsGeneric>): OptionsGeneric {
+    return <OptionsGeneric> Object.assign({}, defaultOptions, options)
   }
-  normalizeOptions(options: Options): Options | void {}
+  normalizeOptions(options: (OptionsGeneric)): (OptionsGeneric) | void {}
   prepend(key: Key, value: unknown) {
     const array = this.getEnsuredArray(key)
     array.unshift(value)

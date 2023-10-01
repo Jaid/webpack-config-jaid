@@ -24,6 +24,8 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
+    "normalize-package-data": "^6.0.0",
+    "read-package-json": "^7.0.0",
     "ts-loader": "^9.4.4",
     "typescript-declaration-webpack-plugin": "^0.3.0",
     "webpack": "^5.88.2"

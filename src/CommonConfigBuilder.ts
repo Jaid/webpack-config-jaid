@@ -1,18 +1,21 @@
+import type {Options as ParentOptions} from './ConfigBuilder.js'
 import type {Options as TsLoaderOptions} from 'ts-loader'
-import TypescriptDeclarationPlugin from 'typescript-declaration-webpack-plugin'
+import type {PackageJson} from 'type-fest'
 
-import type {Options as BaseOptions} from './ConfigBuilder.js'
 import {ConfigBuilder} from './ConfigBuilder.js'
 import {OutputConfigPlugin} from './OutputConfigPlugin.js'
+import TypescriptDeclarationPlugin from 'typescript-declaration-webpack-plugin'
 
-export type Options = BaseOptions & {}
+import normalizePackageData from '~/lib/normalizePackageData.js'
+
+export type Options = {
+  pkg?: PackageJson | string
+}
 
 const tempTypesFolder = `.types`
 
-export class CommonConfigBuilder extends ConfigBuilder {
-  constructor(options: Partial<Options> = {}) {
-    super(options)
-  }
+export class CommonConfigBuilder extends ConfigBuilder<Options> {
+  protected pkg: PackageJson | undefined
   async build() {
     this.set(`mode`, this.mode)
     this.set(`target`, `web`)
@@ -37,11 +40,12 @@ export class CommonConfigBuilder extends ConfigBuilder {
     this.set(`optimization.minimize`, false)
     this.set(`output.clean`, true)
   }
-  getDefaultOptions(): Partial<Options> {
+  getDefaultOptions(): ParentOptions<Options> {
     const defaultOptions = super.getDefaultOptions()
-    return Object.assign({}, defaultOptions, {
-      outputFolder: undefined,
-    })
+    return {
+      ...defaultOptions,
+      pkg: `package.json`,
+    }
   }
   getTsLoaderOptions(): Partial<TsLoaderOptions> {
     const tsLoaderOptions: Partial<TsLoaderOptions> = {
