@@ -51,7 +51,7 @@ export default (pkg = {}, options = {}, subPackage) => {
   }
 
   /**
-   * @type {import("./types/WebpackConfigType").default}
+   * @type {import("./types/WebpackConfigType.js").default}
    */
   let typeProvider
   let typeDefaultOptions
