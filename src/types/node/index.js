@@ -11,7 +11,7 @@ export default class extends WebpackConfigType {
 
   /**
    * @function
-   * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
+   * @param {import("../WebpackConfigType.js").GetDefaultOptionsContext} context
    */
   getDefaultOptions() {
     const terserOptions = this.createTerserOptions({

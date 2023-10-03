@@ -11,7 +11,7 @@ export default class extends UniversalClass {
 
   /**
    * @function
-   * @param {import("../WebpackConfigType").GetWebpackConfigContext} context
+   * @param {import("../WebpackConfigType.js").GetWebpackConfigContext} context
    */
   getWebpackConfig(context) {
     const nodeConfig = super.getWebpackConfig(context)

@@ -6,7 +6,7 @@ export default class extends WebpackConfigType {
 
   /**
    * @function
-   * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
+   * @param {import("../WebpackConfigType.js").GetDefaultOptionsContext} context
    * @return {import("../index").WebpackConfigJaidOptions}
    */
   getDefaultOptions() {
@@ -31,7 +31,7 @@ export default class extends WebpackConfigType {
 
   /**
    * @function
-   * @param {import("../WebpackConfigType").GetWebpackConfigContext} context
+   * @param {import("../WebpackConfigType.js").GetWebpackConfigContext} context
    * @return {import("webpack").Configuration}
    */
   getWebpackConfig({pkg, options}) {

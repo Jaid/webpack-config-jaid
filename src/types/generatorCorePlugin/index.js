@@ -10,7 +10,7 @@ export default class extends Node {
 
   /**
    * @function
-   * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
+   * @param {import("../WebpackConfigType.js").GetDefaultOptionsContext} context
    */
   getDefaultOptions() {
     const terserOptions = this.createTerserOptions({
@@ -54,7 +54,7 @@ export default class extends Node {
 
   /**
    * @function
-   * @param {import("../WebpackConfigType").GetWebpackConfigContext} context
+   * @param {import("../WebpackConfigType.js").GetWebpackConfigContext} context
    */
   getWebpackConfig({pkg}) {
     const nodeConfig = super.getWebpackConfig()

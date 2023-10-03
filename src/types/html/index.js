@@ -65,7 +65,7 @@ export default class extends WebpackConfigType {
 
   /**
    * @function
-   * @param {import("../WebpackConfigType").GetDefaultOptionsContext} context
+   * @param {import("../WebpackConfigType.js").GetDefaultOptionsContext} context
    * @return {import("src/index").WebpackConfigJaidOptions}
    */
   getDefaultOptions() {
